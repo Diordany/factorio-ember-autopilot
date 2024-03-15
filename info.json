@@ -1,0 +1,9 @@
+{
+  "name": "ember-autopilot",
+  "version": "0.0.1",
+  "title": "Ember Autopilot",
+  "author": "Diordany van Hemert",
+  "homepage": "https://github.com/Diordany/factorio-ember-autopilot",
+  "description": "This is my personal framework for AI experiments in Factorio.",
+  "factorio_version": "1.1"
+}

@@ -1,0 +1,7 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.0.1
+Date: 15. 03. 2024
+  Major Features:
+    - Initial release.
+  Features:
+    - Ember autopilot can walk to points in unobstructed spaces.

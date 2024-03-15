@@ -23,7 +23,6 @@ local m_commands = {specs = {}}
 
 local m_agents = require("__ember-autopilot__/modules/agents.lua")
 local m_parser = require("__ember-autopilot__/modules/parser.lua")
-local m_pilot = require("__ember-autopilot__/modules/pilot.lua")
 
 local g_cmdPrefix = "ember-"
 
@@ -65,7 +64,7 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
       return
     end
 
-    m_pilot.activeAgents[p_data.player_index] = {
+    m_agents.activeAgents[p_data.player_index] = {
       execute = m_agents.programs.walking_agent,
       params = {targetPos = target}
     }
@@ -76,7 +75,7 @@ m_commands.specs[g_cmdPrefix .. "stop"] = {
   description = "Unbinds any agent that is assigned to the player",
   usage = "",
   callback = function(p_data)
-    m_pilot.activeAgents[p_data.player_index] = nil
+    m_agents.activeAgents[p_data.player_index] = nil
   end
 }
 

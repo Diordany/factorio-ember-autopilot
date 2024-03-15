@@ -19,15 +19,16 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-local m_pilot = {activeAgents = {}}
+local m_pilot = {}
 
+local m_agents = require("__ember-autopilot__/modules/agents.lua")
 local m_movement = require("__ember-autopilot__/modules/movement.lua")
 
 function m_pilot.execute(p_player, p_action)
   if p_action.type == "walk" then
     m_movement.move_to_target_pos(p_player, p_action.params)
   elseif p_action.type == "stop" then
-    m_pilot.activeAgents[p_player.index] = nil
+    m_agents.activeAgents[p_player.index] = nil
   end
 end
 
@@ -35,7 +36,7 @@ function m_pilot.run(p_data)
   local player
   local action
 
-  for iPlayer, agent in pairs(m_pilot.activeAgents) do
+  for iPlayer, agent in pairs(m_agents.activeAgents) do
     player = game.players[iPlayer]
     action = agent.execute(player, agent.params)
     m_pilot.execute(player, action)

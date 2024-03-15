@@ -19,7 +19,7 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-local m_agents = {programs = {}}
+local m_agents = {activeAgents = {}, programs = {}}
 
 function m_agents.programs.walking_agent(p_player, p_params)
   -- Adjust the target position so that the character is centered on the target square.

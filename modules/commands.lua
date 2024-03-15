@@ -65,7 +65,10 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
       return
     end
 
-    m_pilot.activeAgents[p_data.player_index] = {execute = m_agents.walking_agent, params = {targetPos = target}}
+    m_pilot.activeAgents[p_data.player_index] = {
+      execute = m_agents.programs.walking_agent,
+      params = {targetPos = target}
+    }
   end
 }
 

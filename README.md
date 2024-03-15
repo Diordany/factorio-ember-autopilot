@@ -29,7 +29,7 @@ Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.0
 
 # Features
 
-Ember pilot works by binding agent programs to players to perform specific tasks. The agent programs that are currently available are explained here.
+Ember Autopilot works by binding agent programs to players to perform specific tasks. The agent programs that are currently available are explained here.
 
 ## Walking Agent
 

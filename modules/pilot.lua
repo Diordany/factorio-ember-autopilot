@@ -28,7 +28,7 @@ function m_pilot.execute(p_player, p_action)
   if p_action.type == "walk" then
     m_movement.move_to_target_pos(p_player, p_action.params)
   elseif p_action.type == "stop" then
-    m_agents.activeAgents[p_player.index] = nil
+    m_agents.unbind(p_player.index)
   end
 end
 

@@ -21,6 +21,14 @@
 -- SOFTWARE.
 local m_agents = {activeAgents = {}, programs = {}}
 
+function m_agents.bind(p_iPlayer, p_program, p_params)
+  m_agents.activeAgents[p_iPlayer] = {execute = p_program, params = p_params, data = {}}
+end
+
+function m_agents.unbind(p_iPlayer)
+  m_agents.activeAgents[p_iPlayer] = nil
+end
+
 function m_agents.programs.walking_agent(p_player, p_params)
   -- Adjust the target position so that the character is centered on the target square.
   local target = {x = math.floor(p_params.targetPos.x) + 0.5, y = math.floor(p_params.targetPos.y) + 0.5}

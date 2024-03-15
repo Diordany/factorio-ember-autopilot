@@ -64,10 +64,7 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
       return
     end
 
-    m_agents.activeAgents[p_data.player_index] = {
-      execute = m_agents.programs.walking_agent,
-      params = {targetPos = target}
-    }
+    m_agents.bind(p_data.player_index, m_agents.programs.walking_agent, {targetPos = target})
   end
 }
 
@@ -75,7 +72,7 @@ m_commands.specs[g_cmdPrefix .. "stop"] = {
   description = "Unbinds any agent that is assigned to the player",
   usage = "",
   callback = function(p_data)
-    m_agents.activeAgents[p_data.player_index] = nil
+    m_agents.unbind(p_data.player_index)
   end
 }
 

@@ -20,12 +20,12 @@ You can install this mod through the built-in modloader of Factorio under the na
 
 ```
 cd <path to factorio mods>
-git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopilot_0.0.1
+git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopilot_0.1.0
 ```
 
 ## Installation from ZIP
 
-Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.0.1.zip` (or leave the name as is if downloading from the releases page).
+Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.1.0.zip` (or leave the name as is if downloading from the releases page).
 
 # Features
 
@@ -42,6 +42,16 @@ You can make the player walk towards a target position with the command:
 This agent does not use a pathfinding algorithm however, so it is possible that the agent gets stuck colliding with other objects. In that case, just run the **stop** command.
 
 [cmd-walkpos](https://github.com/Diordany/factorio-ember-autopilot/assets/54911023/dbbb233f-3038-4a63-bcfc-60cab858f53f)
+
+## Wander Agent
+
+This agent wanders around aimlessly while trying to avoid obstacles. There are still some cases where it manages to get stuck, so it needs some refinement. Start the agent with the command:
+
+```
+/ember-wander
+```
+
+[cmd-wander](https://github.com/Diordany/factorio-ember-autopilot/assets/54911023/077d72ad-4ad5-42df-9d37-89cff2bfd264)
 
 ## Stopping the Agent
 

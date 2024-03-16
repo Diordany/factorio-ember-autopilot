@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.0
+Date: 16. 03. 2024
+  Features:
+    - Ember Autopilot can now wander around aimlessly while trying to avoid obstacles.
+---------------------------------------------------------------------------------------------------
 Version: 0.0.1
 Date: 15. 03. 2024
   Major Features:

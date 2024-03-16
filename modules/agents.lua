@@ -34,7 +34,7 @@ function m_agents.programs.walking_agent(p_player, p_params)
   local target = {x = math.floor(p_params.targetPos.x) + 0.5, y = math.floor(p_params.targetPos.y) + 0.5}
 
   -- Walk if the player is not yet at the target position. Stop otherwise.
-  if (p_player.character.position.x ~= target.x) or (p_player.character.position.y ~= target.y) then
+  if (p_player.position.x ~= target.x) or (p_player.position.y ~= target.y) then
     return {type = "walk", params = {targetPos = target}}
   else
     return {type = "stop"}
@@ -46,7 +46,7 @@ function m_agents.programs.wander_agent(p_player, p_params)
 
   if target then
     -- Walk towards the target if the character is not at the position already.
-    if (p_player.character.position.x ~= target.x) or (p_player.character.position.y ~= target.y) then
+    if (p_player.position.x ~= target.x) or (p_player.position.y ~= target.y) then
       return {type = "walk", params = {targetPos = target}}
     end
   else
@@ -60,7 +60,7 @@ function m_agents.programs.wander_agent(p_player, p_params)
 
   -- Don't move if the target position is occupied.
   if not p_player.surface.find_non_colliding_position(p_player.character.name, target, 0.5, 1, true) then
-    target = p_player.character.position
+    target = p_player.position
   end
 
   -- Store the target position and return the walk action.

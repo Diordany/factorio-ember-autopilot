@@ -53,9 +53,15 @@ function m_agents.programs.wander_agent(p_player, p_params)
   local target = m_agents.get_data(p_player.index, "targetPos")
 
   if target then
-    -- Walk towards the target if the character is not at the position already.
-    if (p_player.position.x ~= target.x) or (p_player.position.y ~= target.y) then
-      return {type = "walk", params = {targetPos = target}}
+    local prevPos = m_agents.get_data(p_player.index, "prevPos")
+
+    -- Stop pursuing the target position when stuck.
+    if (p_player.position.x ~= prevPos.x) and (p_player.position.y ~= prevPos.y) then
+      -- Walk towards the target if the character is not at the position already.
+      if (p_player.position.x ~= target.x) or (p_player.position.y ~= target.y) then
+        m_agents.set_data(p_player.index, "prevPos", p_player.position)
+        return {type = "walk", params = {targetPos = target}}
+      end
     end
   else
     -- Set the initial target to the current position if no target was specified yet.
@@ -67,12 +73,13 @@ function m_agents.programs.wander_agent(p_player, p_params)
   target.y = math.floor(target.y + math.random(-1, 1)) + 0.5
 
   -- Don't move if the target position is occupied.
-  if not p_player.surface.find_non_colliding_position(p_player.character.name, target, 0.5, 1, true) then
+  if p_player.surface.entity_prototype_collides(p_player.character.prototype, target, false) then
     target = p_player.position
   end
 
   m_agents.set_data(p_player.index, "targetPos", target)
 
+  m_agents.set_data(p_player.index, "prevPos", p_player.position)
   return {type = "walk", params = {targetPos = target}}
 end
 

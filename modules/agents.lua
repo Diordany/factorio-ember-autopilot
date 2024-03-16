@@ -25,6 +25,14 @@ function m_agents.bind(p_iPlayer, p_program, p_params)
   m_agents.activeAgents[p_iPlayer] = {execute = p_program, params = p_params, data = {}}
 end
 
+function m_agents.get_data(p_iPlayer, p_label)
+  return m_agents.activeAgents[p_iPlayer].data[p_label]
+end
+
+function m_agents.set_data(p_iPlayer, p_label, p_data)
+  m_agents.activeAgents[p_iPlayer].data[p_label] = p_data
+end
+
 function m_agents.unbind(p_iPlayer)
   m_agents.activeAgents[p_iPlayer] = nil
 end
@@ -42,7 +50,7 @@ function m_agents.programs.walking_agent(p_player, p_params)
 end
 
 function m_agents.programs.wander_agent(p_player, p_params)
-  local target = m_agents.activeAgents[p_player.index].data.targetPos
+  local target = m_agents.get_data(p_player.index, "targetPos")
 
   if target then
     -- Walk towards the target if the character is not at the position already.
@@ -63,8 +71,8 @@ function m_agents.programs.wander_agent(p_player, p_params)
     target = p_player.position
   end
 
-  -- Store the target position and return the walk action.
-  m_agents.activeAgents[p_player.index].data.targetPos = target
+  m_agents.set_data(p_player.index, "targetPos", target)
+
   return {type = "walk", params = {targetPos = target}}
 end
 

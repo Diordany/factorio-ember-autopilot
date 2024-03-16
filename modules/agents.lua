@@ -45,20 +45,25 @@ function m_agents.programs.wander_agent(p_player, p_params)
   local target = m_agents.activeAgents[p_player.index].data.targetPos
 
   if target then
+    -- Walk towards the target if the character is not at the position already.
     if (p_player.character.position.x ~= target.x) or (p_player.character.position.y ~= target.y) then
       return {type = "walk", params = {targetPos = target}}
     end
   else
+    -- Set the initial target to the current position if no target was specified yet.
     target = {x = p_player.position.x, y = p_player.position.y}
   end
 
+  -- Pick an adjacent position as the new target.
   target.x = math.floor(target.x + math.random(-1, 1)) + 0.5
   target.y = math.floor(target.y + math.random(-1, 1)) + 0.5
 
+  -- Don't move if the target position is occupied.
   if not p_player.surface.find_non_colliding_position(p_player.character.name, target, 0.5, 1, true) then
     target = p_player.character.position
   end
 
+  -- Store the target position and return the walk action.
   m_agents.activeAgents[p_player.index].data.targetPos = target
   return {type = "walk", params = {targetPos = target}}
 end

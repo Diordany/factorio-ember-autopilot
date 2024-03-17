@@ -20,12 +20,12 @@ You can install this mod through the built-in modloader of Factorio under the na
 
 ```
 cd <path to factorio mods>
-git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopilot_0.2.0
+git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopilot_0.2.1
 ```
 
 ## Installation from ZIP
 
-Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.2.0.zip` (or leave the name as is if downloading from the releases page).
+Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.2.1.zip` (or leave the name as is if downloading from the releases page).
 
 # Features
 
@@ -45,7 +45,7 @@ This agent does not use a pathfinding algorithm however, so it is possible that 
 
 ## Wander Agent
 
-This agent wanders around aimlessly while trying to avoid obstacles. The agent gets stuck in certain situations, so it needs some refinement. Start the agent with the command:
+This agent wanders around aimlessly while trying to avoid obstacles. Start the agent with the command:
 
 ```
 /ember-wander

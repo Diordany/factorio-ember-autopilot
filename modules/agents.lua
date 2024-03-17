@@ -74,8 +74,8 @@ function m_agents.programs.wander_agent(p_player, p_params)
   target.x = math.floor(target.x + math.random(-1, 1)) + 0.5
   target.y = math.floor(target.y + math.random(-1, 1)) + 0.5
 
-  -- Don't move if the target position is occupied.
-  if m_surface.player_collision_at(p_player, target) then
+  -- Don't move if the target position is inaccessible.
+  if m_surface.player_collision_trace(p_player, target, 2) then
     target = p_player.position
   end
 

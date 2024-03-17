@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.0
+Date: 17. 03. 2024
+  Bugfixes:
+    - Fixed Wander Agent prematurely selecting a new target position.
+  Debug:
+    - Added a print function for positions.
+  Features:
+    - Added custom collision detection functions.
+  Regressions:
+    - Apparently, the wander agent still gets stuck. It seemed like the problem was solved at first, because the wander agent selected a new target prematurely.
+---------------------------------------------------------------------------------------------------
 Version: 0.1.1
 Date: 16. 03. 2024
   Bugfixes:

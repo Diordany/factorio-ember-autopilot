@@ -68,6 +68,12 @@ function m_surface.player_collision_at(p_player, p_position)
   }
 
   local entities = p_player.surface.find_entities_filtered(filter)
+  local tiles = p_player.surface.find_tiles_filtered(filter)
+
+  -- Colliding tiles found.
+  if #tiles > 0 then
+    return true
+  end
 
   -- No colliding entities found.
   if #entities == 0 then

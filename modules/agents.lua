@@ -56,7 +56,7 @@ function m_agents.programs.wander_agent(p_player, p_params)
     local prevPos = m_agents.get_data(p_player.index, "prevPos")
 
     -- Stop pursuing the target position when stuck.
-    if (p_player.position.x ~= prevPos.x) and (p_player.position.y ~= prevPos.y) then
+    if not ((p_player.position.x == prevPos.x) and (p_player.position.y == prevPos.y)) then
       -- Walk towards the target if the character is not at the position already.
       if (p_player.position.x ~= target.x) or (p_player.position.y ~= target.y) then
         m_agents.set_data(p_player.index, "prevPos", p_player.position)

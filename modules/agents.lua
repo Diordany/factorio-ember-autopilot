@@ -21,6 +21,8 @@
 -- SOFTWARE.
 local m_agents = {activeAgents = {}, programs = {}}
 
+local m_surface = require("__ember-autopilot__/modules/surface.lua")
+
 function m_agents.bind(p_iPlayer, p_program, p_params)
   m_agents.activeAgents[p_iPlayer] = {execute = p_program, params = p_params, data = {}}
 end
@@ -73,12 +75,11 @@ function m_agents.programs.wander_agent(p_player, p_params)
   target.y = math.floor(target.y + math.random(-1, 1)) + 0.5
 
   -- Don't move if the target position is occupied.
-  if p_player.surface.entity_prototype_collides(p_player.character.prototype, target, false) then
+  if m_surface.player_collision_at(p_player, target) then
     target = p_player.position
   end
 
   m_agents.set_data(p_player.index, "targetPos", target)
-
   m_agents.set_data(p_player.index, "prevPos", p_player.position)
   return {type = "walk", params = {targetPos = target}}
 end

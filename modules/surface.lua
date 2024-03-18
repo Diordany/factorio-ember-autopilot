@@ -128,4 +128,8 @@ function m_surface.player_collision_trace(p_player, p_position, p_steps)
   end
 end
 
+function m_surface.player_is_at_position(p_player, p_position)
+  return (p_player.position.x == p_position.x) and (p_player.position.y == p_position.y)
+end
+
 return m_surface

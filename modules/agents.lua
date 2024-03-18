@@ -98,7 +98,7 @@ function m_agents.programs.path_agent(p_player, p_params)
   local target = m_agents.get_first_element_data(p_player.index, "path")
 
   -- Persue the current target position.
-  if (p_player.position.x ~= target.position.x) or (p_player.position.y ~= target.position.y) then
+  if not m_surface.player_is_at_position(p_player, target.position) then
     return {type = "walk", params = {targetPos = target.position}}
   else
     -- Target reached, move on to the next target.
@@ -123,7 +123,7 @@ function m_agents.programs.walking_agent(p_player, p_params)
   end
 
   -- Walk if the player is not yet at the target position. Stop otherwise.
-  if (p_player.position.x ~= p_params.targetPos.x) or (p_player.position.y ~= p_params.targetPos.y) then
+  if not m_surface.player_is_at_position(p_player, p_params.targetPos) then
     return {type = "walk", params = {targetPos = p_params.targetPos}}
   else
     p_player.print("Walking Agent: Destination reached.")

@@ -21,8 +21,8 @@
 -- SOFTWARE.
 local m_pilot = {}
 
-local m_agents = require("__ember-autopilot__/modules/agents.lua")
-local m_movement = require("__ember-autopilot__/modules/movement.lua")
+local m_agents = require("__ember-autopilot__/modules/agents")
+local m_movement = require("__ember-autopilot__/modules/movement")
 
 function m_pilot.execute(p_player, p_agent, p_action)
   if p_action.type == "walk" then

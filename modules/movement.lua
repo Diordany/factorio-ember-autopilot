@@ -21,7 +21,7 @@
 -- SOFTWARE.
 local m_movement = {}
 
-local m_surface = require("__ember-autopilot__/modules/surface.lua")
+local m_surface = require("__ember-autopilot__/modules/surface")
 
 function m_movement.move_to_target_pos(p_player, p_params)
   local speed = p_player.character.character_running_speed

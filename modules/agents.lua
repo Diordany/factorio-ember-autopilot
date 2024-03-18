@@ -21,7 +21,7 @@
 -- SOFTWARE.
 local m_agents = {activeAgents = {}, programs = {}}
 
-local m_surface = require("__ember-autopilot__/modules/surface.lua")
+local m_surface = require("__ember-autopilot__/modules/surface")
 
 function m_agents.bind(p_iPlayer, p_program, p_params)
   m_agents.activeAgents[p_iPlayer] = {execute = p_program, params = p_params, data = {}}

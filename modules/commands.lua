@@ -21,8 +21,8 @@
 -- SOFTWARE.
 local m_commands = {specs = {}}
 
-local m_agents = require("__ember-autopilot__/modules/agents.lua")
-local m_parser = require("__ember-autopilot__/modules/parser.lua")
+local m_agents = require("__ember-autopilot__/modules/agents")
+local m_parser = require("__ember-autopilot__/modules/parser")
 
 local g_cmdPrefix = "ember-"
 

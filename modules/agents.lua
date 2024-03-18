@@ -42,6 +42,12 @@ end
 function m_agents.programs.walking_agent(p_player, p_params)
   local target = m_agents.get_data(p_player.index, "targetPos")
 
+  -- Stop if the agent is blocked by an obstacle.
+  if p_params.blocked then
+    p_player.print("Walking Agent: Path blocked.")
+    return {type = "stop"}
+  end
+
   -- Calculate the target position. This should only happen once for this agent.
   if not target then
     -- Adjust the target position so that the character is centered on the target square.

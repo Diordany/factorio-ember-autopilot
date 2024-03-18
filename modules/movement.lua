@@ -21,6 +21,8 @@
 -- SOFTWARE.
 local m_movement = {}
 
+local m_surface = require("__ember-autopilot__/modules/surface.lua")
+
 function m_movement.move_to_target_pos(p_player, p_params)
   local speed = p_player.character.character_running_speed
 
@@ -72,11 +74,23 @@ function m_movement.move_to_target_pos(p_player, p_params)
       end
     end
 
-    p_player.character.walking_state = {walking = true, direction = defines.direction[dirStr]}
+    -- If not blocked.
+    if not m_surface.player_collision_next(p_player, dirStr) then
+      p_player.character.walking_state = {walking = true, direction = defines.direction[dirStr]}
+      return true
+    else
+      return false
+    end
   else
-    -- The distance to the target is too small, so the character will overshoot it by walking. Teleport instead without
-    -- triggering the teleportation events.
-    p_player.teleport(p_params.targetPos, p_player.surface, false)
+    -- If not blocked.
+    if not m_surface.player_collision_at(p_player, p_params.targetPos) then
+      -- The distance to the target is too small, so the character will overshoot it by walking. Teleport instead without
+      -- triggering the teleportation events.
+      p_player.teleport(p_params.targetPos, p_player.surface, false)
+      return true
+    else
+      return false
+    end
   end
 end
 

@@ -19,38 +19,18 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-local m_surface = {}
-
-function m_surface.player_collision_trace(p_player, p_position, p_steps)
-  -- Test if there's a collision at the destination first
-  if m_surface.player_collision_at(p_player, p_position) then
-    return true
-  end
-
-  -- Make sure that the number of steps is an integer.
-  p_steps = math.floor(p_steps)
-
-  -- Stop the collision test if the number of steps is 1 or less.
-  if p_steps <= 1 then
-    return false
-  end
-
-  local offSet = {
-    x = (p_position.x - p_player.position.x) / p_steps,
-    y = (p_position.y - p_player.position.y) / p_steps
+local m_surface = {
+  dirOffset = {
+    north = {x = 0, y = -1},
+    northeast = {x = 1, y = -1},
+    east = {x = 1, y = 0},
+    southeast = {x = 1, y = 1},
+    south = {x = 0, y = 1},
+    southwest = {x = -1, y = 1},
+    west = {x = -1, y = 0},
+    northwest = {x = -1, y = -1}
   }
-  local pos = p_player.position
-
-  -- Test the collision at every step. Return if colliding.
-  for i = 1, p_steps, 1 do
-    pos.x = pos.x + i * offSet.x
-    pos.y = pos.y + i * offSet.y
-
-    if m_surface.player_collision_at(p_player, pos) then
-      return true
-    end
-  end
-end
+}
 
 function m_surface.player_collision_at(p_player, p_position)
   local filter = {
@@ -92,6 +72,49 @@ function m_surface.player_collision_at(p_player, p_position)
   end
 
   return true
+end
+
+function m_surface.player_collision_next(p_player, p_direction)
+  local speed = p_player.character.character_running_speed
+  local nextPos = p_player.position
+
+  local nextPos = {
+    x = p_player.position.x + m_surface.dirOffset[p_direction].x * speed,
+    y = p_player.position.y + m_surface.dirOffset[p_direction].y * speed
+  }
+
+  return m_surface.player_collision_at(p_player, nextPos)
+end
+
+function m_surface.player_collision_trace(p_player, p_position, p_steps)
+  -- Test if there's a collision at the destination first
+  if m_surface.player_collision_at(p_player, p_position) then
+    return true
+  end
+
+  -- Make sure that the number of steps is an integer.
+  p_steps = math.floor(p_steps)
+
+  -- Stop the collision test if the number of steps is 1 or less.
+  if p_steps <= 1 then
+    return false
+  end
+
+  local offSet = {
+    x = (p_position.x - p_player.position.x) / p_steps,
+    y = (p_position.y - p_player.position.y) / p_steps
+  }
+  local pos = p_player.position
+
+  -- Test the collision at every step. Return if colliding.
+  for i = 1, p_steps, 1 do
+    pos.x = pos.x + i * offSet.x
+    pos.y = pos.y + i * offSet.y
+
+    if m_surface.player_collision_at(p_player, pos) then
+      return true
+    end
+  end
 end
 
 return m_surface

@@ -64,7 +64,7 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
       return
     end
 
-    m_agents.bind(p_data.player_index, m_agents.programs.walking_agent, {targetPos = target})
+    m_agents.bind(p_data.player_index, m_agents.programs.walking_agent, {targetPos = target, blocked = false})
   end
 }
 

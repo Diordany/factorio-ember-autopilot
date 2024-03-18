@@ -24,9 +24,9 @@ local m_pilot = {}
 local m_agents = require("__ember-autopilot__/modules/agents.lua")
 local m_movement = require("__ember-autopilot__/modules/movement.lua")
 
-function m_pilot.execute(p_player, p_action)
+function m_pilot.execute(p_player, p_agent, p_action)
   if p_action.type == "walk" then
-    m_movement.move_to_target_pos(p_player, p_action.params)
+    p_agent.params.blocked = not m_movement.move_to_target_pos(p_player, p_action.params)
   elseif p_action.type == "stop" then
     m_agents.unbind(p_player.index)
   end
@@ -39,7 +39,7 @@ function m_pilot.run(p_data)
   for iPlayer, agent in pairs(m_agents.activeAgents) do
     player = game.players[iPlayer]
     action = agent.execute(player, agent.params)
-    m_pilot.execute(player, action)
+    m_pilot.execute(player, agent, action)
   end
 end
 

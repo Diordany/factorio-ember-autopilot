@@ -45,16 +45,18 @@ function m_movement.move_to_target_pos(p_player, p_params)
       else
         dirStr = "west"
       end
-      -- If the displacement is larger in the y direction, and the character does not overshoot the target by walking.
     elseif yDiffAbs - xDiffAbs > speed then
+      -- If the displacement is larger in the y direction, and the character does not overshoot the target by walking.
+
       -- Go directly south if the displacement is positive, else go directly north.
       if yDiff > 0 then
         dirStr = "south"
       else
         dirStr = "north"
       end
-      -- The x and y displacement is equal in magnitude, and the character does not overshoot the target by walking.
     else
+      -- The x and y displacement is equal in magnitude, and the character does not overshoot the target by walking.
+
       -- Go south if the y displacement is positive, else go north.
       if yDiff > 0 then
         dirStr = dirStr .. "south"

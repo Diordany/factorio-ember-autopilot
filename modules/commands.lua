@@ -72,7 +72,7 @@ m_commands.specs[g_cmdPrefix .. "wander"] = {
   description = "Wander around aimlessly.",
   usage = "",
   callback = function(p_data)
-    m_agents.bind(p_data.player_index, m_agents.programs.wander_agent, nil)
+    m_agents.bind(p_data.player_index, m_agents.programs.wander_agent, {blocked = false})
   end
 }
 

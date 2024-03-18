@@ -68,13 +68,10 @@ function m_agents.programs.wander_agent(p_player, p_params)
   local target = m_agents.get_data(p_player.index, "targetPos")
 
   if target then
-    local prevPos = m_agents.get_data(p_player.index, "prevPos")
-
-    -- Stop pursuing the target position when stuck.
-    if not ((p_player.position.x == prevPos.x) and (p_player.position.y == prevPos.y)) then
+    -- Stop pursuing the target position when blocked.
+    if not p_params.blocked then
       -- Walk towards the target if the character is not at the position already.
       if (p_player.position.x ~= target.x) or (p_player.position.y ~= target.y) then
-        m_agents.set_data(p_player.index, "prevPos", p_player.position)
         return {type = "walk", params = {targetPos = target}}
       end
     end
@@ -93,7 +90,6 @@ function m_agents.programs.wander_agent(p_player, p_params)
   end
 
   m_agents.set_data(p_player.index, "targetPos", target)
-  m_agents.set_data(p_player.index, "prevPos", p_player.position)
   return {type = "walk", params = {targetPos = target}}
 end
 

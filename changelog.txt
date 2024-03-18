@@ -1,4 +1,17 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.0
+Date: 18. 03. 2024
+  Ease of use:
+    - The Walking Agent now automatically stops when it's path is blocked.
+  Optimizations:
+    - The Walking Agent no longer calculates the position on each tick.
+  Scripting:
+    - The surface module can now calculate centered positions.
+    - The surface module can now calculate random adjacent (centered).
+    - The move_to_target_pos function now returns the blocked path state.
+    - Both the Walking and the Wander agents now use the blocked path state to determine their behavior.
+    - The pilot now gives feedback to the agents.
+---------------------------------------------------------------------------------------------------
 Version: 0.2.1
 Date: 17. 03. 2024
   Bugfixes:

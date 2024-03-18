@@ -39,7 +39,7 @@ You can make the player walk towards a target position with the command:
 /ember-walkpos <x> <y>
 ```
 
-This agent does not use a pathfinding algorithm. It stops whenever it's path is blocked.
+This agent does not use a pathfinding algorithm. It stops whenever its path is blocked.
 
 [cmd-walkpos](https://github.com/Diordany/factorio-ember-autopilot/assets/54911023/dbbb233f-3038-4a63-bcfc-60cab858f53f)
 

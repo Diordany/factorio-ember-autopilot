@@ -59,6 +59,7 @@ function m_agents.programs.walking_agent(p_player, p_params)
   if (p_player.position.x ~= target.x) or (p_player.position.y ~= target.y) then
     return {type = "walk", params = {targetPos = target}}
   else
+    p_player.print("Walking Agent: Destination reached.")
     return {type = "stop"}
   end
 end

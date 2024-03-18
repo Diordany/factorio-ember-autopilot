@@ -75,14 +75,9 @@ function m_agents.programs.wander_agent(p_player, p_params)
         return {type = "walk", params = {targetPos = target}}
       end
     end
-  else
-    -- Set the initial target to the current position if no target was specified yet.
-    target = {x = p_player.position.x, y = p_player.position.y}
   end
 
-  -- Pick an adjacent position as the new target.
-  target.x = math.floor(target.x + math.random(-1, 1)) + 0.5
-  target.y = math.floor(target.y + math.random(-1, 1)) + 0.5
+  target = m_surface.get_random_adjacent_position(p_player.position)
 
   -- Don't move if the target position is inaccessible.
   if m_surface.player_collision_trace(p_player, target, 2) then

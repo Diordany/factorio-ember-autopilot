@@ -20,12 +20,12 @@ You can install this mod through the built-in modloader of Factorio under the na
 
 ```
 cd <path to factorio mods>
-git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopilot_0.4.0
+git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopilot_0.4.1
 ```
 
 ## Installation from ZIP
 
-Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.4.0.zip` (or leave the name as is if downloading from the releases page).
+Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.4.1.zip` (or leave the name as is if downloading from the releases page).
 
 # Features
 
@@ -49,6 +49,12 @@ You can make the player walk towards a target position with the command:
 
 ```
 /ember-walkpos <x> <y>
+```
+
+You can also start the agent with a position relative to the player:
+
+```
+/ember-walkrel <x> <y>
 ```
 
 This agent does not use a pathfinding algorithm. It stops whenever its path is blocked.

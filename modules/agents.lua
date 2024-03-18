@@ -51,7 +51,7 @@ function m_agents.programs.walking_agent(p_player, p_params)
   -- Calculate the target position. This should only happen once for this agent.
   if not target then
     -- Adjust the target position so that the character is centered on the target square.
-    target = {x = math.floor(p_params.targetPos.x) + 0.5, y = math.floor(p_params.targetPos.y) + 0.5}
+    target = m_surface.center_position(p_params.targetPos)
     m_agents.set_data(p_player.index, "targetPos")
   end
 

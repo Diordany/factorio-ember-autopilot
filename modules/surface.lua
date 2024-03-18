@@ -32,6 +32,10 @@ local m_surface = {
   }
 }
 
+function m_surface.center_position(p_position)
+  return {x = math.floor(p_position.x) + 0.5, y = math.floor(p_position.y) + 0.5}
+end
+
 function m_surface.get_random_adjacent_position(p_position)
   return {
     x = math.floor(p_position.x + math.random(-1, 1)) + 0.5,

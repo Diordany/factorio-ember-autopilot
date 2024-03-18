@@ -23,6 +23,7 @@ local m_commands = {specs = {}}
 
 local m_agents = require("__ember-autopilot__/modules/agents")
 local m_parser = require("__ember-autopilot__/modules/parser")
+local m_surface = require("__ember-autopilot__/modules/surface")
 
 local g_cmdPrefix = "ember-"
 
@@ -64,7 +65,9 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
       return
     end
 
-    m_agents.bind(p_data.player_index, m_agents.programs.walking_agent, {targetPos = target, blocked = false})
+    local params = {targetPos = m_surface.center_position(target), blocked = false}
+
+    m_agents.bind(p_data.player_index, m_agents.programs.walking_agent, params)
   end
 }
 

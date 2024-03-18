@@ -40,24 +40,15 @@ function m_agents.unbind(p_iPlayer)
 end
 
 function m_agents.programs.walking_agent(p_player, p_params)
-  local target = m_agents.get_data(p_player.index, "targetPos")
-
   -- Stop if the agent is blocked by an obstacle.
   if p_params.blocked then
     p_player.print("Walking Agent: Path blocked.")
     return {type = "stop"}
   end
 
-  -- Calculate the target position. This should only happen once for this agent.
-  if not target then
-    -- Adjust the target position so that the character is centered on the target square.
-    target = m_surface.center_position(p_params.targetPos)
-    m_agents.set_data(p_player.index, "targetPos")
-  end
-
   -- Walk if the player is not yet at the target position. Stop otherwise.
-  if (p_player.position.x ~= target.x) or (p_player.position.y ~= target.y) then
-    return {type = "walk", params = {targetPos = target}}
+  if (p_player.position.x ~= p_params.targetPos.x) or (p_player.position.y ~= p_params.targetPos.y) then
+    return {type = "walk", params = {targetPos = p_params.targetPos}}
   else
     p_player.print("Walking Agent: Destination reached.")
     return {type = "stop"}

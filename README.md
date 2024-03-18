@@ -31,6 +31,18 @@ Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.3
 
 Ember Autopilot works by binding agent programs to players to perform specific tasks. The agent programs that are currently available are explained here.
 
+## Path Agent
+
+This agent uses Factorio's built-in pathing algorithm to navigate to the given position. Start the agent with the command:
+
+```
+/ember-path <x> <y>
+```
+
+I couldn't get Factorio to generate a path that avoids collisions. I'm not sure if I missed something, but I'm planning on implementing a pathfinding algorithm myself anyway.
+
+[cmd-path](https://github.com/Diordany/factorio-ember-autopilot/assets/54911023/bf298922-2cdb-4a44-a012-029242a7da81)
+
 ## Walking Agent
 
 You can make the player walk towards a target position with the command:

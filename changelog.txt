@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.0
+Date: 18. 03. 2024
+  Features:
+    - Ember Autopilot can now follow a specific path.
+  Scripting:
+    - Added a function to the surface module that checks if the player is at a given position.
+---------------------------------------------------------------------------------------------------
 Version: 0.3.0
 Date: 18. 03. 2024
   Ease of use:

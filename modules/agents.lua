@@ -40,8 +40,14 @@ function m_agents.unbind(p_iPlayer)
 end
 
 function m_agents.programs.walking_agent(p_player, p_params)
-  -- Adjust the target position so that the character is centered on the target square.
-  local target = {x = math.floor(p_params.targetPos.x) + 0.5, y = math.floor(p_params.targetPos.y) + 0.5}
+  local target = m_agents.get_data(p_player.index, "targetPos")
+
+  -- Calculate the target position. This should only happen once for this agent.
+  if not target then
+    -- Adjust the target position so that the character is centered on the target square.
+    target = {x = math.floor(p_params.targetPos.x) + 0.5, y = math.floor(p_params.targetPos.y) + 0.5}
+    m_agents.set_data(p_player.index, "targetPos")
+  end
 
   -- Walk if the player is not yet at the target position. Stop otherwise.
   if (p_player.position.x ~= target.x) or (p_player.position.y ~= target.y) then

@@ -43,8 +43,25 @@ function m_pilot.run(p_data)
   end
 end
 
+function m_pilot.update_paths(p_data)
+  -- Search the associated agent.
+  for _, e_agent in pairs(m_agents.activeAgents) do
+    -- If the search finished.
+    if (p_data.id == e_agent.data.pathID) and (not p_data.try_again_later) then
+      -- Set the path info.
+      if p_data.path then
+        e_agent.params.pathReady = true
+        e_agent.data.path = p_data.path
+      else
+        e_agent.params.noPath = true
+      end
+    end
+  end
+end
+
 function m_pilot.init()
   script.on_event(defines.events.on_tick, m_pilot.run)
+  script.on_event(defines.events.on_script_path_request_finished, m_pilot.update_paths)
 end
 
 return m_pilot

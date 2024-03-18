@@ -37,6 +37,54 @@ function split(p_string)
   return segments
 end
 
+function m_commands.init()
+  for cmdName, cmdSpec in pairs(m_commands.specs) do
+    commands.add_command(cmdName, cmdSpec.description, cmdSpec.callback)
+  end
+end
+
+m_commands.specs[g_cmdPrefix .. "path"] = {
+  description = "Uses the built-in pathing algorithm to find and follow a path to the given position.",
+  usage = "<x> <y>",
+  callback = function(p_data)
+    local player = game.players[p_data.player_index]
+
+    -- Cancel if no arguments were given.
+    if not p_data.parameter then
+      player.print("Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
+      return
+    end
+
+    local args = m_parser.get_args(p_data.parameter)
+
+    -- Cancel if not enough arguments were given.
+    if #args < 2 then
+      player.print("Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
+      return
+    end
+
+    local target = {x = tonumber(args[1]), y = tonumber(args[2])}
+
+    -- Cancel if the target position is not valid.
+    if (not target.x) or (not target.y) then
+      player.print("Invalid position coordinate: (" .. args[1] .. ", " .. args[2] .. ")")
+      return
+    end
+
+    local params = {targetPos = m_surface.center_position(target), blocked = false, pathReady = false, noPath = false}
+
+    m_agents.bind(p_data.player_index, m_agents.programs.path_agent, params)
+  end
+}
+
+m_commands.specs[g_cmdPrefix .. "stop"] = {
+  description = "Unbinds any agent that is assigned to the player.",
+  usage = "",
+  callback = function(p_data)
+    m_agents.unbind(p_data.player_index)
+  end
+}
+
 m_commands.specs[g_cmdPrefix .. "walkpos"] = {
   description = "Walks over to the given position.",
   usage = "<x> <y>",
@@ -78,19 +126,5 @@ m_commands.specs[g_cmdPrefix .. "wander"] = {
     m_agents.bind(p_data.player_index, m_agents.programs.wander_agent, {blocked = false})
   end
 }
-
-m_commands.specs[g_cmdPrefix .. "stop"] = {
-  description = "Unbinds any agent that is assigned to the player",
-  usage = "",
-  callback = function(p_data)
-    m_agents.unbind(p_data.player_index)
-  end
-}
-
-function m_commands.init()
-  for cmdName, cmdSpec in pairs(m_commands.specs) do
-    commands.add_command(cmdName, cmdSpec.description, cmdSpec.callback)
-  end
-end
 
 return m_commands

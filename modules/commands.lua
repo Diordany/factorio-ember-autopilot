@@ -39,6 +39,12 @@ m_commands.specs[g_cmdPrefix .. "path"] = {
   callback = function(p_data)
     local player = game.players[p_data.player_index]
 
+    -- Cancel if the player has no character.
+    if not player.character then
+      player.print("The Path Agent needs a character entity.")
+      return
+    end
+
     -- Cancel if no arguments were given.
     if not p_data.parameter then
       player.print("Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
@@ -81,6 +87,12 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
   callback = function(p_data)
     local player = game.players[p_data.player_index]
 
+    -- Cancel if the player has no character.
+    if not player.character then
+      player.print("The Walking Agent needs a character entity.")
+      return
+    end
+
     -- Cancel if no arguments were given.
     if not p_data.parameter then
       player.print("Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
@@ -114,6 +126,12 @@ m_commands.specs[g_cmdPrefix .. "walkrel"] = {
   usage = "<x> <y>",
   callback = function(p_data)
     local player = game.players[p_data.player_index]
+
+    -- Cancel if the player has no character.
+    if not player.character then
+      player.print("The Walking Agent needs a character entity.")
+      return
+    end
 
     -- Cancel if no arguments were given.
     if not p_data.parameter then
@@ -150,6 +168,14 @@ m_commands.specs[g_cmdPrefix .. "wander"] = {
   description = "Wander around aimlessly.",
   usage = "",
   callback = function(p_data)
+    local player = game.players[p_data.player_index]
+
+    -- Cancel if the player has no character.
+    if not player.character then
+      player.print("The Wander Agent needs a character entity.")
+      return
+    end
+
     m_agents.bind(p_data.player_index, m_agents.programs.wander_agent, { blocked = false })
   end
 }

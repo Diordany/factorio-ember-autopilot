@@ -1,5 +1,5 @@
 -- MIT License
--- 
+--
 -- Copyright (c) 2024 Diordany van Hemert
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -76,7 +76,7 @@ function m_movement.move_to_target_pos(p_player, p_params)
 
     -- If not blocked.
     if not m_surface.player_collision_next(p_player, dirStr) then
-      p_player.character.walking_state = {walking = true, direction = defines.direction[dirStr]}
+      p_player.character.walking_state = { walking = true, direction = defines.direction[dirStr] }
       return true
     else
       return false

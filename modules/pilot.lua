@@ -1,5 +1,5 @@
 -- MIT License
--- 
+--
 -- Copyright (c) 2024 Diordany van Hemert
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy

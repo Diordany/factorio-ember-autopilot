@@ -1,5 +1,5 @@
 -- MIT License
--- 
+--
 -- Copyright (c) 2024 Diordany van Hemert
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,19 +21,19 @@
 -- SOFTWARE.
 local m_surface = {
   dirOffset = {
-    north = {x = 0, y = -1},
-    northeast = {x = 1, y = -1},
-    east = {x = 1, y = 0},
-    southeast = {x = 1, y = 1},
-    south = {x = 0, y = 1},
-    southwest = {x = -1, y = 1},
-    west = {x = -1, y = 0},
-    northwest = {x = -1, y = -1}
+    north = { x = 0, y = -1 },
+    northeast = { x = 1, y = -1 },
+    east = { x = 1, y = 0 },
+    southeast = { x = 1, y = 1 },
+    south = { x = 0, y = 1 },
+    southwest = { x = -1, y = 1 },
+    west = { x = -1, y = 0 },
+    northwest = { x = -1, y = -1 }
   }
 }
 
 function m_surface.center_position(p_position)
-  return {x = math.floor(p_position.x) + 0.5, y = math.floor(p_position.y) + 0.5}
+  return { x = math.floor(p_position.x) + 0.5, y = math.floor(p_position.y) + 0.5 }
 end
 
 function m_surface.get_random_adjacent_position(p_position)

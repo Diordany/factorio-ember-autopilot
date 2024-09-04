@@ -1,5 +1,5 @@
 -- MIT License
--- 
+--
 -- Copyright (c) 2024 Diordany van Hemert
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,7 +19,7 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-local m_commands = {specs = {}}
+local m_commands = { specs = {} }
 
 local m_agents = require("__ember-autopilot__/modules/agents")
 local m_parser = require("__ember-autopilot__/modules/parser")
@@ -53,7 +53,7 @@ m_commands.specs[g_cmdPrefix .. "path"] = {
       return
     end
 
-    local target = {x = tonumber(args[1]), y = tonumber(args[2])}
+    local target = { x = tonumber(args[1]), y = tonumber(args[2]) }
 
     -- Cancel if the target position is not valid.
     if (not target.x) or (not target.y) then
@@ -61,7 +61,7 @@ m_commands.specs[g_cmdPrefix .. "path"] = {
       return
     end
 
-    local params = {targetPos = m_surface.center_position(target), blocked = false, pathReady = false, noPath = false}
+    local params = { targetPos = m_surface.center_position(target), blocked = false, pathReady = false, noPath = false }
 
     m_agents.bind(p_data.player_index, m_agents.programs.path_agent, params)
   end
@@ -95,7 +95,7 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
       return
     end
 
-    local target = {x = tonumber(args[1]), y = tonumber(args[2])}
+    local target = { x = tonumber(args[1]), y = tonumber(args[2]) }
 
     -- Cancel if the target position is not valid.
     if (not target.x) or (not target.y) then
@@ -103,7 +103,7 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
       return
     end
 
-    local params = {targetPos = m_surface.center_position(target), blocked = false}
+    local params = { targetPos = m_surface.center_position(target), blocked = false }
 
     m_agents.bind(p_data.player_index, m_agents.programs.walking_agent, params)
   end
@@ -129,7 +129,7 @@ m_commands.specs[g_cmdPrefix .. "walkrel"] = {
       return
     end
 
-    local target = {x = tonumber(args[1]), y = tonumber(args[2])}
+    local target = { x = tonumber(args[1]), y = tonumber(args[2]) }
 
     -- Cancel if the target position is not valid.
     if (not target.x) or (not target.y) then
@@ -140,7 +140,7 @@ m_commands.specs[g_cmdPrefix .. "walkrel"] = {
     target.x = target.x + player.position.x
     target.y = target.y + player.position.y
 
-    local params = {targetPos = m_surface.center_position(target), blocked = false}
+    local params = { targetPos = m_surface.center_position(target), blocked = false }
 
     m_agents.bind(p_data.player_index, m_agents.programs.walking_agent, params)
   end
@@ -150,7 +150,7 @@ m_commands.specs[g_cmdPrefix .. "wander"] = {
   description = "Wander around aimlessly.",
   usage = "",
   callback = function(p_data)
-    m_agents.bind(p_data.player_index, m_agents.programs.wander_agent, {blocked = false})
+    m_agents.bind(p_data.player_index, m_agents.programs.wander_agent, { blocked = false })
   end
 }
 

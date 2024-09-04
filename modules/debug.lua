@@ -1,5 +1,5 @@
 -- MIT License
--- 
+--
 -- Copyright (c) 2024 Diordany van Hemert
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,7 +24,7 @@ local m_debug = {}
 function m_debug.print_position(p_label, p_position)
   if p_position then
     game.print("[" .. tostring(game.tick) .. "] " .. p_label .. ": (" .. tostring(p_position.x) .. ", " ..
-                   tostring(p_position.y) .. ")")
+      tostring(p_position.y) .. ")")
   else
     game.print("[" .. tostring(game.tick) .. "] " .. p_label .. ": <none>")
   end

@@ -1,5 +1,5 @@
 -- MIT License
--- 
+--
 -- Copyright (c) 2024 Diordany van Hemert
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,12 +19,12 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-local m_agents = {activeAgents = {}, programs = {}}
+local m_agents = { activeAgents = {}, programs = {} }
 
 local m_surface = require("__ember-autopilot__/modules/surface")
 
 function m_agents.bind(p_iPlayer, p_program, p_params)
-  m_agents.activeAgents[p_iPlayer] = {execute = p_program, params = p_params, data = {}}
+  m_agents.activeAgents[p_iPlayer] = { execute = p_program, params = p_params, data = {} }
 end
 
 function m_agents.get_data(p_iPlayer, p_label)
@@ -59,13 +59,13 @@ function m_agents.programs.path_agent(p_player, p_params)
   -- Stop if no path was found.
   if p_params.noPath then
     p_player.print("Path Agent: No path found.")
-    return {type = "stop"}
+    return { type = "stop" }
   end
 
   -- Stop if blocked.
   if p_params.blocked then
     p_player.print("Path Agent: Path blocked.")
-    return {type = "stop"}
+    return { type = "stop" }
   end
 
   local pathID = m_agents.get_data(p_player.index, "pathID")
@@ -86,20 +86,20 @@ function m_agents.programs.path_agent(p_player, p_params)
 
       m_agents.set_data(p_player.index, "pathID", pathID)
     else
-      return {type = "idle"}
+      return { type = "idle" }
     end
   end
 
   -- Wait until the path is ready.
   if not p_params.pathReady then
-    return {type = "idle"}
+    return { type = "idle" }
   end
 
   local target = m_agents.get_first_element_data(p_player.index, "path")
 
   -- Persue the current target position.
   if not m_surface.player_is_at_position(p_player, target.position) then
-    return {type = "walk", params = {targetPos = target.position}}
+    return { type = "walk", params = { targetPos = target.position } }
   else
     -- Target reached, move on to the next target.
     m_agents.remove_first_element_data(p_player.index, "path")
@@ -107,10 +107,10 @@ function m_agents.programs.path_agent(p_player, p_params)
 
     -- Stop if there are no targets left.
     if target then
-      return {type = "walk", params = {targetPos = target.position}}
+      return { type = "walk", params = { targetPos = target.position } }
     else
       p_player.print("Path Agent: Destination reached.")
-      return {type = "stop"}
+      return { type = "stop" }
     end
   end
 end
@@ -119,15 +119,15 @@ function m_agents.programs.walking_agent(p_player, p_params)
   -- Stop if the agent is blocked by an obstacle.
   if p_params.blocked then
     p_player.print("Walking Agent: Path blocked.")
-    return {type = "stop"}
+    return { type = "stop" }
   end
 
   -- Walk if the player is not yet at the target position. Stop otherwise.
   if not m_surface.player_is_at_position(p_player, p_params.targetPos) then
-    return {type = "walk", params = {targetPos = p_params.targetPos}}
+    return { type = "walk", params = { targetPos = p_params.targetPos } }
   else
     p_player.print("Walking Agent: Destination reached.")
-    return {type = "stop"}
+    return { type = "stop" }
   end
 end
 
@@ -139,7 +139,7 @@ function m_agents.programs.wander_agent(p_player, p_params)
     if not p_params.blocked then
       -- Walk towards the target if the character is not at the position already.
       if (p_player.position.x ~= target.x) or (p_player.position.y ~= target.y) then
-        return {type = "walk", params = {targetPos = target}}
+        return { type = "walk", params = { targetPos = target } }
       end
     end
   end
@@ -152,7 +152,7 @@ function m_agents.programs.wander_agent(p_player, p_params)
   end
 
   m_agents.set_data(p_player.index, "targetPos", target)
-  return {type = "walk", params = {targetPos = target}}
+  return { type = "walk", params = { targetPos = target } }
 end
 
 return m_agents

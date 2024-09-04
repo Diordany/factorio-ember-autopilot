@@ -69,7 +69,7 @@ m_commands.specs[g_cmdPrefix .. "path"] = {
 
     local params = { targetPos = m_surface.center_position(target), blocked = false, pathReady = false, noPath = false }
 
-    m_agents.bind(p_data.player_index, m_agents.programs.path_agent, params)
+    m_agents.bind(player.index, m_agents.programs.path_agent, params)
   end
 }
 
@@ -117,7 +117,7 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
 
     local params = { targetPos = m_surface.center_position(target), blocked = false }
 
-    m_agents.bind(p_data.player_index, m_agents.programs.walking_agent, params)
+    m_agents.bind(player.index, m_agents.programs.walking_agent, params)
   end
 }
 
@@ -160,7 +160,7 @@ m_commands.specs[g_cmdPrefix .. "walkrel"] = {
 
     local params = { targetPos = m_surface.center_position(target), blocked = false }
 
-    m_agents.bind(p_data.player_index, m_agents.programs.walking_agent, params)
+    m_agents.bind(player.index, m_agents.programs.walking_agent, params)
   end
 }
 
@@ -176,7 +176,7 @@ m_commands.specs[g_cmdPrefix .. "wander"] = {
       return
     end
 
-    m_agents.bind(p_data.player_index, m_agents.programs.wander_agent, { blocked = false })
+    m_agents.bind(player.index, m_agents.programs.wander_agent, { blocked = false })
   end
 }
 

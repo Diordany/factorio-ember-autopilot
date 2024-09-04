@@ -43,6 +43,8 @@ I couldn't get Factorio to generate a path that avoids collisions. I'm not sure 
 
 [![YouTube](http://i.ytimg.com/vi/xFVXDMP9i3I/hqdefault.jpg)](https://www.youtube.com/watch?v=xFVXDMP9i3I)
 
+***Embedded YouTube players are currently not supported..***
+
 ## Walking Agent
 
 You can make the player walk towards a target position with the command:
@@ -61,6 +63,8 @@ This agent does not use a pathfinding algorithm. It stops whenever its path is b
 
 [![YouTube](http://i.ytimg.com/vi/EnEiXRdT9so/hqdefault.jpg)](https://www.youtube.com/watch?v=EnEiXRdT9so)
 
+***Embedded YouTube players are currently not supported..***
+
 ## Wander Agent
 
 This agent wanders around aimlessly while trying to avoid obstacles. Start the agent with the command:
@@ -70,6 +74,8 @@ This agent wanders around aimlessly while trying to avoid obstacles. Start the a
 ```
 
 [![YouTube](http://i.ytimg.com/vi/J6V_IALY_pk/hqdefault.jpg)](https://www.youtube.com/watch?v=J6V_IALY_pk)
+
+***Embedded YouTube players are currently not supported..***
 
 ## Stopping the Agent
 

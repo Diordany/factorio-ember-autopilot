@@ -31,7 +31,7 @@ Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.4
 
 Ember Autopilot works by binding agent programs to players to perform specific tasks. The agent programs that are currently available are explained here.
 
-## Path Agent
+<details><summary><h2>Path Agent</h2></summary>
 
 This agent uses Factorio's built-in pathing algorithm to navigate to the given position. Start the agent with the command:
 
@@ -43,9 +43,10 @@ I couldn't get Factorio to generate a path that avoids collisions. I'm not sure 
 
 [![YouTube](http://i.ytimg.com/vi/xFVXDMP9i3I/hqdefault.jpg)](https://www.youtube.com/watch?v=xFVXDMP9i3I)
 
-***Embedded YouTube players are currently not supported..***
+<sup><sub><b><i>[Embedded YouTube players are currently not supported..]</i></b></sup></sub>
+</details>
 
-## Walking Agent
+<details><summary><h2>Walking Agent</h2></summary>
 
 You can make the player walk towards a target position with the command:
 
@@ -63,9 +64,10 @@ This agent does not use a pathfinding algorithm. It stops whenever its path is b
 
 [![YouTube](http://i.ytimg.com/vi/EnEiXRdT9so/hqdefault.jpg)](https://www.youtube.com/watch?v=EnEiXRdT9so)
 
-***Embedded YouTube players are currently not supported..***
+<sup><sub><b><i>[Embedded YouTube players are currently not supported..]</i></b></sup></sub>
+</details>
 
-## Wander Agent
+<details><summary><h2>Wander Agent</h2></summary>
 
 This agent wanders around aimlessly while trying to avoid obstacles. Start the agent with the command:
 
@@ -75,12 +77,14 @@ This agent wanders around aimlessly while trying to avoid obstacles. Start the a
 
 [![YouTube](http://i.ytimg.com/vi/J6V_IALY_pk/hqdefault.jpg)](https://www.youtube.com/watch?v=J6V_IALY_pk)
 
-***Embedded YouTube players are currently not supported..***
+<sup><sub><b><i>[Embedded YouTube players are currently not supported..]</i></b></sup></sub>
+</details>
 
-## Stopping the Agent
+<details><summary><h2>Stopping the Agent</h2></summary>
 
 If for whatever reason you want to stop the agent, just run the following command:
 
 ```
 /ember-stop
 ```
+</details>

@@ -41,7 +41,7 @@ This agent uses Factorio's built-in pathing algorithm to navigate to the given p
 
 I couldn't get Factorio to generate a path that avoids collisions. I'm not sure if I missed something, but I'm planning on implementing a pathfinding algorithm myself anyway.
 
-[cmd-path](https://github.com/Diordany/factorio-ember-autopilot/assets/54911023/bf298922-2cdb-4a44-a012-029242a7da81)
+[![YouTube](http://i.ytimg.com/vi/xFVXDMP9i3I/hqdefault.jpg)](https://www.youtube.com/watch?v=xFVXDMP9i3I)
 
 ## Walking Agent
 
@@ -59,7 +59,7 @@ You can also start the agent with a position relative to the player:
 
 This agent does not use a pathfinding algorithm. It stops whenever its path is blocked.
 
-[cmd-walkpos](https://github.com/Diordany/factorio-ember-autopilot/assets/54911023/dbbb233f-3038-4a63-bcfc-60cab858f53f)
+[![YouTube](http://i.ytimg.com/vi/EnEiXRdT9so/hqdefault.jpg)](https://www.youtube.com/watch?v=EnEiXRdT9so)
 
 ## Wander Agent
 
@@ -69,7 +69,7 @@ This agent wanders around aimlessly while trying to avoid obstacles. Start the a
 /ember-wander
 ```
 
-[cmd-wander](https://github.com/Diordany/factorio-ember-autopilot/assets/54911023/077d72ad-4ad5-42df-9d37-89cff2bfd264)
+[![YouTube](http://i.ytimg.com/vi/J6V_IALY_pk/hqdefault.jpg)](https://www.youtube.com/watch?v=J6V_IALY_pk)
 
 ## Stopping the Agent
 

@@ -27,16 +27,6 @@ local m_surface = require("__ember-autopilot__/modules/surface")
 
 local g_cmdPrefix = "ember-"
 
-function split(p_string)
-  local segments = {}
-
-  for segment in string.gmatch(p_string, "%S+") do
-    table.insert(segments, segment)
-  end
-
-  return segments
-end
-
 function m_commands.init()
   for cmdName, cmdSpec in pairs(m_commands.specs) do
     commands.add_command(cmdName, cmdSpec.description, cmdSpec.callback)

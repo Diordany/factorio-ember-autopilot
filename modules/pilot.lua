@@ -59,8 +59,8 @@ end
 function m_pilot.handle_controller(p_data)
   local player = game.players[p_data.player_index]
 
-  if p_data.name == defines.events.on_player_selected_area then
-    if p_data.item == "ember-controller" then
+  if p_data.item == "ember-controller" then
+    if p_data.name == defines.events.on_player_selected_area then
       if not player.character then
         player.print("Need a player character.")
         return
@@ -79,11 +79,11 @@ function m_pilot.handle_controller(p_data)
       elseif player.mod_settings["ember-movement-mode"].value == "wander" then
         m_agents.bind(player.index, m_agents.programs.wander_agent, { blocked = false })
       end
+    elseif p_data.name == defines.events.on_player_reverse_selected_area then
+    elseif p_data.name == defines.events.on_player_alt_selected_area then
+      m_agents.unbind(player.index)
+    elseif p_data.name == defines.events.on_player_alt_reverse_selected_area then
     end
-  elseif p_data.name == defines.events.on_player_reverse_selected_area then
-  elseif p_data.name == defines.events.on_player_alt_selected_area then
-    m_agents.unbind(player.index)
-  elseif p_data.name == defines.events.on_player_alt_reverse_selected_area then
   end
 end
 

@@ -69,8 +69,16 @@ function m_pilot.handle_controller(p_data)
       local mouseX = (p_data.area.left_top.x + p_data.area.right_bottom.x) / 2
       local mouseY = (p_data.area.left_top.y + p_data.area.right_bottom.y) / 2
 
-      local params = { targetPos = m_surface.center_position { x = mouseX, y = mouseY }, blocked = false }
-      m_agents.bind(player.index, m_agents.programs.walking_agent, params)
+      if player.mod_settings["ember-movement-mode"].value == "walk" then
+        local params = { targetPos = m_surface.center_position { x = mouseX, y = mouseY }, blocked = false }
+        m_agents.bind(player.index, m_agents.programs.walking_agent, params)
+      elseif player.mod_settings["ember-movement-mode"].value == "path-built-in" then
+        local params = { targetPos = m_surface.center_position { x = mouseX, y = mouseY }, blocked = false, pathReady = false, noPath = false }
+
+        m_agents.bind(player.index, m_agents.programs.path_agent, params)
+      elseif player.mod_settings["ember-movement-mode"].value == "wander" then
+        m_agents.bind(player.index, m_agents.programs.wander_agent, { blocked = false })
+      end
     end
   elseif p_data.name == defines.events.on_player_reverse_selected_area then
   elseif p_data.name == defines.events.on_player_alt_selected_area then

@@ -61,6 +61,11 @@ function m_pilot.handle_controller(p_data)
 
   if p_data.name == defines.events.on_player_selected_area then
     if p_data.item == "ember-controller" then
+      if not player.character then
+        player.print("Need a player character.")
+        return
+      end
+
       local mouseX = (p_data.area.left_top.x + p_data.area.right_bottom.x) / 2
       local mouseY = (p_data.area.left_top.y + p_data.area.right_bottom.y) / 2
 

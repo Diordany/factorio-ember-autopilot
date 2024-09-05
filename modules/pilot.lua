@@ -23,6 +23,7 @@ local m_pilot = {}
 
 local m_agents = require("__ember-autopilot__/modules/agents")
 local m_movement = require("__ember-autopilot__/modules/movement")
+local m_surface = require("__ember-autopilot__/modules/surface")
 
 function m_pilot.catch_drops(p_data)
   local player = game.players[p_data.player_index]
@@ -54,6 +55,18 @@ function m_pilot.run(p_data)
   end
 end
 
+function m_pilot.handle_controller(p_data)
+  if p_data.item == "ember-controller" then
+    local player = game.players[p_data.player_index]
+
+    local mouseX = (p_data.area.left_top.x + p_data.area.right_bottom.x) / 2
+    local mouseY = (p_data.area.left_top.y + p_data.area.right_bottom.y) / 2
+
+    local params = { targetPos = m_surface.center_position { x = mouseX, y = mouseY }, blocked = false }
+    m_agents.bind(player.index, m_agents.programs.walking_agent, params)
+  end
+end
+
 function m_pilot.update_paths(p_data)
   -- Search the associated agent.
   for _, e_agent in pairs(m_agents.activeAgents) do
@@ -72,6 +85,7 @@ end
 
 function m_pilot.init()
   script.on_event(defines.events.on_player_dropped_item, m_pilot.catch_drops)
+  script.on_event(defines.events.on_player_selected_area, m_pilot.handle_controller)
   script.on_event(defines.events.on_tick, m_pilot.run)
   script.on_event(defines.events.on_script_path_request_finished, m_pilot.update_paths)
 end

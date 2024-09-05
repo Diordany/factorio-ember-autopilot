@@ -19,26 +19,20 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-data:extend({
-  {
-    type = "sprite",
-    name = "ember-launcher",
-    filename = "__ember-autopilot__/thumbnail.png",
-    width = 144,
-    height = 144
-  },
-  {
-    type = "selection-tool",
-    name = "ember-controller",
-    stack_size = 1,
-    icon = "__ember-autopilot__/thumbnail.png",
-    icon_size = 144,
-    selection_mode = "nothing",
-    alt_selection_mode = "nothing",
-    selection_color = {},
-    alt_selection_color = {},
-    selection_cursor_box_type = "entity",
-    alt_selection_cursor_box_type = "entity",
-    mouse_cursor = "arrow"
-  }
-})
+local m_gui = {}
+
+local f_gui = require("__core__/lualib/mod-gui")
+
+function m_gui.add_launcher(p_player)
+  local buttonFlow = f_gui.get_button_flow(p_player)
+
+  buttonFlow.add { type = "sprite-button", name = "ember_launcher", sprite = "ember-launcher", mouse_button_filter = { "left" } }
+end
+
+function m_gui.has_launcher(p_player)
+  local buttonFlow = f_gui.get_button_flow(p_player)
+
+  return buttonFlow["ember_launcher"] ~= nil
+end
+
+return m_gui

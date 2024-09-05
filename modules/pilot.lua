@@ -22,6 +22,7 @@
 local m_pilot = {}
 
 local m_agents = require("__ember-autopilot__/modules/agents")
+local m_gui = require("__ember-autopilot__/modules/gui")
 local m_movement = require("__ember-autopilot__/modules/movement")
 local m_surface = require("__ember-autopilot__/modules/surface")
 
@@ -73,6 +74,43 @@ function m_pilot.handle_controller(p_data)
   end
 end
 
+function m_pilot.new_player(p_data)
+  local player = game.players[p_data.player_index]
+
+  m_gui.add_launcher(player)
+end
+
+function m_pilot.on_gui_click(p_data)
+  if p_data.element.name == "ember_launcher" then
+    local player = game.players[p_data.player_index]
+
+    if player.can_insert { name = "ember-controller" } then
+      player.insert { name = "ember-controller" }
+      player.print("Ember controller given.")
+    else
+      player.print("No inventory space left for the Ember controller.")
+    end
+  end
+end
+
+function m_pilot.player_connected(p_data)
+  local player = game.players[p_data.player_index]
+
+  if not m_gui.has_launcher(player) then
+    m_gui.add_launcher(player)
+  end
+end
+
+function m_pilot.pre_run(p_data)
+  for _, e_player in pairs(game.players) do
+    if not m_gui.has_launcher(e_player) then
+      m_gui.add_launcher(e_player)
+    end
+  end
+
+  script.on_event(defines.events.on_tick, m_pilot.run)
+end
+
 function m_pilot.update_paths(p_data)
   -- Search the associated agent.
   for _, e_agent in pairs(m_agents.activeAgents) do
@@ -91,11 +129,14 @@ end
 
 function m_pilot.init()
   script.on_event(defines.events.on_player_dropped_item, m_pilot.catch_drops)
+  script.on_event(defines.events.on_player_joined_game, m_pilot.player_connected)
   script.on_event(defines.events.on_player_alt_reverse_selected_area, m_pilot.handle_controller)
   script.on_event(defines.events.on_player_alt_selected_area, m_pilot.handle_controller)
   script.on_event(defines.events.on_player_reverse_selected_area, m_pilot.handle_controller)
   script.on_event(defines.events.on_player_selected_area, m_pilot.handle_controller)
-  script.on_event(defines.events.on_tick, m_pilot.run)
+  script.on_event(defines.events.on_player_created, m_pilot.new_player)
+  script.on_event(defines.events.on_gui_click, m_pilot.on_gui_click)
+  script.on_event(defines.events.on_tick, m_pilot.pre_run)
   script.on_event(defines.events.on_script_path_request_finished, m_pilot.update_paths)
 end
 

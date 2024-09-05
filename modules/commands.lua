@@ -33,6 +33,21 @@ function m_commands.init()
   end
 end
 
+m_commands.specs[g_cmdPrefix .. "controller"] = {
+  description = "Gives the player an Ember controller.",
+  usage = "",
+  callback = function(p_data)
+    local player = game.players[p_data.player_index]
+
+    if player.can_insert { name = "ember-controller" } then
+      player.insert { name = "ember-controller" }
+      player.print("Ember controller given.")
+    else
+      player.print("No inventory space left.")
+    end
+  end
+}
+
 m_commands.specs[g_cmdPrefix .. "path"] = {
   description = "Uses the built-in pathing algorithm to find and follow a path to the given position.",
   usage = "<x> <y>",

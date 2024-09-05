@@ -24,6 +24,17 @@ local m_pilot = {}
 local m_agents = require("__ember-autopilot__/modules/agents")
 local m_movement = require("__ember-autopilot__/modules/movement")
 
+function m_pilot.catch_drops(p_data)
+  local player = game.players[p_data.player_index]
+
+  if p_data.entity.stack then
+    if p_data.entity.stack.name == "ember-controller" then
+      p_data.entity.destroy()
+      player.print("The Ember controller vanished.")
+    end
+  end
+end
+
 function m_pilot.execute(p_player, p_agent, p_action)
   if p_action.type == "walk" then
     p_agent.params.blocked = not m_movement.move_to_target_pos(p_player, p_action.params)
@@ -60,6 +71,7 @@ function m_pilot.update_paths(p_data)
 end
 
 function m_pilot.init()
+  script.on_event(defines.events.on_player_dropped_item, m_pilot.catch_drops)
   script.on_event(defines.events.on_tick, m_pilot.run)
   script.on_event(defines.events.on_script_path_request_finished, m_pilot.update_paths)
 end

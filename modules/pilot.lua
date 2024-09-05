@@ -56,14 +56,20 @@ function m_pilot.run(p_data)
 end
 
 function m_pilot.handle_controller(p_data)
-  if p_data.item == "ember-controller" then
-    local player = game.players[p_data.player_index]
+  local player = game.players[p_data.player_index]
 
-    local mouseX = (p_data.area.left_top.x + p_data.area.right_bottom.x) / 2
-    local mouseY = (p_data.area.left_top.y + p_data.area.right_bottom.y) / 2
+  if p_data.name == defines.events.on_player_selected_area then
+    if p_data.item == "ember-controller" then
+      local mouseX = (p_data.area.left_top.x + p_data.area.right_bottom.x) / 2
+      local mouseY = (p_data.area.left_top.y + p_data.area.right_bottom.y) / 2
 
-    local params = { targetPos = m_surface.center_position { x = mouseX, y = mouseY }, blocked = false }
-    m_agents.bind(player.index, m_agents.programs.walking_agent, params)
+      local params = { targetPos = m_surface.center_position { x = mouseX, y = mouseY }, blocked = false }
+      m_agents.bind(player.index, m_agents.programs.walking_agent, params)
+    end
+  elseif p_data.name == defines.events.on_player_reverse_selected_area then
+  elseif p_data.name == defines.events.on_player_alt_selected_area then
+    m_agents.unbind(player.index)
+  elseif p_data.name == defines.events.on_player_alt_reverse_selected_area then
   end
 end
 
@@ -85,6 +91,9 @@ end
 
 function m_pilot.init()
   script.on_event(defines.events.on_player_dropped_item, m_pilot.catch_drops)
+  script.on_event(defines.events.on_player_alt_reverse_selected_area, m_pilot.handle_controller)
+  script.on_event(defines.events.on_player_alt_selected_area, m_pilot.handle_controller)
+  script.on_event(defines.events.on_player_reverse_selected_area, m_pilot.handle_controller)
   script.on_event(defines.events.on_player_selected_area, m_pilot.handle_controller)
   script.on_event(defines.events.on_tick, m_pilot.run)
   script.on_event(defines.events.on_script_path_request_finished, m_pilot.update_paths)

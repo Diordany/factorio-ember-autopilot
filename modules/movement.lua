@@ -23,6 +23,22 @@ local m_movement = {}
 
 local m_surface = require("__ember-autopilot__/modules/surface")
 
+function m_movement.compensate_for_belt(p_belt, p_target)
+  local compensation = m_surface.get_reverse_vector(p_belt.prototype.belt_speed, p_belt.direction)
+
+  return { x = p_target.x + compensation.x, y = p_target.y + compensation.y }
+end
+
+function m_movement.has_belt_immunity(p_player)
+  if p_player.character.grid then
+    if p_player.character.grid.count("belt-immunity-equipment") > 0 then
+      return p_player.character.grid.find("belt-immunity-equipment").energy > 0
+    end
+  end
+
+  return false
+end
+
 function m_movement.move_to_target_pos(p_player, p_params)
   local speed = p_player.character.character_running_speed
 
@@ -86,7 +102,17 @@ function m_movement.move_to_target_pos(p_player, p_params)
     if not m_surface.player_collision_at(p_player, p_params.targetPos) then
       -- The distance to the target is too small, so the character will overshoot it by walking. Teleport instead without
       -- triggering the teleportation events.
-      p_player.teleport(p_params.targetPos, p_player.surface, false)
+
+      local belt = m_surface.get_underlying_belt(p_player)
+
+      local teleTarget = { x = p_params.targetPos.x, y = p_params.targetPos.y }
+
+      if not m_movement.has_belt_immunity(p_player) and belt then
+        teleTarget = m_movement.compensate_for_belt(belt, teleTarget)
+      end
+
+      p_player.teleport(teleTarget, p_player.surface, false)
+
       return true
     else
       return false

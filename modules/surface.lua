@@ -128,6 +128,40 @@ function m_surface.player_collision_trace(p_player, p_position, p_steps)
   end
 end
 
+function m_surface.get_reverse_vector(p_magnitude, p_directionCode)
+  local vector = { x = 0, y = 0 }
+
+  if p_directionCode == defines.direction.north then
+    vector = { x = m_surface.dirOffset.south.x, y = m_surface.dirOffset.south.y }
+  elseif p_directionCode == defines.direction.northeast then
+    vector = { x = m_surface.dirOffset.southwest.x, y = m_surface.dirOffset.southwest.y }
+  elseif p_directionCode == defines.direction.east then
+    vector = { x = m_surface.dirOffset.west.x, y = m_surface.dirOffset.west.y }
+  elseif p_directionCode == defines.direction.southeast then
+    vector = { x = m_surface.dirOffset.northwest.x, y = m_surface.dirOffset.northwest.y }
+  elseif p_directionCode == defines.direction.south then
+    vector = { x = m_surface.dirOffset.north.x, y = m_surface.dirOffset.north.y }
+  elseif p_directionCode == defines.direction.southwest then
+    vector = { x = m_surface.dirOffset.northeast.x, y = m_surface.dirOffset.northeast.y }
+  elseif p_directionCode == defines.direction.west then
+    vector = { x = m_surface.dirOffset.east.x, y = m_surface.dirOffset.east.y }
+  elseif p_directionCode == defines.direction.northwest then
+    vector = { x = m_surface.dirOffset.southeast.x, y = m_surface.dirOffset.southeast.y }
+  end
+
+  return { x = p_magnitude * vector.x, y = p_magnitude * vector.y }
+end
+
+function m_surface.get_underlying_belt(p_player)
+  local belts = p_player.surface.find_entities_filtered { position = p_player.position, type = { "transport-belt", "splitter" } }
+
+  if #belts == 1 then
+    return belts[1]
+  else
+    return nil
+  end
+end
+
 function m_surface.player_is_at_position(p_player, p_position)
   return (p_player.position.x == p_position.x) and (p_player.position.y == p_position.y)
 end

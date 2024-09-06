@@ -22,6 +22,7 @@
 local m_pilot = {}
 
 local m_agents = require("__ember-autopilot__/modules/agents")
+local m_debug = require("__ember-autopilot__/modules/debug")
 local m_gui = require("__ember-autopilot__/modules/gui")
 local m_movement = require("__ember-autopilot__/modules/movement")
 local m_surface = require("__ember-autopilot__/modules/surface")
@@ -32,7 +33,7 @@ function m_pilot.catch_drops(p_data)
   if p_data.entity.stack then
     if p_data.entity.stack.name == "ember-controller" then
       p_data.entity.destroy()
-      player.print("The Ember controller vanished.")
+      m_debug.print(player, "The Ember controller vanished.")
     end
   end
 end
@@ -62,7 +63,7 @@ function m_pilot.handle_controller(p_data)
   if p_data.item == "ember-controller" then
     if p_data.name == defines.events.on_player_selected_area then
       if not player.character then
-        player.print("Need a player character.")
+        m_debug.print(player, "Need a player character.")
         return
       end
 
@@ -99,9 +100,9 @@ function m_pilot.on_gui_click(p_data)
 
     if player.can_insert { name = "ember-controller" } then
       player.insert { name = "ember-controller" }
-      player.print("Ember controller given.")
+      m_debug.print(player, "Ember controller given.")
     else
-      player.print("No inventory space left for the Ember controller.")
+      m_debug.print(player, "No inventory space left for the Ember controller.")
     end
   end
 end

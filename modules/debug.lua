@@ -21,4 +21,14 @@
 -- SOFTWARE.
 local m_debug = {}
 
+function m_debug.print(p_player, p_message)
+  p_player.print(p_message, { skip = defines.print_skip.never })
+end
+
+function m_debug.print_verbose(p_player, p_message)
+  if p_player.mod_settings["ember-verbose"].value then
+    p_player.print(p_message, { skip = defines.print_skip.never })
+  end
+end
+
 return m_debug

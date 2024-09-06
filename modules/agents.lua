@@ -21,6 +21,7 @@
 -- SOFTWARE.
 local m_agents = { activeAgents = {}, programs = {} }
 
+local m_debug = require("__ember-autopilot__/modules/debug")
 local m_surface = require("__ember-autopilot__/modules/surface")
 
 function m_agents.bind(p_iPlayer, p_program, p_params)
@@ -58,13 +59,13 @@ end
 function m_agents.programs.path_agent(p_player, p_params)
   -- Stop if no path was found.
   if p_params.noPath then
-    p_player.print("Path Agent: No path found.")
+    m_debug.print(p_player, "Path Agent: No path found.")
     return { type = "stop" }
   end
 
   -- Stop if blocked.
   if p_params.blocked then
-    p_player.print("Path Agent: Path blocked.")
+    m_debug.print(p_player, "Path Agent: Path blocked.")
     return { type = "stop" }
   end
 
@@ -73,7 +74,7 @@ function m_agents.programs.path_agent(p_player, p_params)
   -- Attempt to request a path if no search is active yet.
   if not pathID then
     if not p_player.force.is_pathfinder_busy() then
-      p_player.print("Path Agent: Requesting path.")
+      m_debug.print_verbose(p_player, "Path Agent: Requesting path.")
 
       pathID = p_player.surface.request_path {
         bounding_box = p_player.character.bounding_box,
@@ -109,7 +110,8 @@ function m_agents.programs.path_agent(p_player, p_params)
     if target then
       return { type = "walk", params = { targetPos = target.position } }
     else
-      p_player.print("Path Agent: Destination reached.")
+      m_debug.print_verbose(p_player, "Path Agent: Destination reached.")
+
       return { type = "stop" }
     end
   end
@@ -118,7 +120,7 @@ end
 function m_agents.programs.walking_agent(p_player, p_params)
   -- Stop if the agent is blocked by an obstacle.
   if p_params.blocked then
-    p_player.print("Walking Agent: Path blocked.")
+    m_debug.print(p_player, "Walking Agent: Path blocked.")
     return { type = "stop" }
   end
 
@@ -126,7 +128,8 @@ function m_agents.programs.walking_agent(p_player, p_params)
   if not m_surface.player_is_at_position(p_player, p_params.targetPos) then
     return { type = "walk", params = { targetPos = p_params.targetPos } }
   else
-    p_player.print("Walking Agent: Destination reached.")
+    m_debug.print_verbose(p_player, "Walking Agent: Destination reached.")
+
     return { type = "stop" }
   end
 end

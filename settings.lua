@@ -21,6 +21,12 @@
 -- SOFTWARE.
 data:extend({
   {
+    type = "bool-setting",
+    name = "ember-verbose",
+    setting_type = "runtime-per-user",
+    default_value = false
+  },
+  {
     type = "string-setting",
     name = "ember-movement-mode",
     setting_type = "runtime-per-user",

@@ -89,7 +89,7 @@ function m_pilot.handle_controller(p_data)
 
         m_agents.bind(player.index, m_agents.programs.path_agent, params)
       elseif player.mod_settings["ember-movement-mode"].value == "wander" then
-        m_agents.bind(player.index, m_agents.programs.wander_agent, { blocked = false })
+        m_agents.bind(player.index, m_agents.programs.wander_agent, { blocked = false, destReached = false })
       end
     elseif p_data.name == defines.events.on_player_reverse_selected_area then
     elseif p_data.name == defines.events.on_player_alt_selected_area then

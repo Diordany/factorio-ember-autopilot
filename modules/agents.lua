@@ -141,7 +141,7 @@ function m_agents.programs.wander_agent(p_player, p_params)
     -- Stop pursuing the target position when blocked.
     if not p_params.blocked then
       -- Walk towards the target if the character is not at the position already.
-      if (p_player.position.x ~= target.x) or (p_player.position.y ~= target.y) then
+      if not p_params.destReached then
         return { type = "walk", params = { targetPos = target } }
       end
     end

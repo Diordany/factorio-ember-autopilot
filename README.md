@@ -4,7 +4,13 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This is my personal framework for AI experiments in Factorio.
+# Overview
+
+This is my personal framework for AI experiments in Factorio. Everything is subject to change.
+
+Ember autopilot works by binding agent programs to players to perform certain tasks. The autopilot is mainly controlled through a selection item named the **Ember Controller** and can alternatively be controlled through console commands.
+
+One critical feature of Ember AutoPilot is it's ability to move autonomously, this is where the main focus of the development lies right now.
 
 # Installation
 
@@ -20,71 +26,56 @@ You can install this mod through the built-in modloader of Factorio under the na
 
 ```
 cd <path to factorio mods>
-git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopilot_0.4.1
+git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopilot_0.5.0
 ```
 
 ## Installation from ZIP
 
-Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.4.1.zip` (or leave the name as is if downloading from the releases page).
+Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.5.0.zip` (or leave the name as is if downloading from the releases page).
 
-# Features
+# Ember Controller
 
-Ember Autopilot works by binding agent programs to players to perform specific tasks. The agent programs that are currently available are explained here.
+To get access to the Ember Controller, you'll first need an empty inventory slot, then you can press the launcher button on the top left of your HUD:
 
-<details><summary><h2>Path Agent</h2></summary>
+![Launcher](doc/img/launcher.png)
 
-This agent uses Factorio's built-in pathing algorithm to navigate to the given position. Start the agent with the command:
-
-```
-/ember-path <x> <y>
-```
-
-I couldn't get Factorio to generate a path that avoids collisions. I'm not sure if I missed something, but I'm planning on implementing a pathfinding algorithm myself anyway.
-
-[![YouTube](http://i.ytimg.com/vi/xFVXDMP9i3I/hqdefault.jpg)](https://www.youtube.com/watch?v=xFVXDMP9i3I)
-
-<sup><sub><b><i>[Embedded YouTube players are currently not supported..]</i></b></sup></sub>
-</details>
-
-<details><summary><h2>Walking Agent</h2></summary>
-
-You can make the player walk towards a target position with the command:
+Alternatively, you can run the following command:
 
 ```
-/ember-walkpos <x> <y>
+/ember-controller
 ```
 
-You can also start the agent with a position relative to the player:
+To get rid of the controller, just drop it on the ground (belts don't work).
 
-```
-/ember-walkrel <x> <y>
-```
+# Movement
 
-This agent does not use a pathfinding algorithm. It stops whenever its path is blocked.
+To move your agent, first equip the **Ember Controller**, then click on your target tile:
 
-[![YouTube](http://i.ytimg.com/vi/EnEiXRdT9so/hqdefault.jpg)](https://www.youtube.com/watch?v=EnEiXRdT9so)
+![Ember Controller](doc/img/ember-controller.png)
 
-<sup><sub><b><i>[Embedded YouTube players are currently not supported..]</i></b></sup></sub>
-</details>
+The movement procedure can be set through the mod settings (per player):
 
-<details><summary><h2>Wander Agent</h2></summary>
+![Walk Settings](doc/img/walk-settings.png)
 
-This agent wanders around aimlessly while trying to avoid obstacles. Start the agent with the command:
+| Option              | Description                               |
+|---------------------|-------------------------------------------|
+| Walk Straight       | Makes the agent walk in straight lines.   |
+| Factorio Pathfinder | Uses the pathfinder provided by Factorio. |
+| Wander              | Makes the agent wander aimlessly.         |
 
-```
-/ember-wander
-```
+The most reliable and recommended option at the moment is **Walk Straight**, the other two options are just there for demonstration purposes.
 
-[![YouTube](http://i.ytimg.com/vi/J6V_IALY_pk/hqdefault.jpg)](https://www.youtube.com/watch?v=J6V_IALY_pk)
+## Cancel Movement
 
-<sup><sub><b><i>[Embedded YouTube players are currently not supported..]</i></b></sup></sub>
-</details>
+To cancel the agent's movement press `SHIFT + LMB` with the **Ember Controller** equiped.
 
-<details><summary><h2>Stopping the Agent</h2></summary>
+## Commands
+The following commands can also be used instead:
 
-If for whatever reason you want to stop the agent, just run the following command:
-
-```
-/ember-stop
-```
-</details>
+| Command                  | Description                                                                          |
+|--------------------------|--------------------------------------------------------------------------------------|
+| `/ember-path <x> <y>`    | Uses the built-in pathing algorithm to find and follow a path to the given position. |
+| `/ember-stop`            | Unbinds any agent that is assigned to the player.                                    |
+| `/ember-walkpos <x> <y>` | Walks over to the given position.                                                    |
+| `/ember-walkrel <x> <y>` | Covers the given displacement by walking.                                            |
+| `/ember-wander`          | Wander around aimlessly.                                                             |

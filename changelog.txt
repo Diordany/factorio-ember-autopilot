@@ -1,18 +1,38 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.5.0
+Date: 2024-09-07
+  Features:
+    - Added a new selection item named the Ember Controller to control your agent.
+    - The active movement agent can now be set in the mod settings.
+  Bugfixes:
+    - Fixed crash on attempts to start the movement agent when no player character is present.
+    - Fixed agents getting stuck on belts.
+  Gui:
+    - Added a launcher button.
+  Debug:
+    - Now has a verbose mode.
+    - Added a path found message in verbose mode.
+  Scripting:
+    - Removed an unused split function.
+    - Removed print position function.
+    - Added new debug print functions.
+  Info:
+    - Removed the demo videos.
+---------------------------------------------------------------------------------------------------
 Version: 0.4.1
-Date: 18. 03. 2024
+Date: 2024-03-18
   Ease of use:
     - You can now also provide the walking agent with a position relative to the player.
 ---------------------------------------------------------------------------------------------------
 Version: 0.4.0
-Date: 18. 03. 2024
+Date: 2024-03-18
   Features:
     - Ember Autopilot can now follow a specific path.
   Scripting:
     - Added a function to the surface module that checks if the player is at a given position.
 ---------------------------------------------------------------------------------------------------
 Version: 0.3.0
-Date: 18. 03. 2024
+Date: 2024-03-18
   Ease of use:
     - The Walking Agent now automatically stops when it's path is blocked.
   Optimizations:
@@ -25,12 +45,12 @@ Date: 18. 03. 2024
     - The pilot now gives feedback to the agents.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.1
-Date: 17. 03. 2024
+Date: 2024-03-17
   Bugfixes:
     - Fixed Wander Agent getting stuck while colliding with tiles.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
-Date: 17. 03. 2024
+Date: 2024-03-17
   Bugfixes:
     - Fixed Wander Agent prematurely selecting a new target position.
   Debug:
@@ -41,17 +61,17 @@ Date: 17. 03. 2024
     - Apparently, the wander agent still gets stuck. It seemed like the problem was solved at first, because the wander agent selected a new target prematurely.
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.1
-Date: 16. 03. 2024
+Date: 2024-03-16
   Bugfixes:
     - Fixed Wander Agent getting stuck in collision.
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.0
-Date: 16. 03. 2024
+Date: 2024-03-16
   Features:
     - Ember Autopilot can now wander around aimlessly while trying to avoid obstacles.
 ---------------------------------------------------------------------------------------------------
 Version: 0.0.1
-Date: 15. 03. 2024
+Date: 2024-03-15
   Major Features:
     - Initial release.
   Features:

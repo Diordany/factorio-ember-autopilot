@@ -41,6 +41,7 @@ end
 function m_pilot.execute(p_player, p_agent, p_action)
   if p_action.type == "walk" then
     p_agent.params.blocked = not m_movement.move_to_target_pos(p_player, p_action.params)
+    p_agent.params.destReached = m_surface.player_is_at_position(p_player, p_action.params.targetPos)
   elseif p_action.type == "stop" then
     m_agents.unbind(p_player.index)
   end
@@ -71,10 +72,20 @@ function m_pilot.handle_controller(p_data)
       local mouseY = (p_data.area.left_top.y + p_data.area.right_bottom.y) / 2
 
       if player.mod_settings["ember-movement-mode"].value == "walk" then
-        local params = { targetPos = m_surface.center_position { x = mouseX, y = mouseY }, blocked = false }
+        local params = {
+          targetPos = m_surface.center_position { x = mouseX, y = mouseY },
+          blocked = false,
+          destReached = false
+        }
         m_agents.bind(player.index, m_agents.programs.walking_agent, params)
       elseif player.mod_settings["ember-movement-mode"].value == "path-built-in" then
-        local params = { targetPos = m_surface.center_position { x = mouseX, y = mouseY }, blocked = false, pathReady = false, noPath = false }
+        local params = {
+          targetPos = m_surface.center_position { x = mouseX, y = mouseY },
+          blocked = false,
+          pathReady = false,
+          noPath = false,
+          destReached = false
+        }
 
         m_agents.bind(player.index, m_agents.programs.path_agent, params)
       elseif player.mod_settings["ember-movement-mode"].value == "wander" then

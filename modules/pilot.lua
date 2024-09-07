@@ -138,13 +138,14 @@ end
 
 function m_pilot.update_paths(p_data)
   -- Search the associated agent.
-  for _, e_agent in pairs(m_agents.activeAgents) do
+  for i_player, e_agent in pairs(m_agents.activeAgents) do
     -- If the search finished.
     if (p_data.id == e_agent.data.pathID) and (not p_data.try_again_later) then
       -- Set the path info.
       if p_data.path then
         e_agent.params.pathReady = true
         e_agent.data.path = p_data.path
+        m_debug.print_verbose(game.players[i_player], "Path found.")
       else
         e_agent.params.noPath = true
       end

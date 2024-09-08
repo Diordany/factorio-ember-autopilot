@@ -86,8 +86,6 @@ function m_agents.programs.path_agent(p_player, p_params)
       }
 
       m_agents.set_data(p_player.index, "pathID", pathID)
-    else
-      return { type = "idle" }
     end
   end
 

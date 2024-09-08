@@ -59,13 +59,13 @@ end
 function m_agents.programs.path_agent(p_player, p_params)
   -- Stop if no path was found.
   if p_params.noPath then
-    m_debug.print(p_player, "Path Agent: No path found.")
+    m_debug.print_error(p_player, "Path Agent: No path found.")
     return { type = "stop" }
   end
 
   -- Stop if blocked.
   if p_params.blocked then
-    m_debug.print(p_player, "Path Agent: Path blocked.")
+    m_debug.print_error(p_player, "Path Agent: Path blocked.")
     return { type = "stop" }
   end
 
@@ -120,7 +120,7 @@ end
 function m_agents.programs.walking_agent(p_player, p_params)
   -- Stop if the agent is blocked by an obstacle.
   if p_params.blocked then
-    m_debug.print(p_player, "Walking Agent: Path blocked.")
+    m_debug.print_error(p_player, "Walking Agent: Path blocked.")
     return { type = "stop" }
   end
 

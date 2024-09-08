@@ -44,7 +44,7 @@ m_commands.specs[g_cmdPrefix .. "controller"] = {
       player.insert { name = "ember-controller" }
       m_debug.print(player, "Ember controller given.")
     else
-      m_debug.print(player, "No inventory space left.")
+      m_debug.print_error(player, "No inventory space left.")
     end
   end
 }
@@ -57,13 +57,13 @@ m_commands.specs[g_cmdPrefix .. "path"] = {
 
     -- Cancel if the player has no character.
     if not player.character then
-      m_debug.print(player, "The Path Agent needs a character entity.")
+      m_debug.print_error(player, "The Path Agent needs a character entity.")
       return
     end
 
     -- Cancel if no arguments were given.
     if not p_data.parameter then
-      m_debug.print(player, "Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
+      m_debug.print_error(player, "Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
       return
     end
 
@@ -71,7 +71,7 @@ m_commands.specs[g_cmdPrefix .. "path"] = {
 
     -- Cancel if not enough arguments were given.
     if #args < 2 then
-      m_debug.print(player, "Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
+      m_debug.print_error(player, "Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
       return
     end
 
@@ -79,7 +79,7 @@ m_commands.specs[g_cmdPrefix .. "path"] = {
 
     -- Cancel if the target position is not valid.
     if (not target.x) or (not target.y) then
-      m_debug.print(player, "Invalid position coordinate: (" .. args[1] .. ", " .. args[2] .. ")")
+      m_debug.print_error(player, "Invalid position coordinate: (" .. args[1] .. ", " .. args[2] .. ")")
       return
     end
 
@@ -111,13 +111,13 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
 
     -- Cancel if the player has no character.
     if not player.character then
-      m_debug.print(player, "The Walking Agent needs a character entity.")
+      m_debug.print_error(player, "The Walking Agent needs a character entity.")
       return
     end
 
     -- Cancel if no arguments were given.
     if not p_data.parameter then
-      m_debug.print(player, "Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
+      m_debug.print_error(player, "Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
       return
     end
 
@@ -125,7 +125,7 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
 
     -- Cancel if not enough arguments were given.
     if #args < 2 then
-      m_debug.print(player, "Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
+      m_debug.print_error(player, "Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
       return
     end
 
@@ -133,7 +133,7 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
 
     -- Cancel if the target position is not valid.
     if (not target.x) or (not target.y) then
-      m_debug.print(player, "Invalid position coordinate: (" .. args[1] .. ", " .. args[2] .. ")")
+      m_debug.print_error(player, "Invalid position coordinate: (" .. args[1] .. ", " .. args[2] .. ")")
       return
     end
 
@@ -151,13 +151,13 @@ m_commands.specs[g_cmdPrefix .. "walkrel"] = {
 
     -- Cancel if the player has no character.
     if not player.character then
-      m_debug.print(player, "The Walking Agent needs a character entity.")
+      m_debug.print_error(player, "The Walking Agent needs a character entity.")
       return
     end
 
     -- Cancel if no arguments were given.
     if not p_data.parameter then
-      m_debug.print(player, "Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
+      m_debug.print_error(player, "Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
       return
     end
 
@@ -165,7 +165,7 @@ m_commands.specs[g_cmdPrefix .. "walkrel"] = {
 
     -- Cancel if not enough arguments were given.
     if #args < 2 then
-      m_debug.print(player, "Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
+      m_debug.print_error(player, "Usage: /" .. p_data.name .. " " .. m_commands.specs[p_data.name].usage)
       return
     end
 
@@ -173,7 +173,7 @@ m_commands.specs[g_cmdPrefix .. "walkrel"] = {
 
     -- Cancel if the target position is not valid.
     if (not target.x) or (not target.y) then
-      m_debug.print(player, "Invalid position coordinate: (" .. args[1] .. ", " .. args[2] .. ")")
+      m_debug.print_error(player, "Invalid position coordinate: (" .. args[1] .. ", " .. args[2] .. ")")
       return
     end
 
@@ -194,7 +194,7 @@ m_commands.specs[g_cmdPrefix .. "wander"] = {
 
     -- Cancel if the player has no character.
     if not player.character then
-      m_debug.print(player, "The Wander Agent needs a character entity.")
+      m_debug.print_error(player, "The Wander Agent needs a character entity.")
       return
     end
 

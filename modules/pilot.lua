@@ -64,7 +64,7 @@ function m_pilot.handle_controller(p_data)
   if p_data.item == "ember-controller" then
     if p_data.name == defines.events.on_player_selected_area then
       if not player.character then
-        m_debug.print(player, "Need a player character.")
+        m_debug.print_error(player, "Need a player character.")
         return
       end
 
@@ -113,7 +113,7 @@ function m_pilot.on_gui_click(p_data)
       player.insert { name = "ember-controller" }
       m_debug.print(player, "Ember controller given.")
     else
-      m_debug.print(player, "No inventory space left for the Ember controller.")
+      m_debug.print_error(player, "No inventory space left for the Ember controller.")
     end
   end
 end

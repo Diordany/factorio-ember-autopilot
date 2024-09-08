@@ -74,7 +74,7 @@ function m_agents.programs.path_agent(p_player, p_params)
   -- Attempt to request a path if no search is active yet.
   if not pathID then
     if not p_player.force.is_pathfinder_busy() then
-      m_debug.print_verbose(p_player, "Path Agent: Requesting path.")
+      m_debug.print_verbose(p_player, "Path Agent: Requesting Factorio path.")
 
       pathID = p_player.surface.request_path {
         bounding_box = p_player.character.bounding_box,

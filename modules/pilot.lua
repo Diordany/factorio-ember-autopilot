@@ -145,7 +145,7 @@ function m_pilot.update_paths(p_data)
       if p_data.path then
         e_agent.params.pathReady = true
         e_agent.data.path = p_data.path
-        m_debug.print_verbose(game.players[i_player], "Path found.")
+        m_debug.print_verbose(game.players[i_player], "Pilot: Path found.")
       else
         e_agent.params.noPath = true
       end

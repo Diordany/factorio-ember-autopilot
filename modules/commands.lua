@@ -99,7 +99,15 @@ m_commands.specs[g_cmdPrefix .. "stop"] = {
   description = "Unbinds any agent that is assigned to the player.",
   usage = "",
   callback = function(p_data)
-    m_agents.unbind(p_data.player_index)
+    local player = game.players[p_data.player_index]
+
+    if m_agents.is_active(player.index) then
+      m_agents.unbind(player.index)
+
+      m_debug.print_verbose(player, "Agent stopped.")
+    else
+      m_debug.print_error(player, "No active agent.")
+    end
   end
 }
 

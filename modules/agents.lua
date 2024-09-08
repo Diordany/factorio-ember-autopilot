@@ -48,6 +48,10 @@ function m_agents.get_first_element_data(p_iPlayer, p_label)
   return m_agents.activeAgents[p_iPlayer].data[p_label][1]
 end
 
+function m_agents.is_active(p_iPlayer)
+  return m_agents.activeAgents[p_iPlayer] ~= nil
+end
+
 function m_agents.remove_first_element_data(p_iPlayer, p_label)
   table.remove(m_agents.activeAgents[p_iPlayer].data[p_label], 1)
 end

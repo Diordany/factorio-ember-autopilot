@@ -93,7 +93,13 @@ function m_pilot.handle_controller(p_data)
       end
     elseif p_data.name == defines.events.on_player_reverse_selected_area then
     elseif p_data.name == defines.events.on_player_alt_selected_area then
-      m_agents.unbind(player.index)
+      if m_agents.is_active(player.index) then
+        m_agents.unbind(player.index)
+
+        m_debug.print_verbose(player, "Agent stopped.")
+      else
+        m_debug.print_error(player, "No active agent.")
+      end
     elseif p_data.name == defines.events.on_player_alt_reverse_selected_area then
     end
   end

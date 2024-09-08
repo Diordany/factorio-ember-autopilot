@@ -31,7 +31,7 @@ git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopil
 
 ## Installation from ZIP
 
-Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.5.0.zip` (or leave the name as is if downloading from the releases page).
+Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.5.0.zip` (or leave the name as is if downloading from the [releases page](https://github.com/Diordany/factorio-ember-autopilot/releases) or the [mod portal](https://mods.factorio.com/mod/ember-autopilot/downloads)).
 
 # Ember Controller
 

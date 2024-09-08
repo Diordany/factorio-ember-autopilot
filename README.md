@@ -3,6 +3,7 @@
 ![thumbnail](thumbnail.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Static Badge](https://img.shields.io/badge/ember--autopilot-__0.5.0-046)](https://github.com/Diordany/factorio-ember-autopilot/releases/tag/v0.5.0)
 
 # Overview
 

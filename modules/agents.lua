@@ -152,7 +152,7 @@ function m_agents.programs.wander_agent(p_player, p_params)
   target = m_surface.get_random_adjacent_position(p_player.position)
 
   -- Don't move if the target position is inaccessible.
-  if m_surface.player_collision_trace(p_player, target, 2) then
+  if m_surface.player_collision_trace(p_player, nil, target, 2) then
     target = p_player.position
   end
 

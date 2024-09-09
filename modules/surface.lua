@@ -131,9 +131,9 @@ function m_surface.player_collision_next(p_player, p_direction)
   return m_surface.player_collision_at(p_player, nextPos)
 end
 
-function m_surface.player_collision_trace(p_player, p_position, p_steps)
+function m_surface.player_collision_trace(p_player, p_start, p_target, p_steps)
   -- Test if there's a collision at the destination first
-  if m_surface.player_collision_at(p_player, p_position) then
+  if m_surface.player_collision_at(p_player, p_target) then
     return true
   end
 
@@ -145,11 +145,14 @@ function m_surface.player_collision_trace(p_player, p_position, p_steps)
     return false
   end
 
+  local start = p_start or p_player.position
+
   local offSet = {
-    x = (p_position.x - p_player.position.x) / p_steps,
-    y = (p_position.y - p_player.position.y) / p_steps
+    x = (p_target.x - start.x) / p_steps,
+    y = (p_target.y - start.y) / p_steps
   }
-  local pos = p_player.position
+
+  local pos = { x = start.x, y = start.y }
 
   -- Test the collision at every step. Return if colliding.
   for i = 1, p_steps, 1 do

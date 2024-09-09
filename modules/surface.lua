@@ -101,27 +101,9 @@ function m_surface.get_random_adjacent_position(p_position)
 end
 
 function m_surface.get_reverse_vector(p_magnitude, p_directionCode)
-  local vector = { x = 0, y = 0 }
+  local unit = m_surface.dirOffset[string.lower(game.direction_to_string(p_directionCode))]
 
-  if p_directionCode == defines.direction.north then
-    vector = { x = m_surface.dirOffset.south.x, y = m_surface.dirOffset.south.y }
-  elseif p_directionCode == defines.direction.northeast then
-    vector = { x = m_surface.dirOffset.southwest.x, y = m_surface.dirOffset.southwest.y }
-  elseif p_directionCode == defines.direction.east then
-    vector = { x = m_surface.dirOffset.west.x, y = m_surface.dirOffset.west.y }
-  elseif p_directionCode == defines.direction.southeast then
-    vector = { x = m_surface.dirOffset.northwest.x, y = m_surface.dirOffset.northwest.y }
-  elseif p_directionCode == defines.direction.south then
-    vector = { x = m_surface.dirOffset.north.x, y = m_surface.dirOffset.north.y }
-  elseif p_directionCode == defines.direction.southwest then
-    vector = { x = m_surface.dirOffset.northeast.x, y = m_surface.dirOffset.northeast.y }
-  elseif p_directionCode == defines.direction.west then
-    vector = { x = m_surface.dirOffset.east.x, y = m_surface.dirOffset.east.y }
-  elseif p_directionCode == defines.direction.northwest then
-    vector = { x = m_surface.dirOffset.southeast.x, y = m_surface.dirOffset.southeast.y }
-  end
-
-  return { x = p_magnitude * vector.x, y = p_magnitude * vector.y }
+  return { x = -p_magnitude * unit.x, y = -p_magnitude * unit.y }
 end
 
 function m_surface.get_underlying_belt(p_player)

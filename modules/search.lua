@@ -30,6 +30,9 @@ function m_search.search_path_bfs(p_player, p_agent, p_workCount)
     if #p_agent.data.problem.frontier == 0 then
       p_agent.data.problem.done = true
       p_agent.params.noPath = true
+
+      m_debug.print_error(p_player, "Search: failed.")
+
       return
     end
 
@@ -48,6 +51,11 @@ function m_search.search_path_bfs(p_player, p_agent, p_workCount)
             p_agent.data.path = m_problems.generate_path(child)
             p_agent.data.problem.done = true
             p_agent.params.pathReady = true
+
+            m_debug.print_verbose(p_player, "Search: done!")
+            m_debug.print_verbose(p_player, "Search: " .. #p_agent.data.problem.explored .. " nodes explored.")
+            m_debug.print_verbose(p_player, "Search: " .. #p_agent.data.problem.frontier .. " nodes open.")
+
             return
           end
 

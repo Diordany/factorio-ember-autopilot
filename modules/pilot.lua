@@ -25,6 +25,8 @@ local m_agents = require("__ember-autopilot__/modules/agents")
 local m_debug = require("__ember-autopilot__/modules/debug")
 local m_gui = require("__ember-autopilot__/modules/gui")
 local m_movement = require("__ember-autopilot__/modules/movement")
+local m_problems = require("__ember-autopilot__/modules/problems")
+local m_search = require("__ember-autopilot__/modules/search")
 local m_surface = require("__ember-autopilot__/modules/surface")
 
 function m_pilot.catch_drops(p_data)
@@ -44,6 +46,9 @@ function m_pilot.execute(p_player, p_agent, p_action)
     p_agent.params.destReached = m_surface.player_is_at_position(p_player, p_action.params.targetPos)
   elseif p_action.type == "search-path" then
     if p_action.params.customPath then
+      m_agents.set_data(p_player.index, "problem", m_problems.generate_path_problem(p_player, p_action.params))
+
+      m_debug.print_verbose(p_player, "Pilot: Path requested.")
     else
       local pathID = m_surface.request_factorio_path(p_player, p_action.params.targetPos)
 
@@ -64,6 +69,7 @@ function m_pilot.run(p_data)
 
   for iPlayer, agent in pairs(m_agents.activeAgents) do
     player = game.players[iPlayer]
+    m_pilot.process_data(player, agent)
     action = agent.execute(player, agent.params)
     m_pilot.execute(player, agent, action)
   end
@@ -168,6 +174,20 @@ function m_pilot.pre_run(p_data)
   end
 
   script.on_event(defines.events.on_tick, m_pilot.run)
+end
+
+function m_pilot.process_data(p_player, p_agent)
+  local problem = p_agent.data.problem
+
+  if problem then
+    if not problem.done then
+      if problem.type == "path" then
+        if problem.strategy == "path-bfs" then
+          m_search.search_path_bfs(p_player, p_agent, 1)
+        end
+      end
+    end
+  end
 end
 
 function m_pilot.update_factorio_paths(p_data)

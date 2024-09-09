@@ -102,7 +102,11 @@ function m_agents.programs.path_agent(p_player, p_params)
 
   -- Persue the current target position.
   if not p_params.destReached then
-    return { type = "walk", params = { targetPos = target.position } }
+    if p_params.customPath then
+      return { type = "walk", params = { targetPos = target } }
+    else
+      return { type = "walk", params = { targetPos = target.position } }
+    end
   else
     -- Target reached, move on to the next target.
     m_agents.remove_first_element_data(p_player.index, "path")
@@ -110,7 +114,11 @@ function m_agents.programs.path_agent(p_player, p_params)
 
     -- Stop if there are no targets left.
     if target then
-      return { type = "walk", params = { targetPos = target.position } }
+      if p_params.customPath then
+        return { type = "walk", params = { targetPos = target } }
+      else
+        return { type = "walk", params = { targetPos = target.position } }
+      end
     else
       m_debug.print_verbose(p_player, "Path Agent: Destination reached.")
 

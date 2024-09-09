@@ -36,6 +36,63 @@ function m_surface.center_position(p_position)
   return { x = math.floor(p_position.x) + 0.5, y = math.floor(p_position.y) + 0.5 }
 end
 
+function m_surface.get_accessible_neighbours(p_player, p_position)
+  local neighbours = m_surface.get_neighbours(p_position)
+  local accessible = {}
+  local offset
+
+  for _, e_neighbour in pairs(neighbours) do
+    if m_surface.player_collision_trace(p_player, p_position, e_neighbour, 2) then
+      table.insert(accessible, e_neighbour)
+    end
+  end
+
+  return neighbours
+end
+
+function m_surface.get_closest_accessible_neighbour(p_player, p_steps)
+  local neighbours = m_surface.get_neighbours(p_player.position)
+  local neighbour
+  local distance
+
+  for i_neighbour, e_neighbour in pairs(neighbours) do
+    if not distance then
+      if not m_surface.player_collision_trace(p_player, nil, e_neighbour, p_steps) then
+        neighbour = e_neighbour
+        distance = m_surface.get_distance(p_player.position, e_neighbour)
+      end
+    else
+      local newDistance = m_surface.get_distance(p_player.position, e_neighbour)
+
+      if newDistance < distance then
+        neighbour = e_neighbour
+        distance = newDistance
+      end
+    end
+  end
+
+  return neighbour
+end
+
+function m_surface.get_distance(p_posA, p_posB)
+  return math.sqrt((p_posB.x - p_posA.x) ^ 2 + (p_posB.y - p_posA.y) ^ 2)
+end
+
+function m_surface.get_neighbours(p_position)
+  local centerPos = m_surface.center_position(p_position)
+
+  local neighbours = {}
+  local offset
+
+  for i_direction, _ in pairs(defines.direction) do
+    offset = m_surface.dirOffset[i_direction]
+
+    table.insert(neighbours, { x = centerPos.x + offset.x, y = centerPos.y + offset.y })
+  end
+
+  return neighbours
+end
+
 function m_surface.get_random_adjacent_position(p_position)
   return {
     x = math.floor(p_position.x + math.random(-1, 1)) + 0.5,
@@ -167,6 +224,16 @@ end
 
 function m_surface.player_is_at_position(p_player, p_position)
   return (p_player.position.x == p_position.x) and (p_player.position.y == p_position.y)
+end
+
+function m_surface.position_in_list(p_list, p_position)
+  for _, e_position in pairs(p_list) do
+    if (p_position.x == e_position.x) and (p_position.y == e_position.y) then
+      return true
+    end
+  end
+
+  return false
 end
 
 function m_surface.request_factorio_path(p_player, p_target)

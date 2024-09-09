@@ -42,6 +42,17 @@ function m_pilot.execute(p_player, p_agent, p_action)
   if p_action.type == "walk" then
     p_agent.params.blocked = not m_movement.move_to_target_pos(p_player, p_action.params)
     p_agent.params.destReached = m_surface.player_is_at_position(p_player, p_action.params.targetPos)
+  elseif p_action.type == "search-path" then
+    if p_action.params.customPath then
+    else
+      local pathID = m_surface.request_factorio_path(p_player, p_action.params.targetPos)
+
+      if pathID then
+        m_debug.print_verbose(p_player, "Pilot: Factorio path requested.")
+
+        m_agents.set_data(p_player.index, "pathID", pathID)
+      end
+    end
   elseif p_action.type == "stop" then
     m_agents.unbind(p_player.index)
   end
@@ -71,16 +82,13 @@ function m_pilot.handle_controller(p_data)
       local mouseX = (p_data.area.left_top.x + p_data.area.right_bottom.x) / 2
       local mouseY = (p_data.area.left_top.y + p_data.area.right_bottom.y) / 2
 
-      if player.mod_settings["ember-movement-mode"].value == "walk" then
+      local mode = player.mod_settings["ember-movement-mode"].value
+
+      if mode == "path-bfs" then
         local params = {
           targetPos = m_surface.center_position { x = mouseX, y = mouseY },
-          blocked = false,
-          destReached = false
-        }
-        m_agents.bind(player.index, m_agents.programs.walking_agent, params)
-      elseif player.mod_settings["ember-movement-mode"].value == "path-built-in" then
-        local params = {
-          targetPos = m_surface.center_position { x = mouseX, y = mouseY },
+          strategy = mode,
+          customPath = true,
           blocked = false,
           pathReady = false,
           noPath = false,
@@ -88,7 +96,27 @@ function m_pilot.handle_controller(p_data)
         }
 
         m_agents.bind(player.index, m_agents.programs.path_agent, params)
-      elseif player.mod_settings["ember-movement-mode"].value == "wander" then
+      end
+      if mode == "walk" then
+        local params = {
+          targetPos = m_surface.center_position { x = mouseX, y = mouseY },
+          blocked = false,
+          destReached = false
+        }
+        m_agents.bind(player.index, m_agents.programs.walking_agent, params)
+      elseif mode == "path-built-in" then
+        local params = {
+          targetPos = m_surface.center_position { x = mouseX, y = mouseY },
+          strategy = mode,
+          customPath = false,
+          blocked = false,
+          pathReady = false,
+          noPath = false,
+          destReached = false
+        }
+
+        m_agents.bind(player.index, m_agents.programs.path_agent, params)
+      elseif mode == "wander" then
         m_agents.bind(player.index, m_agents.programs.wander_agent, { blocked = false, destReached = false })
       end
     elseif p_data.name == defines.events.on_player_reverse_selected_area then
@@ -142,7 +170,7 @@ function m_pilot.pre_run(p_data)
   script.on_event(defines.events.on_tick, m_pilot.run)
 end
 
-function m_pilot.update_paths(p_data)
+function m_pilot.update_factorio_paths(p_data)
   -- Search the associated agent.
   for i_player, e_agent in pairs(m_agents.activeAgents) do
     -- If the search finished.
@@ -169,7 +197,7 @@ function m_pilot.init()
   script.on_event(defines.events.on_player_created, m_pilot.new_player)
   script.on_event(defines.events.on_gui_click, m_pilot.on_gui_click)
   script.on_event(defines.events.on_tick, m_pilot.pre_run)
-  script.on_event(defines.events.on_script_path_request_finished, m_pilot.update_paths)
+  script.on_event(defines.events.on_script_path_request_finished, m_pilot.update_factorio_paths)
 end
 
 return m_pilot

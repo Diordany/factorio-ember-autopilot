@@ -166,4 +166,19 @@ function m_surface.player_is_at_position(p_player, p_position)
   return (p_player.position.x == p_position.x) and (p_player.position.y == p_position.y)
 end
 
+function m_surface.request_factorio_path(p_player, p_target)
+  if not p_player.force.is_pathfinder_busy() then
+    return p_player.surface.request_path {
+      bounding_box = p_player.character.bounding_box,
+      collision_mask = p_player.character.prototype.collision_mask,
+      start = p_player.position,
+      goal = p_target,
+      force = p_player.force,
+      radius = 0
+    }
+  else
+    return nil
+  end
+end
+
 return m_surface

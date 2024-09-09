@@ -73,23 +73,23 @@ function m_agents.programs.path_agent(p_player, p_params)
     return { type = "stop" }
   end
 
-  local pathID = m_agents.get_data(p_player.index, "pathID")
-
   -- Attempt to request a path if no search is active yet.
-  if not pathID then
-    if not p_player.force.is_pathfinder_busy() then
-      m_debug.print_verbose(p_player, "Path Agent: Requesting Factorio path.")
-
-      pathID = p_player.surface.request_path {
-        bounding_box = p_player.character.bounding_box,
-        collision_mask = p_player.character.prototype.collision_mask,
-        start = p_player.position,
-        goal = p_params.targetPos,
-        force = p_player.force,
-        radius = 0
+  if p_params.customPath then
+    if not m_agents.get_data(p_player.index, "problem") then
+      return {
+        type = "search-path",
+        params = {
+          customPath = p_params.customPath,
+          strategy = p_params.strategy,
+          targetPos = p_params.targetPos
+        }
       }
+    end
+  else
+    local pathID = m_agents.get_data(p_player.index, "pathID")
 
-      m_agents.set_data(p_player.index, "pathID", pathID)
+    if not pathID then
+      return { type = "search-path", params = { customPath = p_params.customPath, targetPos = p_params.targetPos } }
     end
   end
 

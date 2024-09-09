@@ -36,8 +36,8 @@ function m_surface.center_position(p_position)
   return { x = math.floor(p_position.x) + 0.5, y = math.floor(p_position.y) + 0.5 }
 end
 
-function m_surface.get_accessible_neighbours(p_player, p_position)
-  local neighbours = m_surface.get_neighbours(p_position)
+function m_surface.get_accessible_neighbours(p_player, p_position, p_directions)
+  local neighbours = m_surface.get_neighbours(p_position, p_directions)
   local accessible = {}
   local offset
 
@@ -78,14 +78,14 @@ function m_surface.get_distance(p_posA, p_posB)
   return math.sqrt((p_posB.x - p_posA.x) ^ 2 + (p_posB.y - p_posA.y) ^ 2)
 end
 
-function m_surface.get_neighbours(p_position)
+function m_surface.get_neighbours(p_position, p_directions)
   local centerPos = m_surface.center_position(p_position)
 
   local neighbours = {}
   local offset
 
-  for i_direction, _ in pairs(defines.direction) do
-    offset = m_surface.dirOffset[i_direction]
+  for _, k_direction in pairs(p_directions) do
+    offset = m_surface.dirOffset[k_direction]
 
     table.insert(neighbours, { x = centerPos.x + offset.x, y = centerPos.y + offset.y })
   end

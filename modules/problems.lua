@@ -46,6 +46,7 @@ function m_problems.generate_path_problem(p_player, p_params)
     type = "path",
     strategy = p_params.strategy,
     goalState = p_params.targetPos,
+    actions = { "west", "north", "east", "south" },
     frontier = {},
     explored = {},
     done = false

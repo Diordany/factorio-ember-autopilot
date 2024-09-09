@@ -42,7 +42,7 @@ function m_search.search_path_bfs(p_player, p_agent, p_workCount)
 
     local child
 
-    for _, e_neighbour in pairs(m_surface.get_accessible_neighbours(p_player, node.position)) do
+    for _, e_neighbour in pairs(m_surface.get_accessible_neighbours(p_player, node.position, p_agent.data.problem.actions)) do
       child = { parent = node, position = { x = e_neighbour.x, y = e_neighbour.y } }
 
       if not m_surface.position_in_list(p_agent.data.problem.explored, e_neighbour) then

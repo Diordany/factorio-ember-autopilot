@@ -32,6 +32,7 @@ function m_search.search_path_bfs(p_player, p_agent, p_workCount)
       p_agent.params.noPath = true
 
       m_debug.print_error(p_player, "Search: failed.")
+      m_debug.print_verbose(p_player, "Search: " .. #p_agent.data.problem.explored .. " nodes explored.")
 
       return
     end

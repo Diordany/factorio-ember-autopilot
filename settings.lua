@@ -49,6 +49,6 @@ data:extend({
     order = "b",
     setting_type = "runtime-per-user",
     default_value = "directions_4",
-    allowed_values = { "directions_4", "directions_4_diagonal", "directions_8" }
+    allowed_values = { "directions_4", "directions_8", "directions_4_diagonal" }
   }
 })

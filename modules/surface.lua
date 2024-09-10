@@ -43,12 +43,12 @@ function m_surface.get_accessible_neighbours(p_player, p_position, p_directions)
   local offset
 
   for _, e_neighbour in pairs(neighbours) do
-    if m_surface.player_collision_trace(p_player, p_position, e_neighbour, 2) then
+    if not m_surface.player_collision_trace(p_player, p_position, e_neighbour, 2) then
       table.insert(accessible, e_neighbour)
     end
   end
 
-  return neighbours
+  return accessible
 end
 
 function m_surface.get_closest_accessible_neighbour(p_player, p_steps, p_actions)

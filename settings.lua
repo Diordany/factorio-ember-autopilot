@@ -23,14 +23,24 @@ data:extend({
   {
     type = "bool-setting",
     name = "ember-verbose",
+    order = "c",
     setting_type = "runtime-per-user",
     default_value = false
   },
   {
     type = "string-setting",
     name = "ember-movement-mode",
+    order = "a",
     setting_type = "runtime-per-user",
     default_value = "walk",
     allowed_values = { "walk", "path-bfs", "path-built-in", "wander" }
+  },
+  {
+    type = "string-setting",
+    name = "ember-movement-direction-set",
+    order = "b",
+    setting_type = "runtime-per-user",
+    default_value = "directions_4",
+    allowed_values = { "directions_4", "directions_4_diagonal", "directions_8" }
   }
 })

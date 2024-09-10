@@ -52,7 +52,7 @@ function m_problems.generate_path_problem(p_player, p_params)
     type = "path",
     strategy = p_params.strategy,
     goalState = p_params.targetPos,
-    actions = { "west", "north", "east", "south" },
+    actions = m_surface[p_player.mod_settings["ember-movement-direction-set"].value],
     frontier = {},
     explored = {},
     done = false
@@ -63,7 +63,7 @@ function m_problems.generate_path_problem(p_player, p_params)
   if not m_surface.player_collision_trace(p_player, nil, initPos, 2) then
     table.insert(problem.frontier, { position = initPos })
   else
-    initPos = m_surface.get_closest_accessible_neighbour(p_player, 2, m_surface.directions)
+    initPos = m_surface.get_closest_accessible_neighbour(p_player, 2, m_surface.directions_8)
 
     if initPos then
       table.insert(problem.frontier, { position = initPos })

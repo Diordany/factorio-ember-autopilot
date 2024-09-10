@@ -20,7 +20,9 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 local m_surface = {
-  directions = { "north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest" },
+  directions_4 = { "north", "east", "south", "west" },
+  directions_4_diagonal = { "northeast", "southeast", "southwest", "northwest" },
+  directions_8 = { "north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest" },
   dirOffset = {
     north = { x = 0, y = -1 },
     northeast = { x = 1, y = -1 },

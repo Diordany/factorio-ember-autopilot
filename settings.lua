@@ -23,9 +23,17 @@ data:extend({
   {
     type = "bool-setting",
     name = "ember-verbose",
-    order = "c",
+    order = "d",
     setting_type = "runtime-per-user",
     default_value = false
+  },
+  {
+    type = "int-setting",
+    name = "ember-nodes-per-tick",
+    order = "d",
+    setting_type = "runtime-per-user",
+    default_value = 16,
+    minimum_value = 1
   },
   {
     type = "string-setting",

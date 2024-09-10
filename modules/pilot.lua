@@ -183,7 +183,7 @@ function m_pilot.process_data(p_player, p_agent)
     if not problem.done then
       if problem.type == "path" then
         if problem.strategy == "path-bfs" then
-          m_search.search_path_bfs(p_player, p_agent, 16)
+          m_search.search_path_bfs(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
         end
       end
     end

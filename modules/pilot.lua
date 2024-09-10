@@ -70,6 +70,10 @@ function m_pilot.render(p_player, p_agent)
       m_render.render_explored_positions(p_player, p_agent.data.problem.explored)
     end
 
+    if p_player.mod_settings["ember-render-open-branches"].value then
+      m_render.render_open_path_branches(p_player, p_agent.data.problem.frontier)
+    end
+
     if p_player.mod_settings["ember-render-open-nodes"].value then
       m_render.render_open_path_nodes(p_player, p_agent.data.problem.frontier)
     end

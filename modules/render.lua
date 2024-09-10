@@ -51,6 +51,27 @@ function m_render.render_goal_position(p_player, p_position)
   }
 end
 
+function m_render.render_open_path_branches(p_player, p_nodes)
+  local node
+  for _, e_node in pairs(p_nodes) do
+    node = e_node
+
+    while node.parent do
+      rendering.draw_line {
+        color = { r = 100, g = 0, b = 0 },
+        width = 2,
+        from = node.position,
+        to = node.parent.position,
+        surface = p_player.surface,
+        players = { p_player },
+        draw_on_ground = true
+      }
+
+      node = node.parent
+    end
+  end
+end
+
 function m_render.render_open_path_nodes(p_player, p_nodes)
   for _, e_node in pairs(p_nodes) do
     rendering.draw_circle {

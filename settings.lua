@@ -30,7 +30,14 @@ data:extend({
   {
     type = "bool-setting",
     name = "ember-render-goal",
-    order = "h",
+    order = "i",
+    setting_type = "runtime-per-user",
+    default_value = false
+  },
+  {
+    type = "bool-setting",
+    name = "ember-render-open-branches",
+    order = "g",
     setting_type = "runtime-per-user",
     default_value = false
   },
@@ -44,7 +51,7 @@ data:extend({
   {
     type = "bool-setting",
     name = "ember-render-path",
-    order = "g",
+    order = "h",
     setting_type = "runtime-per-user",
     default_value = false
   },

@@ -26,6 +26,7 @@ local m_debug = require("__ember-autopilot__/modules/debug")
 local m_gui = require("__ember-autopilot__/modules/gui")
 local m_movement = require("__ember-autopilot__/modules/movement")
 local m_problems = require("__ember-autopilot__/modules/problems")
+local m_render = require("__ember-autopilot__/modules/render")
 local m_search = require("__ember-autopilot__/modules/search")
 local m_surface = require("__ember-autopilot__/modules/surface")
 
@@ -63,15 +64,38 @@ function m_pilot.execute(p_player, p_agent, p_action)
   end
 end
 
+function m_pilot.render(p_player, p_agent)
+  if p_agent.data.problem then
+    if p_player.mod_settings["ember-render-explored-nodes"].value then
+      m_render.render_explored_positions(p_player, p_agent.data.problem.explored)
+    end
+
+    if p_player.mod_settings["ember-render-open-nodes"].value then
+      m_render.render_open_path_nodes(p_player, p_agent.data.problem.frontier)
+    end
+
+    if p_player.mod_settings["ember-render-goal"].value then
+      m_render.render_goal_position(p_player, p_agent.data.problem.goalState)
+    end
+
+    if p_agent.params.pathReady and p_player.mod_settings["ember-render-path"].value then
+      m_render.render_path(p_player, p_agent.data.path)
+    end
+  end
+end
+
 function m_pilot.run(p_data)
   local player
   local action
+
+  m_render.clear()
 
   for iPlayer, agent in pairs(m_agents.activeAgents) do
     player = game.players[iPlayer]
     m_pilot.process_data(player, agent)
     action = agent.execute(player, agent.params)
     m_pilot.execute(player, agent, action)
+    m_pilot.render(player, agent)
   end
 end
 

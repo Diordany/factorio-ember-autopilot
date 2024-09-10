@@ -22,6 +22,34 @@
 data:extend({
   {
     type = "bool-setting",
+    name = "ember-render-explored-nodes",
+    order = "e",
+    setting_type = "runtime-per-user",
+    default_value = false
+  },
+  {
+    type = "bool-setting",
+    name = "ember-render-goal",
+    order = "h",
+    setting_type = "runtime-per-user",
+    default_value = false
+  },
+  {
+    type = "bool-setting",
+    name = "ember-render-open-nodes",
+    order = "f",
+    setting_type = "runtime-per-user",
+    default_value = false
+  },
+  {
+    type = "bool-setting",
+    name = "ember-render-path",
+    order = "g",
+    setting_type = "runtime-per-user",
+    default_value = false
+  },
+  {
+    type = "bool-setting",
     name = "ember-verbose",
     order = "d",
     setting_type = "runtime-per-user",

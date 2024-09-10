@@ -20,6 +20,7 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 local m_surface = {
+  directions = { "north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest" },
   dirOffset = {
     north = { x = 0, y = -1 },
     northeast = { x = 1, y = -1 },
@@ -50,8 +51,8 @@ function m_surface.get_accessible_neighbours(p_player, p_position, p_directions)
   return neighbours
 end
 
-function m_surface.get_closest_accessible_neighbour(p_player, p_steps)
-  local neighbours = m_surface.get_neighbours(p_player.position)
+function m_surface.get_closest_accessible_neighbour(p_player, p_steps, p_actions)
+  local neighbours = m_surface.get_neighbours(p_player.position, p_actions)
   local neighbour
   local distance
 

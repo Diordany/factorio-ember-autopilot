@@ -118,7 +118,7 @@ function m_pilot.handle_controller(p_data)
 
       local mode = player.mod_settings["ember-movement-mode"].value
 
-      if mode == "path-bfs" then
+      if mode == "path-bfs" or mode == "path-dfs" then
         local params = {
           targetPos = m_surface.center_position { x = mouseX, y = mouseY },
           strategy = mode,
@@ -210,9 +210,7 @@ function m_pilot.process_data(p_player, p_agent)
   if problem then
     if not problem.done then
       if problem.type == "path" then
-        if problem.strategy == "path-bfs" then
-          m_search.search_path_bfs(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
-        end
+        m_search.search_path(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
       end
     end
   end

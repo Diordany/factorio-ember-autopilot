@@ -25,7 +25,7 @@ m_debug = require("__ember-autopilot__/modules/debug")
 m_problems = require("__ember-autopilot__/modules/problems")
 m_surface = require("__ember-autopilot__/modules/surface")
 
-function m_search.search_path_bfs(p_player, p_agent, p_workCount)
+function m_search.search_path(p_player, p_agent, p_workCount)
   for i = 1, p_workCount, 1 do
     if #p_agent.data.problem.frontier == 0 then
       p_agent.data.problem.done = true
@@ -37,7 +37,13 @@ function m_search.search_path_bfs(p_player, p_agent, p_workCount)
       return
     end
 
-    local node = table.remove(p_agent.data.problem.frontier, 1)
+    local node
+
+    if p_agent.data.problem.strategy == "path-bfs" then
+      node = table.remove(p_agent.data.problem.frontier, 1)
+    elseif p_agent.data.problem.strategy == "path-dfs" then
+      node = table.remove(p_agent.data.problem.frontier)
+    end
 
     table.insert(p_agent.data.problem.explored, { x = node.position.x, y = node.position.y })
 

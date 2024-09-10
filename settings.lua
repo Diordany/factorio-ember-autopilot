@@ -76,7 +76,7 @@ data:extend({
     order = "a",
     setting_type = "runtime-per-user",
     default_value = "walk",
-    allowed_values = { "walk", "path-bfs", "path-built-in", "wander" }
+    allowed_values = { "walk", "path-bfs", "path-dfs", "path-built-in", "wander" }
   },
   {
     type = "string-setting",

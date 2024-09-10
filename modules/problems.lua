@@ -61,7 +61,13 @@ function m_problems.generate_path_problem(p_player, p_params)
   local initPos = m_surface.center_position(p_player.position)
 
   if not m_surface.player_collision_trace(p_player, nil, initPos, 2) then
-    table.insert(problem.frontier, { position = initPos })
+    if not (initPos.x == problem.goalState.x) or not (initPos.y == problem.goalState.y) then
+      table.insert(problem.frontier, { position = initPos })
+    else
+      m_agents.activeAgents[p_player.index].data.path = { initPos }
+      m_agents.activeAgents[p_player.index].params.pathReady = true
+      problem.done = true
+    end
   else
     initPos = m_surface.get_closest_accessible_neighbour(p_player, 2, m_surface.directions_8)
 

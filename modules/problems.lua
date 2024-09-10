@@ -21,6 +21,7 @@
 -- SOFTWARE.
 local m_problems = {}
 
+local m_agents = require("__ember-autopilot__/modules/agents")
 local m_surface = require("__ember-autopilot__/modules/surface")
 
 function m_problems.generate_path(p_goalNode)
@@ -42,6 +43,11 @@ function m_problems.generate_path(p_goalNode)
 end
 
 function m_problems.generate_path_problem(p_player, p_params)
+  if m_surface.player_collision_at(p_player, p_params.targetPos) then
+    m_agents.activeAgents[p_player.index].params.noPath = true
+    return nil
+  end
+
   local problem = {
     type = "path",
     strategy = p_params.strategy,

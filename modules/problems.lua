@@ -76,6 +76,8 @@ function m_problems.generate_path_problem(p_player, p_params)
     end
   end
 
+  problem.initState = initPos
+
   return problem
 end
 

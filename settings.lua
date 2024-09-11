@@ -30,6 +30,13 @@ data:extend({
   {
     type = "bool-setting",
     name = "ember-render-goal",
+    order = "j",
+    setting_type = "runtime-per-user",
+    default_value = false
+  },
+  {
+    type = "bool-setting",
+    name = "ember-render-initial",
     order = "i",
     setting_type = "runtime-per-user",
     default_value = false

@@ -78,6 +78,10 @@ function m_pilot.render(p_player, p_agent)
       m_render.render_open_path_nodes(p_player, p_agent.data.problem.frontier)
     end
 
+    if p_player.mod_settings["ember-render-initial"].value then
+      m_render.render_initial_position(p_player, p_agent.data.problem.initState)
+    end
+
     if p_player.mod_settings["ember-render-goal"].value then
       m_render.render_goal_position(p_player, p_agent.data.problem.goalState)
     end

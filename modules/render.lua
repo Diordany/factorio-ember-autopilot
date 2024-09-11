@@ -51,6 +51,18 @@ function m_render.render_goal_position(p_player, p_position)
   }
 end
 
+function m_render.render_initial_position(p_player, p_position)
+  rendering.draw_circle {
+    color = { r = 0, g = 0, b = 255 },
+    radius = 0.5,
+    width = 2,
+    target = p_position,
+    surface = p_player.surface,
+    players = { p_player },
+    draw_on_ground = true
+  }
+end
+
 function m_render.render_open_path_branches(p_player, p_nodes)
   local node
   for _, e_node in pairs(p_nodes) do

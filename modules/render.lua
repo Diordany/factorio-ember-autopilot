@@ -25,17 +25,21 @@ function m_render.clear()
   rendering.clear("ember-autopilot")
 end
 
-function m_render.render_explored_positions(p_player, p_positions)
-  for _, e_position in pairs(p_positions) do
-    rendering.draw_circle {
-      color = { r = 255, g = 255, b = 0 },
-      radius = 0.1,
-      width = 2,
-      target = e_position,
-      surface = p_player.surface,
-      players = { p_player },
-      draw_on_ground = true
-    }
+function m_render.render_explored_positions(p_player, p_table)
+  for v_x, e_yList in pairs(p_table) do
+    if e_yList then
+      for _, v_y in pairs(e_yList) do
+        rendering.draw_circle {
+          color = { r = 255, g = 255, b = 0 },
+          radius = 0.1,
+          width = 2,
+          target = { x = v_x, y = v_y },
+          surface = p_player.surface,
+          players = { p_player },
+          draw_on_ground = true
+        }
+      end
+    end
   end
 end
 

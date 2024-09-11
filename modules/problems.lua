@@ -91,4 +91,18 @@ function m_problems.path_node_in_list(p_list, p_node)
   return false
 end
 
+function m_problems.path_state_in_table(p_table, p_state)
+  local yList = p_table[p_state.x]
+
+  if yList then
+    for _, v_y in pairs(yList) do
+      if v_y == p_state.y then
+        return true
+      end
+    end
+  end
+
+  return false
+end
+
 return m_problems

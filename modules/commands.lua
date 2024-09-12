@@ -55,6 +55,8 @@ m_commands.specs[g_cmdPrefix .. "path"] = {
   callback = function(p_data)
     local player = game.players[p_data.player_index]
 
+    m_debug.print_warning(player, "DEPRECATED: May be removed, replaced or may break in the future.")
+
     -- Cancel if the player has no character.
     if not player.character then
       m_debug.print_error(player, "The Path Agent needs a character entity.")
@@ -124,6 +126,8 @@ m_commands.specs[g_cmdPrefix .. "walkpos"] = {
   callback = function(p_data)
     local player = game.players[p_data.player_index]
 
+    m_debug.print_warning(player, "DEPRECATED: May be removed, replaced or may break in the future.")
+
     -- Cancel if the player has no character.
     if not player.character then
       m_debug.print_error(player, "The Walking Agent needs a character entity.")
@@ -163,6 +167,8 @@ m_commands.specs[g_cmdPrefix .. "walkrel"] = {
   usage = "<x> <y>",
   callback = function(p_data)
     local player = game.players[p_data.player_index]
+
+    m_debug.print_warning(player, "DEPRECATED: May be removed, replaced or may break in the future.")
 
     -- Cancel if the player has no character.
     if not player.character then
@@ -206,6 +212,8 @@ m_commands.specs[g_cmdPrefix .. "wander"] = {
   usage = "",
   callback = function(p_data)
     local player = game.players[p_data.player_index]
+
+    m_debug.print_warning(player, "DEPRECATED: May be removed, replaced or may break in the future.")
 
     -- Cancel if the player has no character.
     if not player.character then

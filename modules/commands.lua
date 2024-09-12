@@ -111,6 +111,13 @@ m_commands.specs[g_cmdPrefix .. "stop"] = {
   end
 }
 
+m_commands.specs[g_cmdPrefix .. "proto"] = {
+  description = "Used for prototyping during development. Nothing else to see here.",
+  usage = "",
+  callback = function(p_data)
+  end
+}
+
 m_commands.specs[g_cmdPrefix .. "walkpos"] = {
   description = "Walks over to the given position.",
   usage = "<x> <y>",

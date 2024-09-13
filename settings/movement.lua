@@ -25,8 +25,8 @@ data:extend({
     name = "ember-movement-mode",
     order = "aa",
     setting_type = "runtime-per-user",
-    default_value = "walk",
-    allowed_values = { "walk", "path-bfs", "path-dfs", "path-built-in", "wander" }
+    default_value = "path-bfs",
+    allowed_values = { "path-bfs", "walk", "path-built-in", "wander", "path-dfs" }
   },
   {
     type = "string-setting",

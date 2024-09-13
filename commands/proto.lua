@@ -20,15 +20,10 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 local m_commands = require("__ember-autopilot__/modules/commands")
-local m_pilot = require("__ember-autopilot__/modules/pilot")
 
-require("__ember-autopilot__/commands/controller")
-require("__ember-autopilot__/commands/path")
-require("__ember-autopilot__/commands/proto")
-require("__ember-autopilot__/commands/stop")
-require("__ember-autopilot__/commands/walkpos")
-require("__ember-autopilot__/commands/walkrel")
-require("__ember-autopilot__/commands/wander")
-
-m_pilot.init()
-m_commands.init()
+m_commands.specs[m_commands.prefix .. "proto"] = {
+  description = "Used for prototyping during development. Nothing else to see here.",
+  usage = "",
+  callback = function(p_data)
+  end
+}

@@ -19,16 +19,22 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
+local m_agents = require("__ember-autopilot__/modules/agents")
 local m_commands = require("__ember-autopilot__/modules/commands")
-local m_pilot = require("__ember-autopilot__/modules/pilot")
+local m_debug = require("__ember-autopilot__/modules/debug")
 
-require("__ember-autopilot__/commands/controller")
-require("__ember-autopilot__/commands/path")
-require("__ember-autopilot__/commands/proto")
-require("__ember-autopilot__/commands/stop")
-require("__ember-autopilot__/commands/walkpos")
-require("__ember-autopilot__/commands/walkrel")
-require("__ember-autopilot__/commands/wander")
+m_commands.specs[m_commands.prefix .. "stop"] = {
+  description = "Unbinds any agent that is assigned to the player.",
+  usage = "",
+  callback = function(p_data)
+    local player = game.players[p_data.player_index]
 
-m_pilot.init()
-m_commands.init()
+    if m_agents.is_active(player.index) then
+      m_agents.unbind(player.index)
+
+      m_debug.print_verbose(player, "Agent stopped.")
+    else
+      m_debug.print_error(player, "No active agent.")
+    end
+  end
+}

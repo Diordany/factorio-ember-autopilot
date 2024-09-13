@@ -19,12 +19,12 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-local m_commands = { prefix = "ember-", specs = {} }
+local m_commands = {}
 
-function m_commands.init()
-  for cmdName, cmdSpec in pairs(m_commands.specs) do
-    commands.add_command(cmdName, cmdSpec.description, cmdSpec.callback)
-  end
+local g_cmdPrefix = "ember-"
+
+function m_commands.register(p_command)
+  commands.add_command(g_cmdPrefix .. p_command.name, p_command.description, p_command.callback)
 end
 
 return m_commands

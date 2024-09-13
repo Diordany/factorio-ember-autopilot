@@ -19,11 +19,13 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-local m_commands = require("__ember-autopilot__/modules/commands")
-
-m_commands.specs[m_commands.prefix .. "proto"] = {
+local cmd_proto = {
+  name = "proto",
   description = "Used for prototyping during development. Nothing else to see here.",
   usage = "",
-  callback = function(p_data)
-  end
 }
+
+cmd_proto.callback = function(p_data)
+end
+
+return cmd_proto

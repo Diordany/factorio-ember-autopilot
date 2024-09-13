@@ -19,24 +19,27 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-local m_agents = require("__ember-autopilot__/modules/agents")
-local m_commands = require("__ember-autopilot__/modules/commands")
-local m_debug = require("__ember-autopilot__/modules/debug")
-
-m_commands.specs[m_commands.prefix .. "wander"] = {
+local cmd_wander = {
+  name = "wander",
   description = "Wander around aimlessly.",
   usage = "",
-  callback = function(p_data)
-    local player = game.players[p_data.player_index]
-
-    m_debug.print_warning(player, "DEPRECATED: May be removed, replaced or may break in the future.")
-
-    -- Cancel if the player has no character.
-    if not player.character then
-      m_debug.print_error(player, "The Wander Agent needs a character entity.")
-      return
-    end
-
-    m_agents.bind(player.index, m_agents.programs.wander_agent, { blocked = false, destReached = false })
-  end
 }
+
+local m_agents = require("__ember-autopilot__/modules/agents")
+local m_debug = require("__ember-autopilot__/modules/debug")
+
+cmd_wander.callback = function(p_data)
+  local player = game.players[p_data.player_index]
+
+  m_debug.print_warning(player, "DEPRECATED: May be removed, replaced or may break in the future.")
+
+  -- Cancel if the player has no character.
+  if not player.character then
+    m_debug.print_error(player, "The Wander Agent needs a character entity.")
+    return
+  end
+
+  m_agents.bind(player.index, m_agents.programs.wander_agent, { blocked = false, destReached = false })
+end
+
+return cmd_wander

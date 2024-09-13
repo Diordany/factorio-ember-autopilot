@@ -19,19 +19,23 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-local m_commands = require("__ember-autopilot__/modules/commands")
-
-m_commands.specs[m_commands.prefix .. "controller"] = {
+local cmd_controller = {
+  name = "controller",
   description = "Gives the player an Ember controller.",
   usage = "",
-  callback = function(p_data)
-    local player = game.players[p_data.player_index]
-
-    if player.can_insert { name = "ember-controller" } then
-      player.insert { name = "ember-controller" }
-      m_debug.print(player, "Ember controller given.")
-    else
-      m_debug.print_error(player, "No inventory space left.")
-    end
-  end
 }
+
+local m_debug = require("__ember-autopilot__/modules/debug")
+
+cmd_controller.callback = function(p_data)
+  local player = game.players[p_data.player_index]
+
+  if player.can_insert { name = "ember-controller" } then
+    player.insert { name = "ember-controller" }
+    m_debug.print(player, "Ember controller given.")
+  else
+    m_debug.print_error(player, "No inventory space left.")
+  end
+end
+
+return cmd_controller

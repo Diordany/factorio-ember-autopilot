@@ -35,4 +35,8 @@ function m_debug.print_verbose(p_player, p_message)
   end
 end
 
+function m_debug.print_warning(p_player, p_message)
+  p_player.print(p_message, { skip = defines.print_skip.never, color = { r = 255, g = 200, b = 0 } })
+end
+
 return m_debug

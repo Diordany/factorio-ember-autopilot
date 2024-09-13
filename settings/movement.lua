@@ -19,7 +19,21 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-require("__ember-autopilot__/settings/movement")
-require("__ember-autopilot__/settings/search-performance")
-require("__ember-autopilot__/settings/debug-print")
-require("__ember-autopilot__/settings/debug-render")
+data:extend({
+  {
+    type = "string-setting",
+    name = "ember-movement-mode",
+    order = "aa",
+    setting_type = "runtime-per-user",
+    default_value = "walk",
+    allowed_values = { "walk", "path-bfs", "path-dfs", "path-built-in", "wander" }
+  },
+  {
+    type = "string-setting",
+    name = "ember-movement-direction-set",
+    order = "ab",
+    setting_type = "runtime-per-user",
+    default_value = "directions_4",
+    allowed_values = { "directions_4", "directions_8", "directions_4_diagonal" }
+  }
+})

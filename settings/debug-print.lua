@@ -19,7 +19,12 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-require("__ember-autopilot__/settings/movement")
-require("__ember-autopilot__/settings/search-performance")
-require("__ember-autopilot__/settings/debug-print")
-require("__ember-autopilot__/settings/debug-render")
+data:extend({
+  {
+    type = "bool-setting",
+    name = "ember-verbose",
+    order = "ca",
+    setting_type = "runtime-per-user",
+    default_value = false
+  }
+})

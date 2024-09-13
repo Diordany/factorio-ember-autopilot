@@ -19,5 +19,19 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-require("__ember-autopilot__/prototypes/sprites")
-require("__ember-autopilot__/prototypes/items")
+data:extend({
+  {
+    type = "selection-tool",
+    name = "ember-controller",
+    stack_size = 1,
+    icon = "__ember-autopilot__/thumbnail.png",
+    icon_size = 144,
+    selection_mode = "nothing",
+    alt_selection_mode = "nothing",
+    selection_color = {},
+    alt_selection_color = {},
+    selection_cursor_box_type = "entity",
+    alt_selection_cursor_box_type = "entity",
+    mouse_cursor = "arrow"
+  }
+})

@@ -66,7 +66,6 @@ end
 
 function m_pilot.render(p_player, p_agent)
   if p_agent.data.problem then
-
     if p_player.mod_settings["ember-render-open-branches"].value then
       m_render.render_open_path_branches(p_player, p_agent.data.problem.frontier)
     end
@@ -250,13 +249,13 @@ end
 
 function m_pilot.init()
   script.on_event(defines.events.on_player_dropped_item, m_pilot.catch_drops)
-  script.on_event(defines.events.on_player_joined_game, m_pilot.player_connected)
   script.on_event(defines.events.on_player_alt_reverse_selected_area, m_pilot.handle_controller)
   script.on_event(defines.events.on_player_alt_selected_area, m_pilot.handle_controller)
   script.on_event(defines.events.on_player_reverse_selected_area, m_pilot.handle_controller)
   script.on_event(defines.events.on_player_selected_area, m_pilot.handle_controller)
   script.on_event(defines.events.on_player_created, m_pilot.new_player)
   script.on_event(defines.events.on_gui_click, m_pilot.on_gui_click)
+  script.on_event(defines.events.on_player_joined_game, m_pilot.player_connected)
   script.on_event(defines.events.on_tick, m_pilot.pre_run)
   script.on_event(defines.events.on_script_path_request_finished, m_pilot.update_factorio_paths)
   script.on_event(defines.events.on_runtime_mod_setting_changed, m_pilot.update_settings)

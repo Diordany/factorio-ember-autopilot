@@ -22,6 +22,7 @@
 local m_problems = {}
 
 local m_agents = require("__ember-autopilot__/modules/agents")
+local m_buffer = require("__ember-autopilot__/modules/buffer")
 local m_surface = require("__ember-autopilot__/modules/surface")
 
 function m_problems.generate_path(p_goalNode)
@@ -54,6 +55,7 @@ function m_problems.generate_path_problem(p_player, p_params)
     goalState = p_params.targetPos,
     actions = m_surface[p_player.mod_settings["ember-movement-direction-set"].value],
     frontier = {},
+    frontierLookup = {},
     explored = {},
     done = false
   }
@@ -62,7 +64,14 @@ function m_problems.generate_path_problem(p_player, p_params)
 
   if not m_surface.player_collision_trace(p_player, nil, initPos, 2) then
     if not (initPos.x == problem.goalState.x) or not (initPos.y == problem.goalState.y) then
-      table.insert(problem.frontier, { position = initPos })
+      if problem.strategy == "path-ucs" then
+        local newNode = m_buffer.pairing_heap_insert(problem.frontier, { position = initPos }, 0)
+
+        problem.frontierLookup[initPos.x] = {}
+        problem.frontierLookup[initPos.x][initPos.y] = newNode
+      else
+        table.insert(problem.frontier, { position = initPos })
+      end
     else
       m_agents.activeAgents[p_player.index].data.path = { initPos }
       m_agents.activeAgents[p_player.index].params.pathReady = true
@@ -72,11 +81,22 @@ function m_problems.generate_path_problem(p_player, p_params)
     initPos = m_surface.get_closest_accessible_neighbour(p_player, 2, m_surface.directions_8)
 
     if initPos then
-      table.insert(problem.frontier, { position = initPos })
+      if problem.strategy == "path-ucs" then
+        local newNode = m_buffer.pairing_heap_insert(problem.frontier, { position = initPos }, 0)
+
+        problem.frontierLookup[initPos.x] = {}
+        problem.frontierLookup[initPos.x][initPos.y] = newNode
+      else
+        table.insert(problem.frontier, { position = initPos })
+      end
     end
   end
 
-  problem.initState = initPos
+  if problem.strategy == "path-ucs" then
+    problem.initState = { x = initPos.x, y = initPos.y, cost = 0 }
+  else
+    problem.initState = initPos
+  end
 
   return problem
 end

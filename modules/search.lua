@@ -21,12 +21,86 @@
 -- SOFTWARE.
 local m_search = {}
 
+m_buffer = require("__ember-autopilot__/modules/buffer")
 m_debug = require("__ember-autopilot__/modules/debug")
 m_problems = require("__ember-autopilot__/modules/problems")
 m_surface = require("__ember-autopilot__/modules/surface")
 m_tables = require("__ember-autopilot__/modules/tables")
 
-function m_search.search_path(p_player, p_agent, p_workCount)
+function m_search.search_path_informed(p_player, p_agent, p_workCount)
+  local priorityNode
+  local node
+  local child
+  local prev
+  local cost
+  local newNode
+
+  for i = 1, p_workCount, 1 do
+    if not p_agent.data.problem.frontier.root then
+      p_agent.data.problem.done = true
+      p_agent.params.noPath = true
+
+      m_debug.print_error(p_player, "Search: failed.")
+      m_debug.print_verbose(p_player,
+        "Search: " .. m_tables.get_table_element_count(p_agent.data.problem.explored) .. " nodes explored.")
+
+      return
+    end
+
+    priorityNode = m_buffer.pairing_heap_pop(p_agent.data.problem.frontier)
+    node = priorityNode.value
+    p_agent.data.problem.frontierLookup[node.position.x][node.position.y] = nil
+
+    if (node.position.x == p_agent.data.problem.goalState.x) and (node.position.y == p_agent.data.problem.goalState.y) then
+      p_agent.data.path = m_problems.generate_path(node)
+      p_agent.data.problem.done = true
+      p_agent.params.pathReady = true
+
+      m_debug.print_verbose(p_player, "Search: done!")
+      m_debug.print_verbose(p_player,
+        "Search: " .. m_tables.get_table_element_count(p_agent.data.problem.explored) .. " nodes explored.")
+      m_debug.print_verbose(p_player,
+        "Search: " .. m_tables.get_table_element_count(p_agent.data.problem.frontierLookup) .. " nodes open.")
+
+      return
+    end
+
+    if not p_agent.data.problem.explored[node.position.x] then
+      p_agent.data.problem.explored[node.position.x] = { node.position.y }
+    else
+      table.insert(p_agent.data.problem.explored[node.position.x], node.position.y)
+    end
+
+    for _, e_neighbour in pairs(m_surface.get_accessible_neighbours(p_player, node.position, p_agent.data.problem.actions)) do
+      child = { parent = node, position = { x = e_neighbour.x, y = e_neighbour.y } }
+
+      if not m_problems.path_state_in_table(p_agent.data.problem.explored, child.position) then
+        prev = nil
+        if p_agent.data.problem.frontierLookup[child.position.x] then
+          prev = p_agent.data.problem.frontierLookup[child.position.x][child.position.y]
+        end
+
+        cost = priorityNode.key + m_surface.get_move_cost(p_player, node.position, child.position)
+
+        if not prev then
+          newNode = m_buffer.pairing_heap_insert(p_agent.data.problem.frontier, child, cost)
+
+          if not p_agent.data.problem.frontierLookup[child.position.x] then
+            p_agent.data.problem.frontierLookup[child.position.x] = {}
+          end
+
+          p_agent.data.problem.frontierLookup[child.position.x][child.position.y] = newNode
+        elseif cost < prev.key then
+          prev.element = child
+          prev.key = cost
+          m_buffer.pairing_heap_update(p_agent.data.problem.frontier, prev)
+        end
+      end
+    end
+  end
+end
+
+function m_search.search_path_blind(p_player, p_agent, p_workCount)
   for i = 1, p_workCount, 1 do
     if #p_agent.data.problem.frontier == 0 then
       p_agent.data.problem.done = true

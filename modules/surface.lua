@@ -81,6 +81,10 @@ function m_surface.get_distance(p_posA, p_posB)
   return math.sqrt((p_posB.x - p_posA.x) ^ 2 + (p_posB.y - p_posA.y) ^ 2)
 end
 
+function m_surface.get_move_cost(p_player, p_initial, p_goal)
+  return math.sqrt((p_goal.x - p_initial.x) ^ 2 + (p_goal.y - p_initial.y) ^ 2)
+end
+
 function m_surface.get_neighbours(p_position, p_directions)
   local centerPos = m_surface.center_position(p_position)
 

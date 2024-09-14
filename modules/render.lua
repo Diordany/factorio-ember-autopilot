@@ -88,6 +88,30 @@ function m_render.render_open_path_branches(p_player, p_nodes)
   end
 end
 
+function m_render.render_open_path_branches_table(p_player, p_table)
+  for v_x, e_yList in pairs(p_table) do
+    if e_yList then
+      for v_y, e_priorityNode in pairs(e_yList) do
+        node = e_priorityNode.value
+
+        while node.parent do
+          rendering.draw_line {
+            color = { r = 100, g = 0, b = 0 },
+            width = 2,
+            from = node.position,
+            to = node.parent.position,
+            surface = p_player.surface,
+            players = { p_player },
+            draw_on_ground = true
+          }
+
+          node = node.parent
+        end
+      end
+    end
+  end
+end
+
 function m_render.render_open_path_nodes(p_player, p_nodes)
   for _, e_node in pairs(p_nodes) do
     rendering.draw_circle {
@@ -99,6 +123,24 @@ function m_render.render_open_path_nodes(p_player, p_nodes)
       players = { p_player },
       draw_on_ground = true
     }
+  end
+end
+
+function m_render.render_open_path_nodes_table(p_player, p_table)
+  for v_x, e_yList in pairs(p_table) do
+    if e_yList then
+      for v_y, _ in pairs(e_yList) do
+        rendering.draw_circle {
+          color = { r = 255, g = 0, b = 0 },
+          radius = 0.5,
+          width = 2,
+          target = { x = v_x, y = v_y },
+          surface = p_player.surface,
+          players = { p_player },
+          draw_on_ground = true
+        }
+      end
+    end
   end
 end
 

@@ -67,11 +67,19 @@ end
 function m_pilot.render(p_player, p_agent)
   if p_agent.data.problem then
     if p_player.mod_settings["ember-render-open-branches"].value then
-      m_render.render_open_path_branches(p_player, p_agent.data.problem.frontier)
+      if p_agent.data.problem.strategy == "path-ucs" then
+        m_render.render_open_path_branches_table(p_player, p_agent.data.problem.frontierLookup)
+      else
+        m_render.render_open_path_branches(p_player, p_agent.data.problem.frontier)
+      end
     end
 
     if p_player.mod_settings["ember-render-open-nodes"].value then
-      m_render.render_open_path_nodes(p_player, p_agent.data.problem.frontier)
+      if p_agent.data.problem.strategy == "path-ucs" then
+        m_render.render_open_path_nodes_table(p_player, p_agent.data.problem.frontierLookup)
+      else
+        m_render.render_open_path_nodes(p_player, p_agent.data.problem.frontier)
+      end
     end
 
     if p_player.mod_settings["ember-render-explored-nodes"].value then
@@ -122,7 +130,7 @@ function m_pilot.handle_controller(p_data)
 
       local mode = player.mod_settings["ember-movement-mode"].value
 
-      if mode == "path-bfs" or mode == "path-dfs" then
+      if mode == "path-ucs" then
         local params = {
           targetPos = m_surface.center_position { x = mouseX, y = mouseY },
           strategy = mode,
@@ -134,8 +142,19 @@ function m_pilot.handle_controller(p_data)
         }
 
         m_agents.bind(player.index, m_agents.programs.path_agent, params)
-      end
-      if mode == "walk" then
+      elseif mode == "path-bfs" or mode == "path-dfs" then
+        local params = {
+          targetPos = m_surface.center_position { x = mouseX, y = mouseY },
+          strategy = mode,
+          customPath = true,
+          blocked = false,
+          pathReady = false,
+          noPath = false,
+          destReached = false
+        }
+
+        m_agents.bind(player.index, m_agents.programs.path_agent, params)
+      elseif mode == "walk" then
         local params = {
           targetPos = m_surface.center_position { x = mouseX, y = mouseY },
           blocked = false,
@@ -214,7 +233,11 @@ function m_pilot.process_data(p_player, p_agent)
   if problem then
     if not problem.done then
       if problem.type == "path" then
-        m_search.search_path(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
+        if problem.strategy == "path-bfs" or problem.strategy == "path-dfs" then
+          m_search.search_path_blind(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
+        elseif problem.strategy == "path-ucs" then
+          m_search.search_path_informed(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
+        end
       end
     end
   end

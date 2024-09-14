@@ -25,15 +25,15 @@ data:extend({
     name = "ember-movement-mode",
     order = "aa",
     setting_type = "runtime-per-user",
-    default_value = "path-bfs",
-    allowed_values = { "path-bfs", "walk", "path-built-in", "wander", "path-dfs" }
+    default_value = "path-ucs",
+    allowed_values = { "path-ucs", "path-bfs", "walk", "path-built-in", "wander", "path-dfs" }
   },
   {
     type = "string-setting",
     name = "ember-movement-direction-set",
     order = "ab",
     setting_type = "runtime-per-user",
-    default_value = "directions_4",
-    allowed_values = { "directions_4", "directions_8", "directions_4_diagonal" }
+    default_value = "directions_8",
+    allowed_values = { "directions_8", "directions_4", "directions_4_diagonal" }
   }
 })

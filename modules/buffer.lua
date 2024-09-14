@@ -28,7 +28,11 @@ function m_buffer.pairing_heap_add_child(p_tree, p_child)
 end
 
 function m_buffer.pairing_heap_insert(p_heap, p_element, p_key)
-  p_heap.root = m_buffer.pairing_heap_merge(p_heap.root, { key = p_key, value = p_element })
+  local node = { key = p_key, value = p_element }
+
+  p_heap.root = m_buffer.pairing_heap_merge(p_heap.root, node)
+
+  return node
 end
 
 function m_buffer.pairing_heap_merge(p_treeA, p_treeB)
@@ -107,9 +111,7 @@ function m_buffer.pairing_heap_pop(p_heap)
 end
 
 -- WARNING: Only use this if the new key is lower than the current one.
-function m_buffer.pairing_heap_reduce(p_heap, p_node, p_key)
-  p_node.key = p_key
-
+function m_buffer.pairing_heap_update(p_heap, p_node)
   if p_heap.root ~= p_node then
     if p_node == p_node.parent.child then
       p_node.parent.child = p_node.sibling

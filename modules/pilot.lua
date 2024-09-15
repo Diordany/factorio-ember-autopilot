@@ -239,6 +239,8 @@ function m_pilot.process_data(p_player, p_agent)
           m_search.search_path_informed(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
         end
       end
+
+      problem.passes = problem.passes + 1
     end
   end
 end

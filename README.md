@@ -96,7 +96,7 @@ Alternatively, you can cancel the agent with:
 
 ## Path BFS
 
-When the agent uses the BFS strategy, it tries to find the path with the least amount of actions. This is not necessarily the optimal path, since diagonal movement actions cover more distance and thus take longer. Search strategies that address this issue will be part of the next update.
+When the agent uses the BFS strategy, it tries to find the path with the least amount of actions [[1]](#1). This is not necessarily the optimal path [[1]](#1), since diagonal movement actions cover more distance and thus take longer. Search strategies that address this issue will be part of the next update.
 
 Here's a screenshot of BFS pathfinding with the `Queen` moveset:
 
@@ -116,7 +116,7 @@ The built-in pathfinder of Factorio doesn't seem to be particularly useful for t
 
 ## Path DFS
 
-With the DSF strategy, the agent follows branches as far as it possible can, which is a big problem for vast or infinite search spaces (like the Factorio world):
+With the DSF strategy, the agent follows branches as far as it possible can, which is a big problem for vast or infinite search spaces [[1]](#1) (like the Factorio world):
 
 <img src="doc/img/dfs-nightmare.png" height="300" />
 
@@ -125,3 +125,8 @@ Avoid this option unless you're in a closed environment. A bounded version is pr
 # Performance Options
 
 The amount of search nodes processed per tick can be set to tweak the search performance.
+
+# References
+
+<a id="1">[1]</a> 
+&nbsp; S. Russel and P. Norvig, "Solving Problems by Searching", in *Artificial Intelligence A Modern Approach, 3rd ed.* Harlow: Pearson Education Limited, 2016, ch. 3, pp. 64-119.

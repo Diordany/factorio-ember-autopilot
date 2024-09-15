@@ -67,7 +67,7 @@ end
 function m_pilot.render(p_player, p_agent)
   if p_agent.data.problem then
     if p_player.mod_settings["ember-render-open-branches"].value then
-      if p_agent.data.problem.strategy == "path-ucs" then
+      if p_agent.data.problem.strategy == "path-ucs" or p_agent.data.problem.strategy == "path-greedy" then
         m_render.render_open_path_branches_table(p_player, p_agent.data.problem.frontierLookup)
       else
         m_render.render_open_path_branches(p_player, p_agent.data.problem.frontier)
@@ -75,7 +75,7 @@ function m_pilot.render(p_player, p_agent)
     end
 
     if p_player.mod_settings["ember-render-open-nodes"].value then
-      if p_agent.data.problem.strategy == "path-ucs" then
+      if p_agent.data.problem.strategy == "path-ucs" or p_agent.data.problem.strategy == "path-greedy" then
         m_render.render_open_path_nodes_table(p_player, p_agent.data.problem.frontierLookup)
       else
         m_render.render_open_path_nodes(p_player, p_agent.data.problem.frontier)
@@ -130,7 +130,7 @@ function m_pilot.handle_controller(p_data)
 
       local mode = player.mod_settings["ember-movement-mode"].value
 
-      if mode == "path-ucs" then
+      if mode == "path-ucs" or mode == "path-greedy" then
         local params = {
           targetPos = m_surface.center_position { x = mouseX, y = mouseY },
           strategy = mode,
@@ -235,7 +235,7 @@ function m_pilot.process_data(p_player, p_agent)
       if problem.type == "path" then
         if problem.strategy == "path-bfs" or problem.strategy == "path-dfs" then
           m_search.search_path_blind(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
-        elseif problem.strategy == "path-ucs" then
+        elseif problem.strategy == "path-ucs" or problem.strategy == "path-greedy" then
           m_search.search_path_informed(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
         end
       end

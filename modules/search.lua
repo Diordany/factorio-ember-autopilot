@@ -80,7 +80,11 @@ function m_search.search_path_informed(p_player, p_agent, p_workCount)
           prev = p_agent.data.problem.frontierLookup[child.position.x][child.position.y]
         end
 
-        cost = priorityNode.key + m_surface.get_move_cost(p_player, node.position, child.position)
+        if p_agent.data.problem.strategy == "path-greedy" then
+          cost = m_surface.get_distance(child.position, p_agent.data.problem.goalState)
+        else
+          cost = priorityNode.key + m_surface.get_move_cost(p_player, node.position, child.position)
+        end
 
         if not prev then
           newNode = m_buffer.pairing_heap_insert(p_agent.data.problem.frontier, child, cost)

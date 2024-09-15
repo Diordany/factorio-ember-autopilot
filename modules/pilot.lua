@@ -130,19 +130,7 @@ function m_pilot.handle_controller(p_data)
 
       local mode = player.mod_settings["ember-movement-mode"].value
 
-      if mode == "path-ucs" or mode == "path-greedy" then
-        local params = {
-          targetPos = m_surface.center_position { x = mouseX, y = mouseY },
-          strategy = mode,
-          customPath = true,
-          blocked = false,
-          pathReady = false,
-          noPath = false,
-          destReached = false
-        }
-
-        m_agents.bind(player.index, m_agents.programs.path_agent, params)
-      elseif mode == "path-bfs" or mode == "path-dfs" then
+      if mode == "path-greedy" or mode == "path-ucs" or mode == "path-bfs" or mode == "path-dfs" then
         local params = {
           targetPos = m_surface.center_position { x = mouseX, y = mouseY },
           strategy = mode,

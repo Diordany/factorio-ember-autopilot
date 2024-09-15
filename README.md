@@ -116,7 +116,7 @@ The built-in pathfinder of Factorio doesn't seem to be particularly useful for t
 
 ## Path DFS
 
-With the DSF strategy, the agent follows branches as far as it possible can, which is a big problem for vast or infinite search spaces [[1]](#1) (like the Factorio world):
+With the DFS strategy, the agent follows branches as far as it possible can, which is a big problem for vast or infinite search spaces [[1]](#1) (like the Factorio world):
 
 <img src="doc/img/dfs-nightmare.png" height="300" />
 

@@ -26,7 +26,7 @@ function m_tables.get_table_element_count(p_table)
 
   for _, e_list in pairs(p_table) do
     if e_list then
-      count = count + #e_list
+      count = count + table_size(e_list)
     end
   end
 

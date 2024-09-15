@@ -241,7 +241,9 @@ function m_pilot.update_settings(p_data)
   local player = game.players[p_data.player_index]
 
   if p_data.setting == "ember-movement-mode" then
-    if player.mod_settings[p_data.setting].value == "path-dfs" then
+    if player.mod_settings[p_data.setting].value == "path-built-in" then
+      m_debug.print_warning(player, "WARNING: This pathfinder routes through collidable entities!")
+    elseif player.mod_settings[p_data.setting].value == "path-dfs" then
       m_debug.print_warning(player, "WARNING: Use the unrestricted version of Depth First Search with caution!")
     end
   end

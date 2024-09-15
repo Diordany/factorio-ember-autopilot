@@ -1,4 +1,26 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.6.0
+Date: 2024-09-15
+  Features:
+    - Added BFS pathfinding.
+    - Added DFS pathfinding (use with caution).
+    - Added search performance setting to tweak nodes processed per tick.
+  Changes:
+    - Reordered settings.
+    - Deprecated the move commands (will probably be replaced or removed).
+    - Changed the way commands are loaded.
+  Scripting:
+    - Added gitignore.
+    - Modified the collision trace procedure.
+    - Added a dedicated prototype command for development.
+    - Minor refactoring.
+  Debug:
+    - Added debug printing colors.
+    - Modified some messages.
+    - Prints messages when an agent is stopped.
+    - Added debug rendering for pathfinding.
+    - Added a warning printer.
+---------------------------------------------------------------------------------------------------
 Version: 0.5.0
 Date: 2024-09-07
   Features:

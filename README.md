@@ -3,15 +3,15 @@
 ![thumbnail](thumbnail.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Static Badge](https://img.shields.io/badge/ember--autopilot-__0.5.0-046)](https://github.com/Diordany/factorio-ember-autopilot/releases/tag/v0.5.0)
+[![Static Badge](https://img.shields.io/badge/ember--autopilot-__0.6.0-046)](https://github.com/Diordany/factorio-ember-autopilot/releases/tag/v0.6.0)
 
 # Overview
 
 This is my personal framework for AI experiments in Factorio. Everything is subject to change.
 
-Ember autopilot works by binding agent programs to players to perform certain tasks. The autopilot is mainly controlled through a selection item named the **Ember Controller** and can alternatively be controlled through console commands.
+**Ember autopilot** works by binding agent programs to players to perform certain tasks. The autopilot is mainly controlled through a selection item named the **Ember Controller** and can alternatively be controlled through console commands.
 
-One critical feature of Ember AutoPilot is it's ability to move autonomously, this is where the main focus of the development lies right now.
+One critical feature of **Ember AutoPilot** is it's ability to move autonomously, this is where the main focus of the development lies right now. At this point it has capabilities to do basic pathfinding, but it's still rough around the edges.
 
 # Installation
 
@@ -27,12 +27,12 @@ You can install this mod through the built-in modloader of Factorio under the na
 
 ```
 cd <path to factorio mods>
-git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopilot_0.5.0
+git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopilot_0.6.0
 ```
 
 ## Installation from ZIP
 
-Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.5.0.zip` (or leave the name as is if downloading from the [releases page](https://github.com/Diordany/factorio-ember-autopilot/releases) or the [mod portal](https://mods.factorio.com/mod/ember-autopilot/downloads)).
+Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.6.0.zip` (or leave the name as is if downloading from the [releases page](https://github.com/Diordany/factorio-ember-autopilot/releases) or the [mod portal](https://mods.factorio.com/mod/ember-autopilot/downloads)).
 
 # Ember Controller
 
@@ -54,29 +54,74 @@ To move your agent, first equip the **Ember Controller**, then click on your tar
 
 ![Ember Controller](doc/img/ember-controller.png)
 
-The movement procedure can be set through the mod settings (per player):
+## Movement Mode
 
-![Walk Settings](doc/img/walk-settings.png)
+The movement mode can be set through the mod settings (per player):
 
-| Option              | Description                               |
-|---------------------|-------------------------------------------|
-| Walk Straight       | Makes the agent walk in straight lines.   |
-| Factorio Pathfinder | Uses the pathfinder provided by Factorio. |
-| Wander              | Makes the agent wander aimlessly.         |
+![Movement Mode](doc/img/movement-mode.png)
 
-The most reliable and recommended option at the moment is **Walk Straight**, the other two options are just there for demonstration purposes.
+| Option              | Description                                   |
+|---------------------|-----------------------------------------------|
+| Path BFS            | Uses Breadth First Search to generate a path. |
+| Walk Straight       | Makes the agent walk in straight lines.       |
+| Factorio Pathfinder | Uses the pathfinder provided by Factorio.     |
+| Wander              | Makes the agent wander aimlessly.             |
+| Path DFS            | Uses Depth First Search to generate a path.   |
+
+If you want the agent to walk directly towards the goal position, you're best off using the `Walk Straight` option. For path generation, the `Path BFS` option is recommended over `Factorio Pathfinder` and `Path DFS` as the latter two are very unreliable.
+
+## Moveset
+
+The moveset setting determines what moveset is used for the search strategies of `Path BFS` and `Path DFS`. The names are based on the moveset of chess pieces.
+
+![Moveset](doc/img/moveset.png)
+
+| Option | Description |
+|-|-|
+| Rook | Includes: north, east, south and west. |
+| Queen | Includes: north, northeast, east, southeast, south, southwest, west and northwest. |
+| Bishop | Includes: northeast, southeast, southwest and northwest. |
+
+In general, the `Rook` option is the most useful for the `Path BFS` and `Path DFS` modes, since they perform a blind search and don't take the movement cost into account.
 
 ## Cancel Movement
 
 To cancel the agent's movement press `SHIFT + LMB` with the **Ember Controller** equiped.
 
-## Commands
-The following commands can also be used instead:
+Alternatively, you can cancel the agent with:
 
-| Command                  | Description                                                                          |
-|--------------------------|--------------------------------------------------------------------------------------|
-| `/ember-path <x> <y>`    | Uses the built-in pathing algorithm to find and follow a path to the given position. |
-| `/ember-stop`            | Unbinds any agent that is assigned to the player.                                    |
-| `/ember-walkpos <x> <y>` | Walks over to the given position.                                                    |
-| `/ember-walkrel <x> <y>` | Covers the given displacement by walking.                                            |
-| `/ember-wander`          | Wander around aimlessly.                                                             |
+```
+/ember-stop
+```
+
+## Path BFS
+
+When the agent uses the BFS strategy, it tries to find the path with the least amount of actions. This is not necessarily the optimal path, since diagonal movement actions cover more distance and thus take longer. Search strategies that address this issue will be part of the next update.
+
+Here's a screenshot of BFS pathfinding with the `Queen` moveset:
+
+<img src="doc/img/bfs-queen.png" height="300" />
+
+And another one with the `Rook` moveset:
+
+<img src="doc/img/bfs-rook.png" height="300" />
+
+***IMPORTANT:*** *keep in mind that the agent will keep on searching indefinitely if no valid path exists. In that case, stop the agent with `SHIFT + LMB`.*
+
+## Factorio Path
+
+The built-in pathfinder of Factorio doesn't seem to be particularly useful for this application. The paths are rarely optimal and route straight through collidable entities (even if the collision mask is given) as seen here:
+
+<img src="doc/img/built-in-path-collision.png" height="300" />
+
+## Path DFS
+
+With the DSF strategy, the agent follows branches as far as it possible can, which is a big problem for vast or infinite search spaces (like the Factorio world):
+
+<img src="doc/img/dfs-nightmare.png" height="300" />
+
+Avoid this option unless you're in a closed environment. A bounded version is probably going to be introduced at some point.
+
+# Performance Options
+
+The amount of search nodes processed per tick can be set to tweak the search performance.

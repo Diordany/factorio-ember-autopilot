@@ -1,9 +1,9 @@
 {
   "name": "ember-autopilot",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "title": "Ember Autopilot",
   "author": "Diordany van Hemert",
   "homepage": "https://github.com/Diordany/factorio-ember-autopilot",
-  "description": "This is my personal framework for AI experiments in Factorio.",
+  "description": "This is my personal framework for AI experiments in Factorio. It's currently able to do basic pathfinding.",
   "factorio_version": "1.1"
 }

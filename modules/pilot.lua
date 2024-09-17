@@ -40,16 +40,6 @@ function m_pilot.catch_drops(p_data)
   end
 end
 
-function m_pilot.execute(p_player, p_agent, p_action)
-  if p_action.type == "walk" then
-    m_actions.walk(p_player, p_agent, p_action.params)
-  elseif p_action.type == "request-path" then
-    m_actions.request_path(p_player, p_agent, p_action.params)
-  elseif p_action.type == "stop" then
-    m_actions.stop(p_player)
-  end
-end
-
 function m_pilot.handle_controller(p_data)
   local player = game.players[p_data.player_index]
 
@@ -228,7 +218,7 @@ function m_pilot.run(p_data)
     player = game.players[iPlayer]
     m_pilot.process_data(player, agent)
     action = agent.execute(player, agent.params)
-    m_pilot.execute(player, agent, action)
+    m_actions[action.type](player, agent, action.params)
     m_pilot.render(player, agent)
   end
 end

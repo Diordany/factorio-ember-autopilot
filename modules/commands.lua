@@ -23,8 +23,10 @@ local m_commands = {}
 
 local g_cmdPrefix = "ember-"
 
-function m_commands.register(p_command)
-  commands.add_command(g_cmdPrefix .. p_command.name, p_command.description, p_command.callback)
+function m_commands.load_command(p_name)
+  local command = require("__ember-autopilot__/commands/" .. p_name)
+
+  commands.add_command(g_cmdPrefix .. p_name, command.description, command.callback)
 end
 
 return m_commands

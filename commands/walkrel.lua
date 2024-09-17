@@ -20,7 +20,6 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 local cmd_walkrel = {
-  name = "walkrel",
   description = "Covers the given displacement by walking.",
   usage = "<x> <y>",
 }

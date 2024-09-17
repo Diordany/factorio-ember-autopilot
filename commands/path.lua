@@ -20,7 +20,6 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 local cmd_path = {
-  name = "path",
   description = "Uses the built-in pathing algorithm to find and follow a path to the given position.",
   usage = "<x> <y>",
 }

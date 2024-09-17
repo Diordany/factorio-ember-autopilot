@@ -20,7 +20,6 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 local cmd_wander = {
-  name = "wander",
   description = "Wander around aimlessly.",
   usage = "",
 }

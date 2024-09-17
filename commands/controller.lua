@@ -20,7 +20,6 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 local cmd_controller = {
-  name = "controller",
   description = "Gives the player an Ember controller.",
   usage = "",
 }

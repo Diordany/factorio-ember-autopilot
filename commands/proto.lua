@@ -20,7 +20,6 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 local cmd_proto = {
-  name = "proto",
   description = "Used for prototyping during development. Nothing else to see here.",
   usage = "",
 }

@@ -20,7 +20,6 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 local cmd_stop = {
-  name = "stop",
   description = "Unbinds any agent that is assigned to the player.",
   usage = "",
 }

@@ -21,11 +21,10 @@
 -- SOFTWARE.
 local m_pilot = {}
 
+local m_actions = require("__ember-autopilot__/modules/actions")
 local m_agents = require("__ember-autopilot__/modules/agents")
 local m_debug = require("__ember-autopilot__/modules/debug")
 local m_gui = require("__ember-autopilot__/modules/gui")
-local m_movement = require("__ember-autopilot__/modules/movement")
-local m_problems = require("__ember-autopilot__/modules/problems")
 local m_render = require("__ember-autopilot__/modules/render")
 local m_search = require("__ember-autopilot__/modules/search")
 local m_surface = require("__ember-autopilot__/modules/surface")
@@ -43,24 +42,11 @@ end
 
 function m_pilot.execute(p_player, p_agent, p_action)
   if p_action.type == "walk" then
-    p_agent.params.blocked = not m_movement.move_to_target_pos(p_player, p_action.params)
-    p_agent.params.destReached = m_surface.player_is_at_position(p_player, p_action.params.targetPos)
+    m_actions.walk(p_player, p_agent, p_action.params)
   elseif p_action.type == "search-path" then
-    if p_action.params.customPath then
-      m_agents.set_data(p_player.index, "problem", m_problems.generate_path_problem(p_player, p_action.params))
-
-      m_debug.print_verbose(p_player, "Pilot: Path requested.")
-    else
-      local pathID = m_surface.request_factorio_path(p_player, p_action.params.targetPos)
-
-      if pathID then
-        m_debug.print_verbose(p_player, "Pilot: Factorio path requested.")
-
-        m_agents.set_data(p_player.index, "pathID", pathID)
-      end
-    end
+    m_actions.search_path(p_player, p_agent, p_action.params)
   elseif p_action.type == "stop" then
-    m_agents.unbind(p_player.index)
+    m_actions.stop(p_player)
   end
 end
 

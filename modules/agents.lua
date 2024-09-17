@@ -77,7 +77,7 @@ function m_agents.programs.path_agent(p_player, p_params)
   if p_params.customPath then
     if not m_agents.get_data(p_player.index, "problem") then
       return {
-        type = "search-path",
+        type = "request-path",
         params = {
           customPath = p_params.customPath,
           strategy = p_params.strategy,
@@ -89,7 +89,7 @@ function m_agents.programs.path_agent(p_player, p_params)
     local pathID = m_agents.get_data(p_player.index, "pathID")
 
     if not pathID then
-      return { type = "search-path", params = { customPath = p_params.customPath, targetPos = p_params.targetPos } }
+      return { type = "request-path", params = { customPath = p_params.customPath, targetPos = p_params.targetPos } }
     end
   end
 

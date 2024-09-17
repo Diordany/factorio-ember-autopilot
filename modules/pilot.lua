@@ -43,8 +43,8 @@ end
 function m_pilot.execute(p_player, p_agent, p_action)
   if p_action.type == "walk" then
     m_actions.walk(p_player, p_agent, p_action.params)
-  elseif p_action.type == "search-path" then
-    m_actions.search_path(p_player, p_agent, p_action.params)
+  elseif p_action.type == "request-path" then
+    m_actions.request_path(p_player, p_agent, p_action.params)
   elseif p_action.type == "stop" then
     m_actions.stop(p_player)
   end

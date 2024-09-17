@@ -25,7 +25,7 @@ local m_agents = require("__ember-autopilot__/modules/agents")
 local m_movement = require("__ember-autopilot__/modules/movement")
 local m_problems = require("__ember-autopilot__/modules/problems")
 
-function m_actions.search_path(p_player, p_agent, p_params)
+function m_actions.request_path(p_player, p_agent, p_params)
   if p_params.customPath then
     p_agent.data.problem = m_problems.generate_path_problem(p_player, p_params)
 

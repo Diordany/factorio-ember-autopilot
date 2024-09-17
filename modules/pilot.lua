@@ -172,42 +172,6 @@ function m_pilot.process_data(p_player, p_agent)
   end
 end
 
-function m_pilot.render(p_player, p_agent)
-  if p_agent.data.problem then
-    if p_player.mod_settings["ember-render-open-branches"].value then
-      if p_agent.data.problem.strategy == "path-ucs" or p_agent.data.problem.strategy == "path-greedy" then
-        m_render.render_open_path_branches_table(p_player, p_agent.data.problem.frontierLookup)
-      else
-        m_render.render_open_path_branches(p_player, p_agent.data.problem.frontier)
-      end
-    end
-
-    if p_player.mod_settings["ember-render-open-nodes"].value then
-      if p_agent.data.problem.strategy == "path-ucs" or p_agent.data.problem.strategy == "path-greedy" then
-        m_render.render_open_path_nodes_table(p_player, p_agent.data.problem.frontierLookup)
-      else
-        m_render.render_open_path_nodes(p_player, p_agent.data.problem.frontier)
-      end
-    end
-
-    if p_player.mod_settings["ember-render-explored-nodes"].value then
-      m_render.render_explored_positions(p_player, p_agent.data.problem.explored)
-    end
-
-    if p_player.mod_settings["ember-render-initial"].value then
-      m_render.render_initial_position(p_player, p_agent.data.problem.initState)
-    end
-
-    if p_player.mod_settings["ember-render-goal"].value then
-      m_render.render_goal_position(p_player, p_agent.data.problem.goalState)
-    end
-
-    if p_agent.params.pathReady and p_player.mod_settings["ember-render-path"].value then
-      m_render.render_path(p_player, p_agent.data.path)
-    end
-  end
-end
-
 function m_pilot.run(p_data)
   local player
   local action
@@ -219,7 +183,7 @@ function m_pilot.run(p_data)
     m_pilot.process_data(player, agent)
     action = agent.execute(player, agent.params)
     m_actions[action.type](player, agent, action.params)
-    m_pilot.render(player, agent)
+    m_render.render_debug_layer(player, agent)
   end
 end
 

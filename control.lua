@@ -23,7 +23,6 @@ local m_commands = require("__ember-autopilot__/modules/commands")
 local m_pilot = require("__ember-autopilot__/modules/pilot")
 
 m_commands.load_command("controller")
-m_commands.load_command("proto")
 m_commands.load_command("stop")
 
 m_pilot.init()

@@ -50,57 +50,6 @@ function m_pilot.execute(p_player, p_agent, p_action)
   end
 end
 
-function m_pilot.render(p_player, p_agent)
-  if p_agent.data.problem then
-    if p_player.mod_settings["ember-render-open-branches"].value then
-      if p_agent.data.problem.strategy == "path-ucs" or p_agent.data.problem.strategy == "path-greedy" then
-        m_render.render_open_path_branches_table(p_player, p_agent.data.problem.frontierLookup)
-      else
-        m_render.render_open_path_branches(p_player, p_agent.data.problem.frontier)
-      end
-    end
-
-    if p_player.mod_settings["ember-render-open-nodes"].value then
-      if p_agent.data.problem.strategy == "path-ucs" or p_agent.data.problem.strategy == "path-greedy" then
-        m_render.render_open_path_nodes_table(p_player, p_agent.data.problem.frontierLookup)
-      else
-        m_render.render_open_path_nodes(p_player, p_agent.data.problem.frontier)
-      end
-    end
-
-    if p_player.mod_settings["ember-render-explored-nodes"].value then
-      m_render.render_explored_positions(p_player, p_agent.data.problem.explored)
-    end
-
-    if p_player.mod_settings["ember-render-initial"].value then
-      m_render.render_initial_position(p_player, p_agent.data.problem.initState)
-    end
-
-    if p_player.mod_settings["ember-render-goal"].value then
-      m_render.render_goal_position(p_player, p_agent.data.problem.goalState)
-    end
-
-    if p_agent.params.pathReady and p_player.mod_settings["ember-render-path"].value then
-      m_render.render_path(p_player, p_agent.data.path)
-    end
-  end
-end
-
-function m_pilot.run(p_data)
-  local player
-  local action
-
-  m_render.clear()
-
-  for iPlayer, agent in pairs(m_agents.activeAgents) do
-    player = game.players[iPlayer]
-    m_pilot.process_data(player, agent)
-    action = agent.execute(player, agent.params)
-    m_pilot.execute(player, agent, action)
-    m_pilot.render(player, agent)
-  end
-end
-
 function m_pilot.handle_controller(p_data)
   local player = game.players[p_data.player_index]
 
@@ -164,6 +113,20 @@ function m_pilot.handle_controller(p_data)
   end
 end
 
+function m_pilot.init()
+  script.on_event(defines.events.on_player_dropped_item, m_pilot.catch_drops)
+  script.on_event(defines.events.on_player_alt_reverse_selected_area, m_pilot.handle_controller)
+  script.on_event(defines.events.on_player_alt_selected_area, m_pilot.handle_controller)
+  script.on_event(defines.events.on_player_reverse_selected_area, m_pilot.handle_controller)
+  script.on_event(defines.events.on_player_selected_area, m_pilot.handle_controller)
+  script.on_event(defines.events.on_player_created, m_pilot.new_player)
+  script.on_event(defines.events.on_gui_click, m_pilot.on_gui_click)
+  script.on_event(defines.events.on_player_joined_game, m_pilot.player_connected)
+  script.on_event(defines.events.on_tick, m_pilot.pre_run)
+  script.on_event(defines.events.on_script_path_request_finished, m_pilot.update_factorio_paths)
+  script.on_event(defines.events.on_runtime_mod_setting_changed, m_pilot.update_settings)
+end
+
 function m_pilot.new_player(p_data)
   local player = game.players[p_data.player_index]
 
@@ -219,6 +182,57 @@ function m_pilot.process_data(p_player, p_agent)
   end
 end
 
+function m_pilot.render(p_player, p_agent)
+  if p_agent.data.problem then
+    if p_player.mod_settings["ember-render-open-branches"].value then
+      if p_agent.data.problem.strategy == "path-ucs" or p_agent.data.problem.strategy == "path-greedy" then
+        m_render.render_open_path_branches_table(p_player, p_agent.data.problem.frontierLookup)
+      else
+        m_render.render_open_path_branches(p_player, p_agent.data.problem.frontier)
+      end
+    end
+
+    if p_player.mod_settings["ember-render-open-nodes"].value then
+      if p_agent.data.problem.strategy == "path-ucs" or p_agent.data.problem.strategy == "path-greedy" then
+        m_render.render_open_path_nodes_table(p_player, p_agent.data.problem.frontierLookup)
+      else
+        m_render.render_open_path_nodes(p_player, p_agent.data.problem.frontier)
+      end
+    end
+
+    if p_player.mod_settings["ember-render-explored-nodes"].value then
+      m_render.render_explored_positions(p_player, p_agent.data.problem.explored)
+    end
+
+    if p_player.mod_settings["ember-render-initial"].value then
+      m_render.render_initial_position(p_player, p_agent.data.problem.initState)
+    end
+
+    if p_player.mod_settings["ember-render-goal"].value then
+      m_render.render_goal_position(p_player, p_agent.data.problem.goalState)
+    end
+
+    if p_agent.params.pathReady and p_player.mod_settings["ember-render-path"].value then
+      m_render.render_path(p_player, p_agent.data.path)
+    end
+  end
+end
+
+function m_pilot.run(p_data)
+  local player
+  local action
+
+  m_render.clear()
+
+  for iPlayer, agent in pairs(m_agents.activeAgents) do
+    player = game.players[iPlayer]
+    m_pilot.process_data(player, agent)
+    action = agent.execute(player, agent.params)
+    m_pilot.execute(player, agent, action)
+    m_pilot.render(player, agent)
+  end
+end
+
 function m_pilot.update_factorio_paths(p_data)
   -- Search the associated agent.
   for i_player, e_agent in pairs(m_agents.activeAgents) do
@@ -246,20 +260,6 @@ function m_pilot.update_settings(p_data)
       m_debug.print_warning(player, "WARNING: Use the unrestricted version of Depth First Search with caution!")
     end
   end
-end
-
-function m_pilot.init()
-  script.on_event(defines.events.on_player_dropped_item, m_pilot.catch_drops)
-  script.on_event(defines.events.on_player_alt_reverse_selected_area, m_pilot.handle_controller)
-  script.on_event(defines.events.on_player_alt_selected_area, m_pilot.handle_controller)
-  script.on_event(defines.events.on_player_reverse_selected_area, m_pilot.handle_controller)
-  script.on_event(defines.events.on_player_selected_area, m_pilot.handle_controller)
-  script.on_event(defines.events.on_player_created, m_pilot.new_player)
-  script.on_event(defines.events.on_gui_click, m_pilot.on_gui_click)
-  script.on_event(defines.events.on_player_joined_game, m_pilot.player_connected)
-  script.on_event(defines.events.on_tick, m_pilot.pre_run)
-  script.on_event(defines.events.on_script_path_request_finished, m_pilot.update_factorio_paths)
-  script.on_event(defines.events.on_runtime_mod_setting_changed, m_pilot.update_settings)
 end
 
 return m_pilot

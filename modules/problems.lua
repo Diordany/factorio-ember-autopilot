@@ -65,7 +65,7 @@ function m_problems.generate_path_problem(p_player, p_params)
 
   if not m_surface.player_collision_trace(p_player, nil, initPos, 2) then
     if not (initPos.x == problem.goalState.x) or not (initPos.y == problem.goalState.y) then
-      if problem.strategy == "path-ucs" or problem.strategy == "path-greedy" then
+      if problem.strategy == "path_ucs" or problem.strategy == "path_greedy" then
         local newNode = m_buffer.pairing_heap_insert(problem.frontier, { position = initPos }, 0)
 
         problem.frontierLookup[initPos.x] = {}
@@ -82,7 +82,7 @@ function m_problems.generate_path_problem(p_player, p_params)
     initPos = m_surface.get_closest_accessible_neighbour(p_player, 2, m_surface.directions_8)
 
     if initPos then
-      if problem.strategy == "path-ucs" or problem.strategy == "path-greedy" then
+      if problem.strategy == "path_ucs" or problem.strategy == "path_greedy" then
         local newNode = m_buffer.pairing_heap_insert(problem.frontier, { position = initPos }, 0)
 
         problem.frontierLookup[initPos.x] = {}
@@ -93,7 +93,7 @@ function m_problems.generate_path_problem(p_player, p_params)
     end
   end
 
-  if problem.strategy == "path-ucs" or problem.strategy == "path-greedy" then
+  if problem.strategy == "path_ucs" or problem.strategy == "path_greedy" then
     problem.initState = { x = initPos.x, y = initPos.y, cost = 0 }
   else
     problem.initState = initPos

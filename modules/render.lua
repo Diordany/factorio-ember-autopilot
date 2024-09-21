@@ -28,7 +28,7 @@ end
 function m_render.render_debug_layer(p_player, p_agent)
   if p_agent.data.problem then
     if p_player.mod_settings["ember-render-open-branches"].value then
-      if p_agent.data.problem.strategy == "path-ucs" or p_agent.data.problem.strategy == "path-greedy" then
+      if p_agent.data.problem.strategy == "path_ucs" or p_agent.data.problem.strategy == "path_greedy" then
         m_render.render_open_path_branches_table(p_player, p_agent.data.problem.frontierLookup)
       else
         m_render.render_open_path_branches(p_player, p_agent.data.problem.frontier)
@@ -36,7 +36,7 @@ function m_render.render_debug_layer(p_player, p_agent)
     end
 
     if p_player.mod_settings["ember-render-open-nodes"].value then
-      if p_agent.data.problem.strategy == "path-ucs" or p_agent.data.problem.strategy == "path-greedy" then
+      if p_agent.data.problem.strategy == "path_ucs" or p_agent.data.problem.strategy == "path_greedy" then
         m_render.render_open_path_nodes_table(p_player, p_agent.data.problem.frontierLookup)
       else
         m_render.render_open_path_nodes(p_player, p_agent.data.problem.frontier)

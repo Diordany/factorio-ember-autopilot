@@ -80,7 +80,7 @@ function m_search.search_path_informed(p_player, p_agent, p_workCount)
           prev = p_agent.data.problem.frontierLookup[child.position.x][child.position.y]
         end
 
-        if p_agent.data.problem.strategy == "path-greedy" then
+        if p_agent.data.problem.strategy == "path_greedy" then
           cost = m_surface.get_distance(child.position, p_agent.data.problem.goalState)
         else
           cost = priorityNode.key + m_surface.get_move_cost(p_player, node.position, child.position)
@@ -119,9 +119,9 @@ function m_search.search_path_blind(p_player, p_agent, p_workCount)
 
     local node
 
-    if p_agent.data.problem.strategy == "path-bfs" then
+    if p_agent.data.problem.strategy == "path_bfs" then
       node = table.remove(p_agent.data.problem.frontier, 1)
-    elseif p_agent.data.problem.strategy == "path-dfs" then
+    elseif p_agent.data.problem.strategy == "path_dfs" then
       node = table.remove(p_agent.data.problem.frontier)
     end
 

@@ -25,6 +25,7 @@ local m_actions = require("__ember-autopilot__/modules/actions")
 local m_agents = require("__ember-autopilot__/modules/agents")
 local m_debug = require("__ember-autopilot__/modules/debug")
 local m_gui = require("__ember-autopilot__/modules/gui")
+local m_primer = require("__ember-autopilot__/modules/primer")
 local m_render = require("__ember-autopilot__/modules/render")
 local m_search = require("__ember-autopilot__/modules/search")
 local m_surface = require("__ember-autopilot__/modules/surface")
@@ -55,40 +56,7 @@ function m_pilot.handle_controller(p_data)
 
       local mode = player.mod_settings["ember-movement-mode"].value
 
-      if mode == "path-greedy" or mode == "path-ucs" or mode == "path-bfs" or mode == "path-dfs" then
-        local params = {
-          targetPos = m_surface.center_position { x = mouseX, y = mouseY },
-          strategy = mode,
-          customPath = true,
-          blocked = false,
-          pathReady = false,
-          noPath = false,
-          destReached = false
-        }
-
-        m_agents.bind(player.index, m_agents.programs.path_agent, params)
-      elseif mode == "walk" then
-        local params = {
-          targetPos = m_surface.center_position { x = mouseX, y = mouseY },
-          blocked = false,
-          destReached = false
-        }
-        m_agents.bind(player.index, m_agents.programs.walking_agent, params)
-      elseif mode == "path-built-in" then
-        local params = {
-          targetPos = m_surface.center_position { x = mouseX, y = mouseY },
-          strategy = mode,
-          customPath = false,
-          blocked = false,
-          pathReady = false,
-          noPath = false,
-          destReached = false
-        }
-
-        m_agents.bind(player.index, m_agents.programs.path_agent, params)
-      elseif mode == "wander" then
-        m_agents.bind(player.index, m_agents.programs.wander_agent, { blocked = false, destReached = false })
-      end
+      m_primer[mode](player, { x = mouseX, y = mouseY })
     elseif p_data.name == defines.events.on_player_reverse_selected_area then
     elseif p_data.name == defines.events.on_player_alt_selected_area then
       if m_agents.is_active(player.index) then
@@ -160,9 +128,9 @@ function m_pilot.process_data(p_player, p_agent)
   if problem then
     if not problem.done then
       if problem.type == "path" then
-        if problem.strategy == "path-bfs" or problem.strategy == "path-dfs" then
+        if problem.strategy == "path_bfs" or problem.strategy == "path_dfs" then
           m_search.search_path_blind(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
-        elseif problem.strategy == "path-ucs" or problem.strategy == "path-greedy" then
+        elseif problem.strategy == "path_ucs" or problem.strategy == "path_greedy" then
           m_search.search_path_informed(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
         end
       end
@@ -208,9 +176,9 @@ function m_pilot.update_settings(p_data)
   local player = game.players[p_data.player_index]
 
   if p_data.setting == "ember-movement-mode" then
-    if player.mod_settings[p_data.setting].value == "path-built-in" then
+    if player.mod_settings[p_data.setting].value == "path_built_in" then
       m_debug.print_warning(player, "WARNING: This pathfinder routes through collidable entities!")
-    elseif player.mod_settings[p_data.setting].value == "path-dfs" then
+    elseif player.mod_settings[p_data.setting].value == "path_dfs" then
       m_debug.print_warning(player, "WARNING: Use the unrestricted version of Depth First Search with caution!")
     end
   end

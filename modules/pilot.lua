@@ -28,7 +28,6 @@ local m_gui = require("__ember-autopilot__/modules/gui")
 local m_primer = require("__ember-autopilot__/modules/primer")
 local m_render = require("__ember-autopilot__/modules/render")
 local m_search = require("__ember-autopilot__/modules/search")
-local m_surface = require("__ember-autopilot__/modules/surface")
 
 function m_pilot.catch_drops(p_data)
   local player = game.players[p_data.player_index]

@@ -23,6 +23,7 @@ local m_pilot = {}
 
 local m_actions = require("__ember-autopilot__/modules/actions")
 local m_agents = require("__ember-autopilot__/modules/agents")
+local m_config = require("__ember-autopilot__/modules/config")
 local m_controller = require("__ember-autopilot__/modules/controller")
 local m_debug = require("__ember-autopilot__/modules/debug")
 local m_gui = require("__ember-autopilot__/modules/gui")
@@ -52,7 +53,7 @@ function m_pilot.init()
   script.on_event(defines.events.on_player_joined_game, m_pilot.player_connected)
   script.on_event(defines.events.on_tick, m_pilot.pre_run)
   script.on_event(defines.events.on_script_path_request_finished, m_search.update_factorio_paths)
-  script.on_event(defines.events.on_runtime_mod_setting_changed, m_pilot.update_settings)
+  script.on_event(defines.events.on_runtime_mod_setting_changed, m_config.update)
 end
 
 function m_pilot.new_player(p_data)
@@ -122,18 +123,6 @@ function m_pilot.run(p_data)
     action = agent.execute(player, agent.params)
     m_actions[action.type](player, agent, action.params)
     m_render.render_debug_layer(player, agent)
-  end
-end
-
-function m_pilot.update_settings(p_data)
-  local player = game.players[p_data.player_index]
-
-  if p_data.setting == "ember-movement-mode" then
-    if player.mod_settings[p_data.setting].value == "path_built_in" then
-      m_debug.print_warning(player, "WARNING: This pathfinder routes through collidable entities!")
-    elseif player.mod_settings[p_data.setting].value == "path_dfs" then
-      m_debug.print_warning(player, "WARNING: Use the unrestricted version of Depth First Search with caution!")
-    end
   end
 end
 

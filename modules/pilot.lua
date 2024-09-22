@@ -23,9 +23,9 @@ local m_pilot = {}
 
 local m_actions = require("__ember-autopilot__/modules/actions")
 local m_agents = require("__ember-autopilot__/modules/agents")
+local m_controller = require("__ember-autopilot__/modules/controller")
 local m_debug = require("__ember-autopilot__/modules/debug")
 local m_gui = require("__ember-autopilot__/modules/gui")
-local m_primer = require("__ember-autopilot__/modules/primer")
 local m_render = require("__ember-autopilot__/modules/render")
 local m_search = require("__ember-autopilot__/modules/search")
 
@@ -40,42 +40,13 @@ function m_pilot.catch_drops(p_data)
   end
 end
 
-function m_pilot.handle_controller(p_data)
-  local player = game.players[p_data.player_index]
-
-  if p_data.item == "ember-controller" then
-    if p_data.name == defines.events.on_player_selected_area then
-      if not player.character then
-        m_debug.print_error(player, "Need a player character.")
-        return
-      end
-
-      local mouseX = (p_data.area.left_top.x + p_data.area.right_bottom.x) / 2
-      local mouseY = (p_data.area.left_top.y + p_data.area.right_bottom.y) / 2
-
-      local mode = player.mod_settings["ember-movement-mode"].value
-
-      m_primer[mode](player, { x = mouseX, y = mouseY })
-    elseif p_data.name == defines.events.on_player_reverse_selected_area then
-    elseif p_data.name == defines.events.on_player_alt_selected_area then
-      if m_agents.is_active(player.index) then
-        m_agents.unbind(player.index)
-
-        m_debug.print_verbose(player, "Agent stopped.")
-      else
-        m_debug.print_error(player, "No active agent.")
-      end
-    elseif p_data.name == defines.events.on_player_alt_reverse_selected_area then
-    end
-  end
-end
-
 function m_pilot.init()
+  script.on_event(defines.events.on_player_selected_area, m_controller.on_left_select)
+  script.on_event(defines.events.on_player_alt_selected_area, m_controller.on_left_shift_select)
+  script.on_event(defines.events.on_player_reverse_selected_area, m_controller.on_right_select)
+  script.on_event(defines.events.on_player_alt_reverse_selected_area, m_controller.on_right_shift_select)
+
   script.on_event(defines.events.on_player_dropped_item, m_pilot.catch_drops)
-  script.on_event(defines.events.on_player_alt_reverse_selected_area, m_pilot.handle_controller)
-  script.on_event(defines.events.on_player_alt_selected_area, m_pilot.handle_controller)
-  script.on_event(defines.events.on_player_reverse_selected_area, m_pilot.handle_controller)
-  script.on_event(defines.events.on_player_selected_area, m_pilot.handle_controller)
   script.on_event(defines.events.on_player_created, m_pilot.new_player)
   script.on_event(defines.events.on_gui_click, m_pilot.on_gui_click)
   script.on_event(defines.events.on_player_joined_game, m_pilot.player_connected)

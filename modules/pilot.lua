@@ -26,6 +26,7 @@ local m_agents = require("__ember-autopilot__/modules/agents")
 local m_config = require("__ember-autopilot__/modules/config")
 local m_controller = require("__ember-autopilot__/modules/controller")
 local m_debug = require("__ember-autopilot__/modules/debug")
+local m_events = require("__ember-autopilot__/modules/events")
 local m_gui = require("__ember-autopilot__/modules/gui")
 local m_render = require("__ember-autopilot__/modules/render")
 local m_search = require("__ember-autopilot__/modules/search")
@@ -42,18 +43,18 @@ function m_pilot.catch_drops(p_data)
 end
 
 function m_pilot.init()
-  script.on_event(defines.events.on_player_selected_area, m_controller.on_left_select)
-  script.on_event(defines.events.on_player_alt_selected_area, m_controller.on_left_shift_select)
-  script.on_event(defines.events.on_player_reverse_selected_area, m_controller.on_right_select)
-  script.on_event(defines.events.on_player_alt_reverse_selected_area, m_controller.on_right_shift_select)
+  m_events.register("on_player_selected_area", m_controller.on_left_select)
+  m_events.register("on_player_alt_selected_area", m_controller.on_left_shift_select)
+  m_events.register("on_player_reverse_selected_area", m_controller.on_right_select)
+  m_events.register("on_player_alt_reverse_selected_area", m_controller.on_right_shift_select)
 
-  script.on_event(defines.events.on_player_dropped_item, m_pilot.catch_drops)
-  script.on_event(defines.events.on_player_created, m_pilot.new_player)
-  script.on_event(defines.events.on_gui_click, m_pilot.on_gui_click)
-  script.on_event(defines.events.on_player_joined_game, m_pilot.player_connected)
-  script.on_event(defines.events.on_tick, m_pilot.pre_run)
-  script.on_event(defines.events.on_script_path_request_finished, m_search.update_factorio_paths)
-  script.on_event(defines.events.on_runtime_mod_setting_changed, m_config.update)
+  m_events.register("on_player_dropped_item", m_pilot.catch_drops)
+  m_events.register("on_player_created", m_pilot.new_player)
+  m_events.register("on_gui_click", m_pilot.on_gui_click)
+  m_events.register("on_player_joined_game", m_pilot.player_connected)
+  m_events.register("on_tick", m_pilot.pre_run)
+  m_events.register("on_script_path_request_finished", m_search.update_factorio_paths)
+  m_events.register("on_runtime_mod_setting_changed", m_config.update)
 end
 
 function m_pilot.new_player(p_data)
@@ -90,7 +91,7 @@ function m_pilot.pre_run(p_data)
     end
   end
 
-  script.on_event(defines.events.on_tick, m_pilot.run)
+  m_events.register("on_tick", m_pilot.run)
 end
 
 function m_pilot.process_data(p_player, p_agent)

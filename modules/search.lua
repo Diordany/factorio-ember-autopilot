@@ -21,6 +21,7 @@
 -- SOFTWARE.
 local m_search = {}
 
+m_agents = require("__ember-autopilot__/modules/agents")
 m_buffer = require("__ember-autopilot__/modules/buffer")
 m_debug = require("__ember-autopilot__/modules/debug")
 m_problems = require("__ember-autopilot__/modules/problems")
@@ -153,6 +154,23 @@ function m_search.search_path_blind(p_player, p_agent, p_workCount)
 
           table.insert(p_agent.data.problem.frontier, child)
         end
+      end
+    end
+  end
+end
+
+function m_search.update_factorio_paths(p_data)
+  -- Search the associated agent.
+  for i_player, e_agent in pairs(m_agents.activeAgents) do
+    -- If the search finished.
+    if (p_data.id == e_agent.data.pathID) and (not p_data.try_again_later) then
+      -- Set the path info.
+      if p_data.path then
+        e_agent.params.pathReady = true
+        e_agent.data.path = p_data.path
+        m_debug.print_verbose(game.players[i_player], "Pilot: Path found.")
+      else
+        e_agent.params.noPath = true
       end
     end
   end

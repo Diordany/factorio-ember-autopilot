@@ -51,7 +51,7 @@ function m_pilot.init()
   script.on_event(defines.events.on_gui_click, m_pilot.on_gui_click)
   script.on_event(defines.events.on_player_joined_game, m_pilot.player_connected)
   script.on_event(defines.events.on_tick, m_pilot.pre_run)
-  script.on_event(defines.events.on_script_path_request_finished, m_pilot.update_factorio_paths)
+  script.on_event(defines.events.on_script_path_request_finished, m_search.update_factorio_paths)
   script.on_event(defines.events.on_runtime_mod_setting_changed, m_pilot.update_settings)
 end
 
@@ -122,23 +122,6 @@ function m_pilot.run(p_data)
     action = agent.execute(player, agent.params)
     m_actions[action.type](player, agent, action.params)
     m_render.render_debug_layer(player, agent)
-  end
-end
-
-function m_pilot.update_factorio_paths(p_data)
-  -- Search the associated agent.
-  for i_player, e_agent in pairs(m_agents.activeAgents) do
-    -- If the search finished.
-    if (p_data.id == e_agent.data.pathID) and (not p_data.try_again_later) then
-      -- Set the path info.
-      if p_data.path then
-        e_agent.params.pathReady = true
-        e_agent.data.path = p_data.path
-        m_debug.print_verbose(game.players[i_player], "Pilot: Path found.")
-      else
-        e_agent.params.noPath = true
-      end
-    end
   end
 end
 

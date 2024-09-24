@@ -9,7 +9,7 @@
 
 This is my personal framework for AI experiments in Factorio. Everything is subject to change.
 
-**Ember autopilot** works by binding agent programs to players to perform certain tasks. The autopilot is mainly controlled through a selection item named the **Ember Controller** and can alternatively be controlled through console commands.
+**Ember autopilot** works by binding agent programs to players to perform certain tasks. The autopilot is mainly controlled through a selection item named the **Ember Controller**.
 
 One critical feature of **Ember AutoPilot** is it's ability to move autonomously, this is where the main focus of the development lies right now. At this point it has capabilities to do basic pathfinding, but it's still rough around the edges.
 
@@ -125,6 +125,10 @@ Avoid this option unless you're in a closed environment. A bounded version is pr
 # Performance Options
 
 The amount of search nodes processed per tick can be set to tweak the search performance.
+
+# Contributions
+
+Please see the [contibution guidelines](CONTRIBUTING.md) if you want to work on **Ember Autopilot**.
 
 # References
 

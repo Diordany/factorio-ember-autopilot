@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.6.1
+Date: 2024-10-21
+  Changes:
+    - Changed the structure of selection item prototypes to comply with the Factorio 2.0 API.
+    - Changed the way collision masks are passed to comply with the Factorio 2.0 API.
+  Info:
+    - Updated for Factorio 2.0.
+---------------------------------------------------------------------------------------------------
 Version: 0.6.0
 Date: 2024-09-15
   Features:

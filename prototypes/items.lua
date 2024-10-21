@@ -26,12 +26,16 @@ data:extend({
     stack_size = 1,
     icon = "__ember-autopilot__/thumbnail.png",
     icon_size = 144,
-    selection_mode = "nothing",
-    alt_selection_mode = "nothing",
-    selection_color = {},
-    alt_selection_color = {},
-    selection_cursor_box_type = "entity",
-    alt_selection_cursor_box_type = "entity",
+    select = {
+      border_color = {},
+      cursor_box_type = "entity",
+      mode = "nothing"
+    },
+    alt_select = {
+      border_color = {},
+      cursor_box_type = "entity",
+      mode = "nothing"
+    },
     mouse_cursor = "arrow"
   }
 })

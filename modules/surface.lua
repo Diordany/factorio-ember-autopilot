@@ -131,7 +131,7 @@ function m_surface.player_collision_at(p_player, p_position)
         y = p_position.y + p_player.character.prototype.collision_box.right_bottom.y
       }
     },
-    collision_mask = p_player.character.prototype.collision_mask
+    collision_mask = p_player.character.prototype.collision_mask.layers
   }
 
   local entities = p_player.surface.find_entities_filtered(filter)

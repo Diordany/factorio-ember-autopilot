@@ -3,7 +3,7 @@
 ![thumbnail](thumbnail.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Static Badge](https://img.shields.io/badge/ember--autopilot-__0.6.1-046)](https://github.com/Diordany/factorio-ember-autopilot/releases/tag/v0.6.1)
+[![Static Badge](https://img.shields.io/badge/ember--autopilot-__0.6.2-046)](https://github.com/Diordany/factorio-ember-autopilot/releases/tag/v0.6.2)
 
 # Overview
 
@@ -27,12 +27,12 @@ You can install this mod through the built-in modloader of Factorio under the na
 
 ```
 cd <path to factorio mods>
-git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopilot_0.6.1
+git clone https://github.com/Diordany/factorio-ember-autopilot.git ember-autopilot_0.6.2
 ```
 
 ## Installation from ZIP
 
-Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.6.1.zip` (or leave the name as is if downloading from the [releases page](https://github.com/Diordany/factorio-ember-autopilot/releases) or the [mod portal](https://mods.factorio.com/mod/ember-autopilot/downloads)).
+Just save the .zip file to the mod directory of Factorio as `ember-autopilot_0.6.2.zip` (or leave the name as is if downloading from the [releases page](https://github.com/Diordany/factorio-ember-autopilot/releases) or the [mod portal](https://mods.factorio.com/mod/ember-autopilot/downloads)).
 
 # Ember Controller
 

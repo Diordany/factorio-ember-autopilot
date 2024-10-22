@@ -62,8 +62,8 @@ cmd_walkrel.callback = function(p_data)
     return
   end
 
-  target.x = target.x + player.position.x
-  target.y = target.y + player.position.y
+  target.x = target.x + player.character.position.x
+  target.y = target.y + player.character.position.y
 
   local params = { targetPos = m_surface.center_position(target), blocked = false, destReached = false }
 

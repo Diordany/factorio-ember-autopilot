@@ -54,7 +54,7 @@ function m_surface.get_accessible_neighbours(p_player, p_position, p_directions)
 end
 
 function m_surface.get_closest_accessible_neighbour(p_player, p_steps, p_actions)
-  local neighbours = m_surface.get_neighbours(p_player.position, p_actions)
+  local neighbours = m_surface.get_neighbours(p_player.character.position, p_actions)
   local neighbour
   local distance
 
@@ -62,10 +62,10 @@ function m_surface.get_closest_accessible_neighbour(p_player, p_steps, p_actions
     if not distance then
       if not m_surface.player_collision_trace(p_player, nil, e_neighbour, p_steps) then
         neighbour = e_neighbour
-        distance = m_surface.get_distance(p_player.position, e_neighbour)
+        distance = m_surface.get_distance(p_player.character.position, e_neighbour)
       end
     else
-      local newDistance = m_surface.get_distance(p_player.position, e_neighbour)
+      local newDistance = m_surface.get_distance(p_player.character.position, e_neighbour)
 
       if newDistance < distance then
         neighbour = e_neighbour
@@ -110,7 +110,7 @@ function m_surface.get_reverse_vector(p_magnitude, p_directionCode)
 end
 
 function m_surface.get_underlying_belt(p_player)
-  local belts = p_player.surface.find_entities_filtered { position = p_player.position, type = { "transport-belt", "splitter" } }
+  local belts = p_player.surface.find_entities_filtered { position = p_player.character.position, type = { "transport-belt", "splitter" } }
 
   if #belts == 1 then
     return belts[1]
@@ -163,11 +163,11 @@ end
 
 function m_surface.player_collision_next(p_player, p_direction)
   local speed = p_player.character.character_running_speed
-  local nextPos = p_player.position
+  local nextPos = p_player.character.position
 
   local nextPos = {
-    x = p_player.position.x + m_surface.dirOffset[p_direction].x * speed,
-    y = p_player.position.y + m_surface.dirOffset[p_direction].y * speed
+    x = p_player.character.position.x + m_surface.dirOffset[p_direction].x * speed,
+    y = p_player.character.position.y + m_surface.dirOffset[p_direction].y * speed
   }
 
   return m_surface.player_collision_at(p_player, nextPos)
@@ -187,7 +187,7 @@ function m_surface.player_collision_trace(p_player, p_start, p_target, p_steps)
     return false
   end
 
-  local start = p_start or p_player.position
+  local start = p_start or p_player.character.position
 
   local offSet = {
     x = (p_target.x - start.x) / p_steps,
@@ -208,7 +208,7 @@ function m_surface.player_collision_trace(p_player, p_start, p_target, p_steps)
 end
 
 function m_surface.player_is_at_position(p_player, p_position)
-  return (p_player.position.x == p_position.x) and (p_player.position.y == p_position.y)
+  return (p_player.character.position.x == p_position.x) and (p_player.character.position.y == p_position.y)
 end
 
 function m_surface.position_in_list(p_list, p_position)
@@ -226,7 +226,7 @@ function m_surface.request_factorio_path(p_player, p_target)
     return p_player.surface.request_path {
       bounding_box = p_player.character.bounding_box,
       collision_mask = p_player.character.prototype.collision_mask,
-      start = p_player.position,
+      start = p_player.character.position,
       goal = p_target,
       force = p_player.force,
       radius = 0

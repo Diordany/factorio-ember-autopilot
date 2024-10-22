@@ -58,7 +58,7 @@ function m_problems.generate_path_problem(p_player, p_params)
     done = false
   }
 
-  local initPos = m_surface.center_position(p_player.position)
+  local initPos = m_surface.center_position(p_player.character.position)
 
   if not m_surface.player_collision_trace(p_player, nil, initPos, 2) then
     if not (initPos.x == problem.goalState.x) or not (initPos.y == problem.goalState.y) then

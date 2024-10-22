@@ -37,8 +37,8 @@ function m_movement.move_to_target_pos(p_player, p_params)
   local speed = p_player.character.character_running_speed
 
   -- Calculate the displacement between the character and target position.
-  local xDiff = p_params.targetPos.x - p_player.position.x
-  local yDiff = p_params.targetPos.y - p_player.position.y
+  local xDiff = p_params.targetPos.x - p_player.character.position.x
+  local yDiff = p_params.targetPos.y - p_player.character.position.y
 
   -- Calculate the absolute values of the displacement.
   local xDiffAbs = math.abs(xDiff)

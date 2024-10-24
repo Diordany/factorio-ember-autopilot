@@ -39,6 +39,19 @@ function m_surface.center_position(p_position)
   return { x = math.floor(p_position.x) + 0.5, y = math.floor(p_position.y) + 0.5 }
 end
 
+function m_surface.get_accessible_neighbour_nodes(p_player, p_node, p_directions)
+  local neighbours = m_surface.get_neighbour_nodes(p_node, p_directions)
+  local accessible = {}
+
+  for _, e_neighbour in pairs(neighbours) do
+    if not m_surface.player_collision_trace(p_player, p_node.position, e_neighbour.position, 2) then
+      table.insert(accessible, e_neighbour)
+    end
+  end
+
+  return accessible
+end
+
 function m_surface.get_accessible_neighbours(p_player, p_position, p_directions)
   local neighbours = m_surface.get_neighbours(p_position, p_directions)
   local accessible = {}
@@ -83,6 +96,25 @@ end
 
 function m_surface.get_move_cost(p_player, p_initial, p_goal)
   return math.sqrt((p_goal.x - p_initial.x) ^ 2 + (p_goal.y - p_initial.y) ^ 2)
+end
+
+function m_surface.get_neighbour_nodes(p_node, p_directions)
+  local centerPos = m_surface.center_position(p_node.position)
+
+  local neighbours = {}
+  local offset
+  local neighbourPos
+  local cost
+
+  for _, k_direction in pairs(p_directions) do
+    offset = m_surface.dirOffset[k_direction]
+    neighbourPos = { x = centerPos.x + offset.x, y = centerPos.y + offset.y }
+    cost = p_node.cost + m_surface.get_distance(p_node.position, neighbourPos)
+
+    table.insert(neighbours, { position = { x = neighbourPos.x, y = neighbourPos.y }, cost = cost })
+  end
+
+  return neighbours
 end
 
 function m_surface.get_neighbours(p_position, p_directions)

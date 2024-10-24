@@ -25,8 +25,17 @@ data:extend({
     name = "ember-movement-mode",
     order = "aa",
     setting_type = "runtime-per-user",
-    default_value = "path_greedy",
-    allowed_values = { "path_greedy", "path_ucs", "path_bfs", "walk", "path_built_in", "wander", "path_dfs" }
+    default_value = "path_astar",
+    allowed_values = {
+      "path_astar",
+      "path_greedy",
+      "path_ucs",
+      "path_bfs",
+      "walk",
+      "path_built_in",
+      "wander",
+      "path_dfs"
+    }
   },
   {
     type = "string-setting",

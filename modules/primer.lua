@@ -23,6 +23,20 @@ local m_primer = {}
 
 local m_agents = require("__ember-autopilot__/modules/agents")
 
+function m_primer.path_astar(p_player, p_target)
+  local params = {
+    targetPos = m_surface.center_position(p_target),
+    strategy = "path_astar",
+    customPath = true,
+    blocked = false,
+    pathReady = false,
+    noPath = false,
+    destReached = false
+  }
+
+  m_agents.bind(p_player.index, m_agents.programs.path_agent, params)
+end
+
 function m_primer.path_bfs(p_player, p_target)
   local params = {
     targetPos = m_surface.center_position(p_target),

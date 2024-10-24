@@ -102,7 +102,7 @@ function m_pilot.process_data(p_player, p_agent)
       if problem.type == "path" then
         if problem.strategy == "path_bfs" or problem.strategy == "path_dfs" then
           m_search.search_path_blind(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
-        elseif problem.strategy == "path_ucs" or problem.strategy == "path_greedy" then
+        elseif problem.strategy == "path_ucs" or problem.strategy == "path_greedy" or problem.strategy == "path_astar" then
           m_search.search_path_informed(p_player, p_agent, p_player.mod_settings["ember-nodes-per-tick"].value)
         end
       end

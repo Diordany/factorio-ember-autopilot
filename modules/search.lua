@@ -33,7 +33,7 @@ function m_search.search_path_informed(p_player, p_agent, p_workCount)
   local node
   local child
   local prev
-  local cost
+  local eval
   local newNode
 
   for i = 1, p_workCount, 1 do
@@ -72,8 +72,12 @@ function m_search.search_path_informed(p_player, p_agent, p_workCount)
       table.insert(p_agent.data.problem.explored[node.position.x], node.position.y)
     end
 
-    for _, e_neighbour in pairs(m_surface.get_accessible_neighbours(p_player, node.position, p_agent.data.problem.actions)) do
-      child = { parent = node, position = { x = e_neighbour.x, y = e_neighbour.y } }
+    for _, e_neighbour in pairs(m_surface.get_accessible_neighbour_nodes(p_player, node, p_agent.data.problem.actions)) do
+      child = {
+        parent = node,
+        position = { x = e_neighbour.position.x, y = e_neighbour.position.y },
+        cost = e_neighbour.cost
+      }
 
       if not m_problems.path_state_in_table(p_agent.data.problem.explored, child.position) then
         prev = nil
@@ -82,22 +86,24 @@ function m_search.search_path_informed(p_player, p_agent, p_workCount)
         end
 
         if p_agent.data.problem.strategy == "path_greedy" then
-          cost = m_surface.get_distance(child.position, p_agent.data.problem.goalState)
+          eval = m_surface.get_distance(child.position, p_agent.data.problem.goalState)
+        elseif p_agent.data.problem.strategy == "path_astar" then
+          eval = node.cost + m_surface.get_distance(child.position, p_agent.data.problem.goalState)
         else
-          cost = priorityNode.key + m_surface.get_move_cost(p_player, node.position, child.position)
+          eval = priorityNode.key + m_surface.get_move_cost(p_player, node.position, child.position)
         end
 
         if not prev then
-          newNode = m_buffer.pairing_heap_insert(p_agent.data.problem.frontier, child, cost)
+          newNode = m_buffer.pairing_heap_insert(p_agent.data.problem.frontier, child, eval)
 
           if not p_agent.data.problem.frontierLookup[child.position.x] then
             p_agent.data.problem.frontierLookup[child.position.x] = {}
           end
 
           p_agent.data.problem.frontierLookup[child.position.x][child.position.y] = newNode
-        elseif cost < prev.key then
+        elseif eval < prev.key then
           prev.element = child
-          prev.key = cost
+          prev.key = eval
           m_buffer.pairing_heap_update(p_agent.data.problem.frontier, prev)
         end
       end
@@ -134,8 +140,8 @@ function m_search.search_path_blind(p_player, p_agent, p_workCount)
 
     local child
 
-    for _, e_neighbour in pairs(m_surface.get_accessible_neighbours(p_player, node.position, p_agent.data.problem.actions)) do
-      child = { parent = node, position = { x = e_neighbour.x, y = e_neighbour.y } }
+    for _, e_neighbour in pairs(m_surface.get_accessible_neighbour_nodes(p_player, node, p_agent.data.problem.actions)) do
+      child = { parent = node, position = { x = e_neighbour.x, y = e_neighbour.y }, cost = 0 }
 
       if not m_problems.path_state_in_table(p_agent.data.problem.explored, e_neighbour) then
         if not m_problems.path_node_in_list(p_agent.data.problem.frontier, child) then

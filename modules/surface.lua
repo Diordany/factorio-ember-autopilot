@@ -108,7 +108,7 @@ function m_surface.get_random_adjacent_position(p_position)
 end
 
 function m_surface.get_reverse_vector(p_magnitude, p_directionCode)
-  local unit = m_surface.dirOffset[string.lower(game.direction_to_string(p_directionCode))]
+  local unit = m_surface.dirOffset[string.lower(helpers.direction_to_string(p_directionCode))]
 
   return { x = -p_magnitude * unit.x, y = -p_magnitude * unit.y }
 end

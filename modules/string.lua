@@ -1,6 +1,6 @@
 -- MIT License
 --
--- Copyright (c) 2024-2026 Diordany van Hemert
+-- Copyright (c) 2026 Diordany van Hemert
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
@@ -19,30 +19,10 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-local m_config = {}
+local m_string = {}
 
-local m_string = require("__ember-autopilot__/modules/string")
-
-function m_config.update(p_data)
-  -- Exit if the setting does not belong to this mod.
-  if m_string.starts_with(p_data.setting, "ember-") then
-    return
-  end
-
-  -- Exit if it's not a player setting.
-  if not p_data.player_index then
-    return
-  end
-
-  local player = game.players[p_data.player_index]
-
-  if p_data.setting == "ember-movement-mode" then
-    if player.mod_settings[p_data.setting].value == "path_built_in" then
-      m_debug.print_warning(player, "WARNING: This pathfinder routes through collidable entities!")
-    elseif player.mod_settings[p_data.setting].value == "path_dfs" then
-      m_debug.print_warning(player, "WARNING: Use the unrestricted version of Depth First Search with caution!")
-    end
-  end
+function m_string.starts_with(p_string, p_sub)
+  return string.sub(p_string, 1, string.len(p_sub)) == p_sub
 end
 
-return m_config
+return m_string
